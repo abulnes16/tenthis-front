@@ -1,1 +1,13 @@
-<p>benefits works!</p>
+<div class="container p-0 mt-4">
+  <div class="row">
+    <div *ngFor="let benefit of data" class="col-lg-4 col-12 ">
+      <div class="benefit">
+        <figure class="benefit__icon-container">
+         <fa-icon [icon]="benefit.icon" size="3x"></fa-icon>
+        </figure>
+        <h4 class="benefit__title">{{ benefit.title }}</h4>
+        <p class="benefit__description">{{ benefit.description }}</p>
+      </div>
+    </div>
+  </div>
+</div>

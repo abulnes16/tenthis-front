@@ -15,6 +15,7 @@ import { LayoutComponent } from './components/layout/layout.component';
 import { LandingRoutingModule } from './landing-routing.module';
 import { HeroRegisterComponent } from './components/hero-register/hero-register.component';
 import { AuthModule } from '../auth/auth.module';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -26,12 +27,13 @@ import { AuthModule } from '../auth/auth.module';
     CallToActionComponent,
     NavbarComponent,
     LayoutComponent,
-    HeroRegisterComponent
+    HeroRegisterComponent,
   ],
   imports: [
     CommonModule,
     LandingRoutingModule,
     AuthModule,
+    FontAwesomeModule,
   ]
 })
 export class LandingModule { }

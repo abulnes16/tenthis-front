@@ -1,0 +1,21 @@
+.benefit {
+  width: 100%;
+  text-align: center;
+
+  &__icon-container {
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 110px;
+    height: 110px;
+    background-color: white;
+    box-shadow: 1px 2px 7px 2px hsl(124 18% 85%);
+    border-radius: 50%;
+    color: var(--color-primary);
+  }
+
+  &__title {
+    margin: 20px 0;
+  }
+}
