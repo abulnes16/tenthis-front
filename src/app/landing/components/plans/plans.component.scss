@@ -1,0 +1,45 @@
+.plan {
+  padding: 25px 30px;
+  text-align: center;
+  &__icon {
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 100px;
+    background-color: white;
+    border-radius: 50%;
+    color: var(--color-dark);
+  }
+
+  &__name {
+    font-size: 2em;
+    margin: 20px 0;
+  }
+
+  &__description {
+    font-size: 0.8em;
+  }
+
+  .f_category {
+    font-weight: bold;
+    margin: 10px;
+  }
+
+  .f_value {
+    width: 60%;
+    padding: 8px 12px;
+    margin: 0 auto;
+    font-size: 1.3em;
+    margin-bottom: 25px;
+    background-color: white;
+    border-radius: 20px;
+    color: var(--color-primary);
+  }
+
+  ul {
+    list-style: none;
+    margin-bottom: 20px;
+  }
+}

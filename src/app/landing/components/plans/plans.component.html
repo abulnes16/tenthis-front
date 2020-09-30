@@ -1,1 +1,30 @@
-<p>plans works!</p>
+<div class="container">
+  <div class="row">
+    <div class="col-12 mb-3">
+      <h2>Nuestros planes</h2>
+    </div>
+    <div class="col-12 mb-5">
+      <p>
+        Puedes ser parte del equipo Tenthis como gustes: cliente, dueño basic,
+        dueño expert.
+      </p>
+    </div>
+    <div *ngFor="let plan of plans" class="col-lg-4 col-md-6 col-8 mb-5">
+      <div class="plan bg-main border-radius text-white">
+        <figure class="plan__icon">
+          <fa-icon [icon]="plan.icon" size="3x"></fa-icon>
+        </figure>
+        <h3 class="plan__name">{{ plan.name }}</h3>
+        <p class="plan__description">{{ plan.description }}</p>
+        <ul *ngIf="plan.features.length !== 0">
+          <li *ngFor="let feature of plan.features">
+            <p class="f_category">{{ feature.category }}</p>
+            <p class="f_value">{{ feature.value }}</p>
+          </li>
+        </ul>
+        <h3 class="plan__price mb-4">{{ plan.price }}</h3>
+        <button class="btn btn-light btn-block br-btn">Adquierelo</button>
+      </div>
+    </div>
+  </div>
+</div>
