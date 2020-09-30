@@ -1,0 +1,37 @@
+.logo-container {
+  width: 80px;
+  min-width: 80px;
+
+  img {
+    max-width: 100%;
+    min-width: 80px;
+  }
+}
+
+.social-media {
+  justify-content: space-evenly;
+}
+
+.dev__image {
+  img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+}
+
+.dev__description {
+  p {
+    margin-bottom: 10px;
+  }
+}
+
+
+ul {
+  list-style: none;
+  font-size: 0.8em;
+  li {
+    margin-bottom: 5px; 
+  }
+}
