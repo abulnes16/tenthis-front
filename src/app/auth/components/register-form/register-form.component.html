@@ -1,6 +1,7 @@
 <div class="form-card text-white">
   <form>
     <h3>Registrate</h3>
+    <p *ngIf="registerText">{{ registerText }}</p>
     <div class="form-group">
       <input
         type="text"
@@ -27,7 +28,6 @@
         <option value="0">Plan</option>
       </select>
     </div>
-    <button class="btn btn-block btn-light br-btn  mt-4">Registrate</button>
-    <!--  <app-button class="btn btn-block" text="Registrate" color="secondary"></app-button> -->
+    <button class="btn btn-block btn-light br-btn mt-4">Registrate</button>
   </form>
 </div>
