@@ -11,3 +11,11 @@
 p {
   font-size: 1.05em;
 }
+
+@media screen and (max-width: 576px){
+  .store-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}

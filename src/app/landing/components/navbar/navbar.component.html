@@ -1,21 +1,25 @@
-<nav class="navbar navbar-expand nav">
-  <figure class="logo-container">
-    <img src="./assets/images/icon.png" alt="Tenthis Logo" class="logo" />
-  </figure>
-  <h2 class="text-white">Tenthis</h2>
+<nav class="navbar navbar-expand-lg nav-landing">
+  <div class="d-flex align-items-center">
+    <figure class="logo-container">
+      <img src="./assets/images/icon.png" alt="Tenthis Logo" class="logo" />
+    </figure>
+    <h2 class="text-white">Tenthis</h2>
+  </div>
   <button
     class="navbar-toggler"
     type="button"
-    data-toggle="collapse"
-    data-target="#navbarSupportedContent"
-    aria-controls="navbarSupportedContent"
-    aria-expanded="false"
-    aria-label="Toggle navigation"
+    (click)="navbarCollapse = !navbarCollapse"
+    [attr.aria-expanded]="!navbarCollapse"
+    aria-controls="collapseExample"
   >
-    <span class="navbar-toggler-icon"></span>
+    <fa-icon class="text-white" [icon]="icon" size="lg"></fa-icon>
   </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+  <div
+    class="collapse navbar-collapse menu"
+    [ngbCollapse]="navbarCollapse"
+    id="collapseExample"
+  >
     <ul class="navbar-nav mr-auto ml-4">
       <li class="nav-item">
         <a class="nav-link text-white link" href="#">Beneficios</a>
@@ -27,12 +31,12 @@
         <a class="nav-link text-white link" href="#">Planes</a>
       </li>
     </ul>
-    <ul class="navbar-nav ml-auto my-2 my-lg-0">
+    <ul class="navbar-nav ml-auto my-2 my-lg-0 buttons">
       <li class="nav-link">
-        <button class="btn btn-basic">Registrate</button>
+        <button class="btn-basic">Registrate</button>
       </li>
       <li class="nav-link">
-       <button class="btn btn-basic">Login</button>
+        <button class="btn-basic">Login</button>
       </li>
     </ul>
   </div>

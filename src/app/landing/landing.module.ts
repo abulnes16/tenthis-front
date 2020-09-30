@@ -14,6 +14,8 @@ import { LayoutComponent } from './components/layout/layout.component';
 // Routing
 import { LandingRoutingModule } from './landing-routing.module';
 import { HeroRegisterComponent } from './components/hero-register/hero-register.component';
+// Module
+import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { AuthModule } from '../auth/auth.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
@@ -34,6 +36,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     LandingRoutingModule,
     AuthModule,
     FontAwesomeModule,
+    NgbCollapseModule,
   ]
 })
 export class LandingModule { }
