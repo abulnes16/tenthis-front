@@ -1,4 +1,3 @@
-
 .btn-basic {
   width: 110px;
   border-radius: 20px;
@@ -22,6 +21,11 @@
 .btn-main {
   background-color: var(--color-primary);
   @include border-radius();
+
+  &:hover {
+    background-color: var(--color-hover);
+    color: white;
+  }
 }
 
 .btn-second {
@@ -32,7 +36,7 @@
 .btn-alter {
   background-color: var(--color-alternative);
   @include border-radius();
-  
+
   &:hover {
     background-color: #2667e0;
   }
@@ -44,4 +48,3 @@
     background-color: #3a7cff;
   }
 }
-

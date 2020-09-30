@@ -65,7 +65,7 @@ export class PlansComponent implements OnInit {
     {
       icon: faBuilding,
       name: 'TentCorp',
-      description: `Ya tienes una tienda grande y necesitas migrar al mundo digital. 
+      description: `Ya tienes una tienda grande y necesitas migrar al mundo digital.
                     Crea sin limites y gestiona
                     tu tienda con todo el poder de Tenthis
                    `,
