@@ -15,15 +15,15 @@
 }
 
 .br-btn {
-  border-radius: 20px!important;
+  border-radius: 20px !important;
 }
 
 .btn-main {
-  background-color: var(--color-primary)!important;
+  background-color: var(--color-primary) !important;
   @include border-radius();
 
   &:hover {
-    background-color: var(--color-hover)!important;
+    background-color: var(--color-hover) !important;
     color: white;
   }
 }
@@ -47,4 +47,8 @@
   &:hover {
     background-color: #3a7cff;
   }
+}
+
+.btn-register {
+  width: 135px;
 }
