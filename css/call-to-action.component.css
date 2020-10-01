@@ -1,0 +1,30 @@
+.call-image {
+  width: 90%;
+}
+
+h2 {
+  font-size: 1.8em;
+  margin-bottom: 40px;
+}
+
+p {
+  margin-bottom: 30px;
+}
+
+@media screen and (max-width: 576px) {
+  .call-image {
+    margin: 30px auto;
+  }
+  .call-description {
+    font-size: 14px;
+  }
+  .call-description button {
+    width: 80%;
+    margin: 0 auto;
+  }
+  p {
+    width: 80%;
+    margin: 0 auto 10px;
+  }
+}
+/*# sourceMappingURL=call-to-action.component.css.map */

@@ -1,0 +1,52 @@
+.login-card {
+  width: 50%;
+  margin: 0 auto;
+  background-color: var(--color-primary);
+  border-radius: 20px;
+  padding: 50px 60px;
+}
+
+.login-card p {
+  font-size: 0.88em;
+}
+
+.login-card h3 {
+  font-size: 2em;
+}
+
+.login-card__footer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-top: 30px;
+}
+
+.btn-register {
+  width: 135px;
+}
+
+@media screen and (max-width: 769px) {
+  .login-card {
+    width: 70%;
+    font-size: 13px;
+    padding: 35px;
+  }
+  .login-card__footer {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 426px) {
+  .login-card {
+    width: 75%;
+  }
+}
+/*# sourceMappingURL=login-form.component.css.map */

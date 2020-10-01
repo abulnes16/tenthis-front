@@ -1,0 +1,23 @@
+.register {
+  height: 100%;
+  background: url("../../../../assets/images/tent.jpg") no-repeat center center fixed;
+  background-size: cover;
+}
+
+.register-container {
+  width: 45%;
+  margin: 0 auto;
+}
+
+@media screen and (max-width: 769px) {
+  .register-container {
+    width: 70%;
+  }
+  .auth-image-container {
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    margin-top: 15px;
+  }
+}
+/*# sourceMappingURL=register.component.css.map */

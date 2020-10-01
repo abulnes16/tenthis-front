@@ -12,13 +12,6 @@
   h3{
     font-size: 2em;
   }
-
-  &__footer{
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    margin-top: 30px;
-  }
 }
 
 
@@ -32,10 +25,6 @@
     width: 70%;
     font-size: 13px;
     padding: 35px;
-
-    &__footer {
-      flex-direction: column;
-    }
   }
 }
 @media screen and (max-width: 426px) {

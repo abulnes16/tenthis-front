@@ -1,12 +1,13 @@
 .form-card {
   width: 100%;
   margin: 0 auto;
-  padding: 50px 60px;
+  padding: 50px 50px;
   background-color: var(--color-primary);
   border-radius: 20px;
-  h3 {
-    margin-bottom: 25px;
-  }
+}
+
+.form-card h3 {
+  margin-bottom: 25px;
 }
 
 @media screen and (max-width: 576px) {
@@ -14,3 +15,4 @@
     font-size: 14px;
   }
 }
+/*# sourceMappingURL=register-form.component.css.map */

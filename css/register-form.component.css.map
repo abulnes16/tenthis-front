@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,UAAU,CAAC;EACT,KAAK,EAAE,IAAI;EACX,MAAM,EAAE,MAAM;EACd,OAAO,EAAE,SAAS;EAClB,gBAAgB,EAAE,oBAAoB;EACtC,aAAa,EAAE,IAAI;CAIpB;;AATD,AAME,UANQ,CAMR,EAAE,CAAC;EACD,aAAa,EAAE,IAAI;CACpB;;AAGH,MAAM,CAAC,MAAM,MAAM,SAAS,EAAE,KAAK;EACjC,AAAA,UAAU,CAAC;IACT,SAAS,EAAE,IAAI;GAChB",
+    "sources": [
+        "../src/app/auth/components/register-form/register-form.component.scss"
+    ],
+    "names": [],
+    "file": "register-form.component.css"
+}

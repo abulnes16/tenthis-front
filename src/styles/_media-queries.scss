@@ -9,6 +9,12 @@
     justify-content: center;
     margin-top: 15px;
   }
+
+  .auth-card {
+    &__footer {
+      flex-direction: column;
+    }
+  }
 }
 
 @media screen and (max-width: 576px) {
