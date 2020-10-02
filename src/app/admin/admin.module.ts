@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { AdminRoutingModule } from './admin-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { AdminLayoutComponent } from './components/admin-layout/admin-layout.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 
@@ -13,6 +14,7 @@ import { AdminLayoutComponent } from './components/admin-layout/admin-layout.com
     CommonModule,
     AdminRoutingModule,
     SharedModule,
+    FontAwesomeModule,
   ]
 })
 export class AdminModule { }

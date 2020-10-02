@@ -19,6 +19,14 @@
   background-color: var(--color-gray-dark);
 }
 
+.bg-light-gray {
+  background-color: var(--color-light-gray);
+}
+
+.bg-lighten-gray {
+  background-color: var(--color-lighten-gray);
+}
+
 /* Texts */
 
 .text-main {
@@ -27,6 +35,14 @@
 
 .text-darken {
   color: var(--color-darken);
+}
+
+.text-gray-darken {
+  color: var(--color-gray-darken);
+}
+
+.text-gray-dark {
+  color: var(--color-gray-dark);
 }
 
 .logo-container {
@@ -66,11 +82,10 @@
   }
 }
 
-
 .tooltip-up-arrow::after {
   content: " ";
   position: absolute;
-  bottom: 100%;  /* At the top of the tooltip */
+  bottom: 100%; /* At the top of the tooltip */
   left: 50%;
   margin-left: 55px;
   border-width: 10px;
