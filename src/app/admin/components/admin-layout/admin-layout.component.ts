@@ -13,7 +13,7 @@ export class AdminLayoutComponent implements OnInit {
         {
           icon: faHome,
           linkName: 'Home',
-          url: '',
+          url: './',
         }
       ]
     },
