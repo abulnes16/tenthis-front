@@ -7,10 +7,11 @@ import { RouterModule } from '@angular/router';
 // Module
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { WelcomeComponent } from './components/welcome/welcome.component';
 
 
 @NgModule({
-  declarations: [NavComponent, SidebarComponent],
+  declarations: [NavComponent, SidebarComponent, WelcomeComponent],
   imports: [
     CommonModule,
     FontAwesomeModule,
