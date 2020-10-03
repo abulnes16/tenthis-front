@@ -4,7 +4,7 @@
       <small *ngIf="link.sectionName" class="text-darken font-weight-bold">{{
         link.sectionName
       }}</small>
-      <a  *ngFor="let l of link.links" [routerLink]="l.url">
+      <a *ngFor="let l of link.links" [routerLink]="l.url">
         <li
           class="side-link"
           routerLinkActive="active"
