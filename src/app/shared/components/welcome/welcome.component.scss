@@ -1,0 +1,10 @@
+.welcome-image {
+  width: 25%;
+}
+
+
+@media screen and (max-width: 426px){
+  .welcome-image {
+    width: 30%;
+  }
+}
