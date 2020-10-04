@@ -11,11 +11,12 @@ import { TemplatesComponent } from './components/templates/templates.component';
 import { AdminPlansComponent } from './components/admin-plans/admin-plans.component';
 import { AdminStoresComponent } from './components/admin-stores/admin-stores.component';
 import { UserFormComponent } from './components/user-form/user-form.component';
+import { PlanFormComponent } from './components/plan-form/plan-form.component';
 
 
 
 @NgModule({
-  declarations: [AdminLayoutComponent, UsersComponent, TemplatesComponent, AdminPlansComponent, AdminStoresComponent, UserFormComponent],
+  declarations: [AdminLayoutComponent, UsersComponent, TemplatesComponent, AdminPlansComponent, AdminStoresComponent, UserFormComponent, PlanFormComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,

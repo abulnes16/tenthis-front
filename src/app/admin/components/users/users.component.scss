@@ -1,20 +1,3 @@
-.users-list {
-  width: 90%;
-  padding: 2px 20px;
-  margin: 0 auto;
-  height: 60vh;
-  overflow: hidden;
-  overflow-y: scroll;
-}
-
-.users-list::-webkit-scrollbar {
-  width: 6px;
-}
-
-.users-list::-webkit-scrollbar-thumb {
-  border-radius: 6px;
-  background-color: hsl(124 18% 85%);
-}
 
 .card-item {
   &__icon {
@@ -49,11 +32,6 @@
     .card-item__role {
       background-color: var(--color-darken);
       color: white;
-    }
-
-    .card-item__icon {
-      color: var(--color-primary);
-      background-color: white;
     }
   }
 }

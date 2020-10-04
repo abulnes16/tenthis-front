@@ -13,5 +13,10 @@
     top: -4px;
     background-color: var(--color-dark);
     color: white;
+    
+    .app-icon {
+      color: var(--color-primary);
+      background-color: white;
+    }
   }
 }

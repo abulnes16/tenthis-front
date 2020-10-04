@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { faTag } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-admin-plans',
@@ -6,6 +7,25 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./admin-plans.component.scss']
 })
 export class AdminPlansComponent implements OnInit {
+
+  planIcon = faTag;
+  plans = [
+    {
+      name: 'Plan'
+    },
+    {
+      name: 'Plan'
+    },
+    {
+      name: 'Plan'
+    },
+    {
+      name: 'Plan'
+    },
+    {
+      name: 'Plan'
+    }
+  ];
 
   constructor() { }
 
