@@ -21,7 +21,7 @@
 .btn-main {
   background-color: var(--color-primary) !important;
   @include border-radius();
-
+  color: white;
   &:hover {
     background-color: var(--color-hover) !important;
     color: white;

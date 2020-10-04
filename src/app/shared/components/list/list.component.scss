@@ -1,0 +1,17 @@
+.list {
+  width: 90%;
+  padding: 2px 20px;
+  margin: 0 auto;
+  height: 60vh;
+  overflow: hidden;
+  overflow-y: scroll;
+}
+
+.list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.list::-webkit-scrollbar-thumb {
+  border-radius: 6px;
+  background-color: hsl(124 18% 85%);
+}

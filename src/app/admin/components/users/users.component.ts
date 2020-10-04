@@ -9,6 +9,33 @@ import { faUser } from '@fortawesome/free-solid-svg-icons';
 export class UsersComponent implements OnInit {
 
   userIcon = faUser;
+
+  users = [
+    {
+      name: 'Nombre',
+      role: 'Rol'
+    },
+
+    {
+      name: 'Nombre',
+      role: 'Rol'
+    },
+
+    {
+      name: 'Nombre',
+      role: 'Rol'
+    },
+
+    {
+      name: 'Nombre',
+      role: 'Rol'
+    },
+    {
+      name: 'Nombre',
+      role: 'Rol'
+    },
+  ];
+
   constructor() { }
 
   ngOnInit(): void {

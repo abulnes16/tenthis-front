@@ -16,15 +16,7 @@
   background-color: hsl(124 18% 85%);
 }
 
-.user-item {
-  display: flex;
-  align-items: center;
-  padding: 15px 25px;
-  margin-bottom: 20px;
-  background-color: white;
-  box-shadow: 0px 1px 5px 1px #d2e0d3;
-  border-radius: 20px;
-
+.card-item {
   &__icon {
     display: flex;
     margin-bottom: 0;
@@ -54,17 +46,12 @@
   }
 
   &:hover {
-    transition: all 0.2s ease-out;
-    top: -4px;
-    background-color: var(--color-dark);
-    color: white;
-
-    .user-item__role {
+    .card-item__role {
       background-color: var(--color-darken);
       color: white;
     }
 
-    .user-item__icon {
+    .card-item__icon {
       color: var(--color-primary);
       background-color: white;
     }

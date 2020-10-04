@@ -1,62 +1,28 @@
 <div class="container p-5">
-  <div class="row">
-    <div class="col-lg-6 offset-lg-1">
+  <div class="row px-5">
+    <div class="col-lg-7 ">
       <h2>Usuarios</h2>
     </div>
-    <div class="col-lg-3 offset-lg-2">
+    <div class="col-lg-5 d-flex justify-content-end">
       <button class="btn-basic">Nuevo</button>
     </div>
   </div>
   <div class="row mt-5">
     <div class="col-lg-4">
-      <div class="users-list">
-        <div class="user-item">
-          <figure class="user-item__icon">
+      <app-list>
+        <div *ngFor="let user of users" class="card-item">
+          <figure class="card-item__icon">
             <fa-icon [icon]="userIcon" size="lg"></fa-icon>
           </figure>
-          <div class="user-item__info">
-            <p>Nombre usuario</p>
-            <div class="user-item__role badge">Rol</div>
+          <div class="card-item__info">
+            <p>{{ user.name }}</p>
+            <div class="card-item__role badge">{{ user.role }}</div>
           </div>
         </div>
-        <div class="user-item">
-          <figure class="user-item__icon">
-            <fa-icon [icon]="userIcon" size="lg"></fa-icon>
-          </figure>
-          <div class="user-item__info">
-            <p>Nombre usuario</p>
-            <div class="user-item__role badge">Rol</div>
-          </div>
-        </div>
-        <div class="user-item">
-          <figure class="user-item__icon">
-            <fa-icon [icon]="userIcon" size="lg"></fa-icon>
-          </figure>
-          <div class="user-item__info">
-            <p>Nombre usuario</p>
-            <div class="user-item__role badge">Rol</div>
-          </div>
-        </div>
-        <div class="user-item">
-          <figure class="user-item__icon">
-            <fa-icon [icon]="userIcon" size="lg"></fa-icon>
-          </figure>
-          <div class="user-item__info">
-            <p>Nombre usuario</p>
-            <div class="user-item__role badge">Rol</div>
-          </div>
-        </div>
-        <div class="user-item">
-          <figure class="user-item__icon">
-            <fa-icon [icon]="userIcon" size="lg"></fa-icon>
-          </figure>
-          <div class="user-item__info">
-            <p>Nombre usuario</p>
-            <div class="user-item__role badge">Rol</div>
-          </div>
-        </div>
-      </div>
+      </app-list>
     </div>
-    <div class="col-lg-8 justify-content-center">Aqui va el formulario</div>
+    <div class="offset-1 col-lg-7 justify-content-center ml-auto mr-auto">
+      <app-user-form></app-user-form>
+    </div>
   </div>
 </div>

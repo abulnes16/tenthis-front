@@ -1,3 +1,15 @@
 @mixin border-radius {
   border-radius: 20px;
 }
+
+@mixin icon($width: 40px, $heigth: 40px) {
+  display: flex;
+  margin-bottom: 0;
+  width: $width;
+  height: $heigth;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: white;
+  background-color: var(--color-primary);
+}

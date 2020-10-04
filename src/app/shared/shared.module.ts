@@ -8,10 +8,11 @@ import { RouterModule } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { WelcomeComponent } from './components/welcome/welcome.component';
+import { ListComponent } from './components/list/list.component';
 
 
 @NgModule({
-  declarations: [NavComponent, SidebarComponent, WelcomeComponent],
+  declarations: [NavComponent, SidebarComponent, WelcomeComponent, ListComponent],
   imports: [
     CommonModule,
     FontAwesomeModule,
@@ -21,6 +22,8 @@ import { WelcomeComponent } from './components/welcome/welcome.component';
   exports: [
     NavComponent,
     SidebarComponent,
+    ListComponent,
+    WelcomeComponent
   ]
 })
 export class SharedModule { }
