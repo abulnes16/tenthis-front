@@ -1,1 +1,27 @@
-<p>templates works!</p>
+<div class="container p-5">
+  <div class="row px-5">
+    <div class="col-lg-7 ">
+      <h2>Plantillas</h2>
+    </div>
+    <div class="col-lg-5 d-flex justify-content-end">
+      <button class="btn-basic">Nuevo</button>
+    </div>
+  </div>
+  <div class="row mt-5">
+    <div class="col-lg-4">
+      <app-list>
+        <div *ngFor="let t of templates" class="card-item">
+          <figure class="app-icon">
+            <fa-icon [icon]="templateIcon" size="lg"></fa-icon>
+          </figure>
+          <div class="ml-3">
+            <p>{{ t.name }}</p>
+          </div>
+        </div>
+      </app-list>
+    </div>
+    <div class="offset-1 col-lg-7 justify-content-center ml-auto mr-auto">
+      <app-template-form [icon]="templateIcon"></app-template-form>
+    </div>
+  </div>
+</div>

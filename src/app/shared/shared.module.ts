@@ -9,6 +9,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { ListComponent } from './components/list/list.component';
+import { AceEditorModule } from 'ng2-ace-editor';
 
 
 @NgModule({
@@ -18,12 +19,14 @@ import { ListComponent } from './components/list/list.component';
     FontAwesomeModule,
     NgbDropdownModule,
     RouterModule,
+    AceEditorModule,
   ],
   exports: [
     NavComponent,
     SidebarComponent,
     ListComponent,
-    WelcomeComponent
+    WelcomeComponent,
+    AceEditorModule,
   ]
 })
 export class SharedModule { }

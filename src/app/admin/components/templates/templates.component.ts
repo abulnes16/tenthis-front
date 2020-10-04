@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { faLayerGroup } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-templates',
@@ -6,6 +7,28 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./templates.component.scss']
 })
 export class TemplatesComponent implements OnInit {
+
+  templateIcon = faLayerGroup;
+  templates = [
+    {
+      name: 'Plantilla'
+    },
+    {
+      name: 'Plantilla'
+    },
+    {
+      name: 'Plantilla'
+    },
+    {
+      name: 'Plantilla'
+    },
+    {
+      name: 'Plantilla'
+    },
+    {
+      name: 'Plantilla'
+    },
+  ];
 
   constructor() { }
 

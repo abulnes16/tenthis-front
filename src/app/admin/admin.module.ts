@@ -12,11 +12,12 @@ import { AdminPlansComponent } from './components/admin-plans/admin-plans.compon
 import { AdminStoresComponent } from './components/admin-stores/admin-stores.component';
 import { UserFormComponent } from './components/user-form/user-form.component';
 import { PlanFormComponent } from './components/plan-form/plan-form.component';
+import { TemplateFormComponent } from './components/template-form/template-form.component';
 
 
 
 @NgModule({
-  declarations: [AdminLayoutComponent, UsersComponent, TemplatesComponent, AdminPlansComponent, AdminStoresComponent, UserFormComponent, PlanFormComponent],
+  declarations: [AdminLayoutComponent, UsersComponent, TemplatesComponent, AdminPlansComponent, AdminStoresComponent, UserFormComponent, PlanFormComponent, TemplateFormComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,

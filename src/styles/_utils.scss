@@ -113,3 +113,14 @@
 .app-icon-xl {
   @include icon(70px, 70px);
 }
+
+/* Scroll */
+
+.scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+  border-radius: 6px;
+  background-color: hsl(124 18% 85%);
+}
