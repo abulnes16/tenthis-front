@@ -110,6 +110,10 @@
   @include icon();
 }
 
+.app-icon-lg {
+  @include icon(50px, 50px);
+}
+
 .app-icon-xl {
   @include icon(70px, 70px);
 }
