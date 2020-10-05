@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { faBox } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-products',
@@ -6,6 +7,29 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./products.component.scss']
 })
 export class ProductsComponent implements OnInit {
+
+  productIcon = faBox;
+
+  products = [
+    {
+      name: 'Producto'
+    },
+    {
+      name: 'Producto'
+    },
+    {
+      name: 'Producto'
+    },
+    {
+      name: 'Producto'
+    },
+    {
+      name: 'Producto'
+    },
+    {
+      name: 'Producto'
+    },
+  ];
 
   constructor() { }
 

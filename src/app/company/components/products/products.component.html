@@ -1,1 +1,27 @@
-<p>products works!</p>
+<div class="container p-5">
+  <div class="row px-5">
+    <div class="col-lg-7 ">
+      <h2>Productos</h2>
+    </div>
+    <div class="col-lg-5 d-flex justify-content-end">
+      <button class="btn-basic">Nuevo</button>
+    </div>
+  </div>
+  <div class="row mt-5">
+    <div class="col-lg-4">
+      <app-list>
+        <div *ngFor="let product of products" class="card-item">
+          <figure class="app-icon">
+            <fa-icon [icon]="productIcon" size="lg"></fa-icon>
+          </figure>
+          <div class="ml-3">
+            <p>{{ product.name }}</p>
+          </div>
+        </div>
+      </app-list>
+    </div>
+    <div class="offset-1 col-lg-7 justify-content-center ml-auto mr-auto">
+      <app-product-form [icon]="productIcon"></app-product-form>
+    </div>
+  </div>
+</div>

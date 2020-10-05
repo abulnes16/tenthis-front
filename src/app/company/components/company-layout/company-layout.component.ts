@@ -15,7 +15,7 @@ export class CompanyLayoutComponent implements OnInit {
         {
           icon: faHome,
           linkName: 'Home',
-          url: './',
+          url: './home',
         }
       ]
     },
@@ -49,7 +49,7 @@ export class CompanyLayoutComponent implements OnInit {
         },
         {
           icon: faImages,
-          linkName: 'Multimedia',
+          linkName: 'Media',
           url: 'media'
         }
       ]

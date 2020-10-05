@@ -11,10 +11,23 @@ import { CompanyPagesComponent } from './components/company-pages/company-pages.
 import { MediaComponent } from './components/media/media.component';
 import { ConfigComponent } from './components/config/config.component';
 import { ManagePageComponent } from './components/manage-page/manage-page.component';
+import { ProductFormComponent } from './components/product-form/product-form.component';
+import { CategoryFormComponent } from './components/category-form/category-form.component';
 
 
 @NgModule({
-  declarations: [CompanyLayoutComponent, ProductsComponent, CategoriesComponent, OrdersComponent, CompanyPagesComponent, MediaComponent, ConfigComponent, ManagePageComponent],
+  declarations: [
+    CompanyLayoutComponent,
+    ProductsComponent,
+    CategoriesComponent,
+    OrdersComponent,
+    CompanyPagesComponent,
+    MediaComponent,
+    ConfigComponent,
+    ManagePageComponent,
+    ProductFormComponent,
+    CategoryFormComponent
+  ],
   imports: [
     CommonModule,
     CompanyRoutingModule,

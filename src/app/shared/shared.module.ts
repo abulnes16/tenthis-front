@@ -27,6 +27,7 @@ import { AceEditorModule } from 'ng2-ace-editor';
     ListComponent,
     WelcomeComponent,
     AceEditorModule,
+    FontAwesomeModule,
   ]
 })
 export class SharedModule { }
