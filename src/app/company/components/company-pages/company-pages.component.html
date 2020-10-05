@@ -1,1 +1,27 @@
-<p>company-pages works!</p>
+<div class="container p-5">
+  <div class="row px-5">
+    <div class="col-lg-12">
+      <h2>Páginas</h2>
+    </div>
+  </div>
+  <div class="row mt-5">
+    <div class="col-lg-8 ml-auto mr-auto">
+      <div *ngFor="let page of pages" class="block-item box-shadow-card rounded">
+        <div class="block-item__left">
+          <figure class="app-icon-lg mr-4">
+            <fa-icon [icon]="pageIcon" size="lg"></fa-icon>
+          </figure>
+          <h3>{{ page.name }}</h3>
+        </div>
+        <div class="block-item__actions">
+          <figure class="app-icon bg-primary mr-2 edit-icon">
+            <fa-icon [icon]="editIcon" size="lg"></fa-icon>
+          </figure>
+          <figure class="app-icon delete-icon">
+            <fa-icon [icon]="deleteIcon" size="lg"></fa-icon>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -20,3 +20,50 @@
     }
   }
 }
+
+.block-item {
+  margin-bottom: 20px;
+  padding: 20px 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  &__left {
+    display: inherit;
+    justify-content: space-between;
+    align-items: inherit;
+  }
+
+  &__actions {
+    display: inherit;
+    justify-content: space-evenly;
+    align-items: inherit;
+  }
+
+  &:hover {
+    cursor: pointer;
+    transition: all 0.2s ease-out;
+    top: -4px;
+    background-color: var(--color-dark);
+    color: white;
+
+    .app-icon-lg {
+      background-color: white !important;
+      color: var(--color-primary);
+    }
+  }
+}
+
+.block-icon:hover {
+  background-color: white !important;
+  color: #dc3545;
+}
+
+.delete-icon:hover {
+  background-color: white !important;
+  color: var(--color-primary);
+}
+
+.edit-icon:hover {
+  background-color: white !important;
+  color: #007bff;
+}
