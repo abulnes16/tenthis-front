@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Icon } from '@fortawesome/fontawesome-svg-core';
 
 @Component({
   selector: 'app-category-form',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./category-form.component.scss']
 })
 export class CategoryFormComponent implements OnInit {
+
+  @Input() icon: Icon;
 
   constructor() { }
 
