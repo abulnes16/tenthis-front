@@ -1,1 +1,19 @@
-<p>store-list works!</p>
+<div class="container p-5">
+  <div class="row px-5">
+    <div class="col-lg-12">
+      <h2>Explora nuestras tiendas</h2>
+    </div>
+  </div>
+  <div class="row mt-5">
+    <div class="col-lg-8 ml-auto mr-auto">
+      <div *ngFor="let store of stores" class="block-item box-shadow-card">
+        <div class="block-item__left">
+          <figure class="app-icon-lg mr-4">
+            <fa-icon [icon]="storeIcon" size="lg"></fa-icon>
+          </figure>
+          <h3>{{ store.name }}</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

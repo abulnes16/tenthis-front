@@ -14,7 +14,7 @@ export class ClientLayoutComponent implements OnInit {
         {
           icon: faHome,
           linkName: 'Home',
-          url: './',
+          url: 'explore',
         }
       ]
     },
