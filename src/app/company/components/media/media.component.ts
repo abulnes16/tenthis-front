@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { faFile } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-media',
@@ -7,6 +8,54 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MediaComponent implements OnInit {
 
+  fileIcon = faFile;
+  images = [
+    {
+      name: 'Nombre imagen',
+      url: './assets/images/shopping.jpg'
+    },
+    {
+      name: 'Nombre imagen',
+      url: './assets/images/shopping.jpg'
+    },
+    {
+      name: 'Nombre imagen',
+      url: './assets/images/shopping.jpg'
+    },
+    {
+      name: 'Nombre imagen',
+      url: './assets/images/shopping.jpg'
+    },
+    {
+      name: 'Nombre imagen',
+      url: './assets/images/shopping.jpg'
+    },
+    {
+      name: 'Nombre imagen',
+      url: './assets/images/shopping.jpg'
+    },
+  ];
+
+  files = [
+    {
+      name: 'Nombre archivo'
+    },
+    {
+      name: 'Nombre archivo'
+    },
+    {
+      name: 'Nombre archivo'
+    },
+    {
+      name: 'Nombre archivo'
+    },
+    {
+      name: 'Nombre archivo'
+    },
+    {
+      name: 'Nombre archivo'
+    },
+  ];
   constructor() { }
 
   ngOnInit(): void {

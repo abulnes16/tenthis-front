@@ -1,1 +1,73 @@
-<p>media works!</p>
+<div class="container p-5">
+  <div class="row px-5">
+    <div class="col-lg-7">
+      <h2>Media</h2>
+    </div>
+    <div class="col-lg-5 d-flex justify-content-end">
+      <button class="btn-basic">Añadir</button>
+    </div>
+  </div>
+  <div class="row mt-5 px-5">
+    <div class="col-lg-12">
+      <div class="row d-flex justify-content-between">
+        <div class="col-lg-8">
+          <div class="media__options">
+            <ul class="d-flex list-unstyled border-radius box-shadow-card p-3">
+              <li class="media-pill">Todo</li>
+              <li class="media-pill">Imágenes</li>
+              <li class="media-pill">Videos</li>
+              <li class="media-pill">Documentos</li>
+              <li class="media-pill">Audio</li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="media__search d-flex">
+            <input
+              type="text"
+              class="form-control mr-3"
+              placeholder="Archivo"
+            />
+            <button class="btn btn-main br-btn px-3">Buscar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-3 px-5">
+    <div class="col-lg-8">
+      <div class="gallery">
+        <div class="row">
+          <div *ngFor="let image of images" class="col-lg-4 mb-3">
+            <div class="card border-radius box-shadow-card">
+              <img
+                class="card-img-top"
+                [src]="image.url"
+                alt="Card image cap"
+              />
+              <div class="card-body p-2 text-center">
+                <p class="mb-1">{{ image.name }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="docs">
+        <div class="row">
+          <div *ngFor="let file of files" class="col-lg-6 mb-3">
+            <div
+              class="box-shadow-card p-3 file-card border-radius"
+            >
+              <figure class="app-icon mb-2">
+                <fa-icon [icon]="fileIcon"></fa-icon>
+              </figure>
+              <small>{{file.name}}</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
