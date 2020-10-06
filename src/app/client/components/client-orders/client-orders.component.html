@@ -5,6 +5,10 @@
     </div>
   </div>
   <div class="row mt-5">
+    <div class="offset-8 col-lg-4 d-flex justify-content-end mb-3 pr-5 ">
+      <input type="text" class="form-control mr-3" placeholder="N° de Orden"/>
+      <button class="btn btn-main">Buscar</button>
+    </div>
     <div class="col-lg-4">
       <app-list>
         <div *ngFor="let order of orders" class="card-item">
