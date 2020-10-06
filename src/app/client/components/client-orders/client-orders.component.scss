@@ -1,0 +1,29 @@
+.card-item {
+  p {
+    margin-bottom: 5px;
+  }
+  &__store {
+    color: initial;
+    padding: 5px 20px;
+    background-color: var(--color-lighten-gray);
+    border-radius: 25px;
+  }
+}
+
+.order {
+  padding: 30px 45px;
+
+  &__date {
+    margin-left: auto;
+  }
+
+  &__totals {
+    display: flex;
+    justify-content: flex-end;
+
+    p {
+      font-weight: bold;
+      font-size: 1.4em;
+    }
+  }
+}

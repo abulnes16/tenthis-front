@@ -1,1 +1,70 @@
-<p>client-orders works!</p>
+<div class="container p-5">
+  <div class="row px-5">
+    <div class="col-lg-12">
+      <h2>Mis ordenes</h2>
+    </div>
+  </div>
+  <div class="row mt-5">
+    <div class="col-lg-4">
+      <app-list>
+        <div *ngFor="let order of orders" class="card-item">
+          <figure class="app-icon mr-3">
+            <fa-icon [icon]="orderIcon" size="lg"></fa-icon>
+          </figure>
+          <div class="card-item__info">
+            <p>Orden N° {{ order.id }}</p>
+            <div class="card-item__store badge">{{ order.store }}</div>
+          </div>
+        </div>
+      </app-list>
+    </div>
+    <div class="offset-1 col-lg-7 justify-content-center ml-auto mr-auto">
+      <div class="box-shadow-card border-radius order">
+        <div class="d-flex align-items-center mb-4">
+          <figure class="app-icon-xl mr-4">
+            <fa-icon [icon]="orderIcon" size="2x"></fa-icon>
+          </figure>
+          <div class="order__number">
+            <h4>Orden N ° 1345</h4>
+          </div>
+          <div class="order__date">
+            <strong>Fecha:</strong><span>25/02/2020</span>
+          </div>
+        </div>
+        <div class="order__detail">
+          <strong>Detalle de orden</strong>
+          <table class="table mt-2">
+            <thead>
+              <tr>
+                <th scope="col">Productos</th>
+                <th scope="col">Cantidad</th>
+                <th scope="col">Precio</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Producto 1</th>
+                <td>2</td>
+                <td>15.00</td>
+              </tr>
+              <tr>
+                <th scope="row">Producto 1</th>
+                <td>2</td>
+                <td>15.00</td>
+              </tr>
+              <tr>
+                <th scope="row">Producto 1</th>
+                <td>2</td>
+                <td>15.00</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="order__totals">
+          <p class="mr-3">Total:</p>
+          <p>L. 45.00</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
