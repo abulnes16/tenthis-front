@@ -44,7 +44,7 @@ const routes: Routes = [
         component: MediaComponent,
       },
       {
-        path: 'config',
+        path: 'configuration',
         component: ConfigComponent
       }
     ]

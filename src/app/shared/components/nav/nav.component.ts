@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import { faBars, faCog, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -13,9 +14,12 @@ export class NavComponent implements OnInit {
   cogIcon = faCog;
   @Input() name: string;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
 
+  isInAdminCompanies(): boolean {
+    return this.router.url.startsWith('/admin-companies/');
+  }
 }

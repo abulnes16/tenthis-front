@@ -12,7 +12,7 @@
         alt="Tenthis logo"
       />
 
-      <h4>{{name}}</h4>
+      <h4>{{ name }}</h4>
     </figure>
   </div>
   <div class="right-content">
@@ -22,22 +22,27 @@
         <h5 class="mr-2 font-weight-normal">Username</h5>
       </div>
       <div class="drop-container" ngbDropdownMenu aria-labelledby="dropdown">
-        <div class="drop-item tooltip-up-arrow" ngbDropdownItem>
+        <a
+          *ngIf="isInAdminCompanies()"
+          routerLink="configuration"
+          class="drop-item tooltip-up-arrow"
+          ngbDropdownItem
+        >
           <fa-icon
             [icon]="cogIcon"
             class="text-darken mr-3"
             size="lg"
           ></fa-icon>
           <span>Configuración</span>
-        </div>
-        <div class="drop-item" ngbDropdownItem>
+        </a>
+        <a class="drop-item" ngbDropdownItem>
           <fa-icon
             [icon]="signOutIcon"
             class="text-darken mr-3"
             size="lg"
           ></fa-icon>
           <span>Cerrar sesión</span>
-        </div>
+        </a>
       </div>
     </div>
   </div>
