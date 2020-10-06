@@ -106,6 +106,10 @@
 }
 
 /* Icons */
+.app-icon-xs {
+  @include icon(30px, 30px);
+}
+
 .app-icon {
   @include icon();
 }
