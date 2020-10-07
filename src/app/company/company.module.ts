@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { QuillModule } from 'ngx-quill';
 import { CompanyRoutingModule } from './company-routing.module';
 import { CompanyLayoutComponent } from './components/company-layout/company-layout.component';
 import { SharedModule } from '../shared/shared.module';
@@ -39,7 +39,8 @@ import { PagePreviewComponent } from './components/page-preview/page-preview.com
   imports: [
     CommonModule,
     CompanyRoutingModule,
-    SharedModule
+    SharedModule,
+    QuillModule.forRoot()
   ]
 })
 export class CompanyModule { }
