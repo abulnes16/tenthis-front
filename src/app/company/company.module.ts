@@ -13,6 +13,10 @@ import { ConfigComponent } from './components/config/config.component';
 import { ManagePageComponent } from './components/manage-page/manage-page.component';
 import { ProductFormComponent } from './components/product-form/product-form.component';
 import { CategoryFormComponent } from './components/category-form/category-form.component';
+import { NewPageComponent } from './components/new-page/new-page.component';
+import { NewPageFormComponent } from './components/new-page-form/new-page-form.component';
+import { ManagePageFormComponent } from './components/manage-page-form/manage-page-form.component';
+import { PagePreviewComponent } from './components/page-preview/page-preview.component';
 
 
 @NgModule({
@@ -26,7 +30,11 @@ import { CategoryFormComponent } from './components/category-form/category-form.
     ConfigComponent,
     ManagePageComponent,
     ProductFormComponent,
-    CategoryFormComponent
+    CategoryFormComponent,
+    NewPageComponent,
+    NewPageFormComponent,
+    ManagePageFormComponent,
+    PagePreviewComponent
   ],
   imports: [
     CommonModule,

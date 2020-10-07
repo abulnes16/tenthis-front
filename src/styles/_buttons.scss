@@ -52,3 +52,21 @@
 .btn-register {
   width: 135px;
 }
+
+.btn-tab {
+  width: 100%;
+  min-height: 8vh;
+  background-color: var(--color-dark);
+  color: white;
+  border-radius: 0;
+
+  &:hover {
+    background-color: var(--color-ligthen-gray);
+    color: var(--color-darken);
+  }
+  
+  &.active {
+    background-color: var(--color-ligthen-gray);
+    color: var(--color-darken);
+  }
+}
