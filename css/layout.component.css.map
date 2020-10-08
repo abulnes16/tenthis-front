@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "",
+    "sources": [
+        "../src/app/landing/components/layout/layout.component.scss"
+    ],
+    "names": [],
+    "file": "layout.component.css"
+}

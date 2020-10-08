@@ -1,0 +1,37 @@
+
+.card-item {
+  &__icon {
+    display: flex;
+    margin-bottom: 0;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: white;
+    background-color: var(--color-primary);
+  }
+
+  &__info {
+    margin-left: 15px;
+
+    p {
+      font-weight: bold;
+      margin: 0;
+    }
+  }
+
+  &__role {
+    color: initial;
+    padding: 5px 20px;
+    background-color: var(--color-lighten-gray);
+    border-radius: 25px;
+  }
+
+  &:hover {
+    .card-item__role {
+      background-color: var(--color-darken);
+      color: white;
+    }
+  }
+}

@@ -1,0 +1,120 @@
+<aside class="page-form bg-lighten-gray">
+  <div class="row no-gutters mb-4">
+    <div class="col-lg-4">
+      <button
+        class="btn btn-tab"
+        (click)="currentForm = 'ct'"
+        [class.active]="currentForm === 'ct'"
+      >
+        Editor CT
+      </button>
+    </div>
+    <div class="col-lg-4">
+      <button
+        class="btn btn-tab"
+        (click)="currentForm = 'bt'"
+        [class.active]="currentForm === 'bt'"
+      >
+        Editor BT
+      </button>
+    </div>
+    <div class="col-lg-4">
+      <button
+        class="btn btn-tab"
+        (click)="currentForm = 'nbt'"
+        [class.active]="currentForm === 'nbt'"
+      >
+        Nuevo BT
+      </button>
+    </div>
+  </div>
+  <form class="px-4">
+    <div class="row no-gutters mb-3">
+      <ng-container [ngSwitch]="currentForm">
+        <ng-container *ngSwitchCase="'ct'">
+          <div class="col-lg-12">
+            <label for="">HTML</label>
+            <ace-editor [mode]="'html'" style="min-height: 180px"></ace-editor>
+          </div>
+          <div class="col-lg-12 mb-3">
+            <label for="">CSS</label>
+            <ace-editor [mode]="'css'" style="min-height: 180px"></ace-editor>
+          </div>
+        </ng-container>
+        <ng-container *ngSwitchCase="'nbt'">
+          <div class="col-lg-12 mb-3">
+            <label for="">Tipo de bloque</label>
+            <select class="custom-select">
+              <option value="0">Bloque A</option>
+            </select>
+          </div>
+          <div class="col-lg-12 mb-3">
+            <label for="">Columnas a ocupar</label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="N° de columnas"
+            />
+          </div>
+          <div class="col-lg-12 wyswyg-editor">
+            <div class="d-flex justify-content-between mb-3">
+              <label for="">Editor</label>
+              <button class="btn btn-main br-btn txt-sm">
+                Agregar shortcout
+              </button>
+            </div>
+          
+            <quill-editor></quill-editor>
+          </div>
+          <div class="col-lg-12 mb-3">
+            <p>Fondo</p>
+            <img
+              src="./assets/images/shop.jpg"
+              class="mb-2"
+              alt="Background"
+              width="290"
+            />
+            <div class="">
+              <label for="background-img" class="btn br-btn btn-main"
+                >Agregar</label
+              >
+            </div>
+            <input type="file" class="file-input" id="background-img" />
+          </div>
+        </ng-container>
+        <ng-container *ngSwitchCase="'bt'">
+          <div class="col-lg-12 wyswyg-editor">
+            <div class="d-flex justify-content-between mb-3">
+              <label for="">Editor</label>
+              <button class="btn btn-main br-btn txt-sm">
+                Agregar shortcout
+              </button>
+            </div>
+           <quill-editor></quill-editor>
+          </div>
+          <div class="col-lg-12 mb-3">
+            <p>Fondo</p>
+            <img
+              src="./assets/images/shop.jpg"
+              class="mb-2"
+              alt="Background"
+              width="290"
+            />
+            <div class="">
+              <label for="background-img" class="btn br-btn btn-main"
+                >Agregar</label
+              >
+            </div>
+            <input type="file" class="file-input" id="background-img" />
+          </div>
+        </ng-container>
+      </ng-container>
+    </div>
+    <div class="row no-gutters">
+      <div class="col-lg-12 d-flex justify-content-end">
+        <button class="btn btn-danger br-btn mr-2">Cancelar</button>
+        <button class="btn btn-main br-btn">Guardar</button>
+      </div>
+    </div>
+  </form>
+</aside>

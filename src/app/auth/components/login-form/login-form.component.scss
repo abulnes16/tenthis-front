@@ -1,0 +1,32 @@
+.login-card {
+  width: 50%;
+  margin: 0 auto;
+  background-color: var(--color-primary);
+  border-radius: 20px;
+  padding: 50px 60px;
+
+  p {
+    font-size: 0.88em;
+  }
+
+  h3{
+    font-size: 2em;
+  }
+}
+
+
+
+
+
+@media screen and (max-width: 769px) {
+  .login-card {
+    width: 70%;
+    font-size: 13px;
+    padding: 35px;
+  }
+}
+@media screen and (max-width: 426px) {
+  .login-card {
+    width: 75%;
+  }
+}

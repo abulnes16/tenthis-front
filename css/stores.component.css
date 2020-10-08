@@ -1,0 +1,27 @@
+.store__image {
+  margin-bottom: 20px;
+}
+
+.store__image img {
+  max-width: 100%;
+}
+
+p {
+  font-size: 1.05em;
+}
+
+@media screen and (max-width: 576px) {
+  .store-list {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+}
+/*# sourceMappingURL=stores.component.css.map */

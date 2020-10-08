@@ -1,0 +1,76 @@
+.app-nav {
+  justify-content: space-between;
+  padding: 0.9em 3em;
+}
+
+.left-content {
+  width: 70%;
+  display: flex;
+  align-items: center;
+}
+
+.hamburguer-menu {
+  width: 5%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 50px;
+}
+
+.app-logo-container {
+  display: flex;
+  align-items: center;
+  width: 95%;
+  margin: 0;
+
+  .app-logo {
+    width: 40px;
+    margin-right: 10px;
+  }
+
+  h4 {
+    margin: 0;
+  }
+}
+
+.user-container {
+  display: flex;
+  align-items: center;
+
+  .user-img {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+  }
+  h5 {
+    margin: 0;
+  }
+}
+
+.drop-container {
+  top: 40px;
+}
+
+
+.drop-item:active {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+@media screen and (max-width: 769px) {
+  .left-content {
+    width: 50%;
+  }
+}
+
+@media screen and (max-width: 426px) {
+  .left-content{
+    width: 100%;
+    margin-bottom: 30px;
+  }
+  .app-nav {
+    flex-direction: column;
+  }
+}

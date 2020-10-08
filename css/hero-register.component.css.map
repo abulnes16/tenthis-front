@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,cAAc,CAAC;EACb,OAAO,EAAE,SAAS;EAClB,KAAK,EAAE,GAAG;EACV,MAAM,EAAG,MAAM;CAKhB;;AAJC,MAAM,CAAC,MAAM,MAAM,SAAS,EAAE,KAAK;EAJrC,AAAA,cAAc,CAAC;IAMX,OAAO,EAAE,KAAK;GAEjB",
+    "sources": [
+        "../src/app/landing/components/hero-register/hero-register.component.scss"
+    ],
+    "names": [],
+    "file": "hero-register.component.css"
+}

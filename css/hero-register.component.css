@@ -1,0 +1,12 @@
+.hero-register {
+  padding: 8em 0 1em;
+  width: 70%;
+  margin: 0 auto;
+}
+
+@media screen and (max-width: 992px) {
+  .hero-register {
+    padding: 2em 0;
+  }
+}
+/*# sourceMappingURL=hero-register.component.css.map */

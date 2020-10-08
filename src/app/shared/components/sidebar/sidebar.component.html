@@ -1,0 +1,18 @@
+<aside class="sidebar bg-lighten-gray">
+  <ul>
+    <div *ngFor="let link of links">
+      <small *ngIf="link.sectionName" class="text-darken font-weight-bold">{{
+        link.sectionName
+      }}</small>
+      <a *ngFor="let l of link.links" [routerLink]="l.url">
+        <li
+          class="side-link"
+          routerLinkActive="active"
+        >
+          <fa-icon class="mr-2" [icon]="l.icon" size="lg"></fa-icon>
+          {{ l.linkName }}
+        </li>
+      </a>
+    </div>
+  </ul>
+</aside>

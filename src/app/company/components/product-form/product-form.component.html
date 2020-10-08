@@ -1,0 +1,82 @@
+<div class="box-shadow-card border-radius p-form">
+  <form>
+    <div class="form-group d-flex justify-content-center align-items-center">
+      <figure class="app-icon-xl mr-4">
+        <fa-icon [icon]="icon" size="2x"></fa-icon>
+      </figure>
+      <div>
+        <label for="">Nombre producto</label>
+        <input type="text" class="form-control" placeholder="Producto" />
+      </div>
+    </div>
+    <div class="d-flex flex-column align-items-end px-4">
+      <div class="form-group w-100 mb-3">
+        <label for="">Descripción</label>
+        <textarea class="form-control" placeholder="Descripción"></textarea>
+      </div>
+      <h5 class="mr-auto mb-3">Datos del producto</h5>
+      <div class="row">
+        <div class="col">
+          <div class="form-group w-100 mb-3">
+            <label for="">Precio</label>
+            <input type="number" class="form-control" placeholder="Precio" />
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group w-100 mb-3">
+            <label for="">Categoria</label>
+            <select class="custom-select">
+              <option value="0">Categoria</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="form-group w-100 mb-3">
+            <label for="">Cantidad</label>
+            <input type="number" class="form-control" placeholder="Cantidad" />
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group w-100 mb-3">
+            <label for="">Tags</label>
+            <input type="text" class="form-control" placeholder="Tags" />
+          </div>
+        </div>
+      </div>
+      <div class="form-group w-100 mb-3">
+        <div class="d-flex justify-content-between mb-4">
+          <label for="">Multimedia</label>
+          <button class="btn btn-sm btn-basic">Añadir</button>
+        </div>
+        <div class="form-gallery scrollbar">
+          <div class="row">
+            <div class="col-lg-4 mb-3">
+              <img src="./assets/images/shop.jpg" alt="Gallery" />
+            </div>
+            <div class="col-lg-4 mb-3">
+              <img src="./assets/images/shop.jpg" alt="Gallery" />
+            </div>
+            <div class="col-lg-4 mb-3">
+              <img src="./assets/images/shop.jpg" alt="Gallery" />
+            </div>
+            <div class="col-lg-4 mb-3">
+              <img src="./assets/images/shop.jpg" alt="Gallery" />
+            </div>
+            <div class="col-lg-4 mb-3">
+              <img src="./assets/images/shop.jpg" alt="Gallery" />
+            </div>
+            <div class="col-lg-4 mb-3">
+              <img src="./assets/images/shop.jpg" alt="Gallery" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex justify-content-end mt-2 px-4">
+      <button class="btn btn-danger br-btn mr-3 px-3">Eliminar</button>
+      <button class="btn btn-main br-btn px-3">Guardar</button>
+    </div>
+  </form>
+</div>

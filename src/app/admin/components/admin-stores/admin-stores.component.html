@@ -1,0 +1,35 @@
+<div class="container p-5">
+  <div class="row px-5">
+    <div class="col-lg-12">
+      <h2>Tiendas</h2>
+    </div>
+  </div>
+  <div class="row mt-5">
+    <div class="offset-8 col-lg-4 d-flex justify-content-end mb-4 pr-5">
+      <input type="text" class="form-control mr-3" placeholder="Tienda" />
+      <button class="btn btn-main">Buscar</button>
+    </div>
+    <div class="col-lg-11 ml-auto mr-auto">
+      <div class="row">
+        <div *ngFor="let store of stores" class="col-lg-6 col-md-12">
+          <div class="block-item box-shadow-card">
+            <div class="block-item__left">
+              <figure class="app-icon-lg mr-4">
+                <fa-icon [icon]="tentIcon" size="lg"></fa-icon>
+              </figure>
+              <h3>{{ store.name }}</h3>
+            </div>
+            <div class="block-item__actions">
+              <figure class="app-icon bg-danger mr-2 block-icon">
+                <fa-icon [icon]="blockIcon" size="lg"></fa-icon>
+              </figure>
+              <figure class="app-icon delete-icon">
+                <fa-icon [icon]="deleteIcon" size="lg"></fa-icon>
+              </figure>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

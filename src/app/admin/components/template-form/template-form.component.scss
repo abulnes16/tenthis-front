@@ -1,0 +1,15 @@
+.template-gallery {
+  width: 100%;
+  img {
+    max-width: 100%;
+  }
+}
+
+.template-gallery::-webkit-scrollbar {
+  height: 8px;
+}
+
+.template-gallery::-webkit-scrollbar-thumb {
+  border-radius: 6px;
+  background-color: hsl(124 18% 85%);
+}

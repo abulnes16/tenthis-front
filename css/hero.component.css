@@ -1,0 +1,35 @@
+.hero {
+  background-color: var(--color-primary);
+  color: white;
+  padding: 13em 5em 5em 4em;
+}
+
+.hero__container {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.hero h1 {
+  font-size: 4em;
+}
+
+.hero h5 {
+  font-weight: normal;
+  margin: 30px 0;
+}
+
+@media screen and (max-width: 768px) {
+  .hero {
+    font-size: 12px;
+  }
+}
+
+@media screen and (max-width: 427px) {
+  .hero {
+    font-size: 8px;
+  }
+  h1 {
+    margin-top: 40px;
+  }
+}
+/*# sourceMappingURL=hero.component.css.map */

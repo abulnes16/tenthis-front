@@ -1,0 +1,28 @@
+<div class="container p-5">
+  <div class="row px-5">
+    <div class="col-lg-7 ">
+      <h2>Usuarios</h2>
+    </div>
+    <div class="col-lg-5 d-flex justify-content-end">
+      <button class="btn-basic">Nuevo</button>
+    </div>
+  </div>
+  <div class="row mt-5">
+    <div class="col-lg-4">
+      <app-list>
+        <div *ngFor="let user of users" class="card-item">
+          <figure class="app-icon">
+            <fa-icon [icon]="userIcon" size="lg"></fa-icon>
+          </figure>
+          <div class="card-item__info">
+            <p>{{ user.name }}</p>
+            <div class="card-item__role badge">{{ user.role }}</div>
+          </div>
+        </div>
+      </app-list>
+    </div>
+    <div class="offset-1 col-lg-7 justify-content-center ml-auto mr-auto">
+      <app-user-form></app-user-form>
+    </div>
+  </div>
+</div>

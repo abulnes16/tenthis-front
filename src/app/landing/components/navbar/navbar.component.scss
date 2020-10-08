@@ -1,7 +1,4 @@
-.logo-container {
-  width: 100px;
-  min-width: 80px;
-}
+
 
 .nav-landing {
   width: 100%;
@@ -11,10 +8,6 @@
   padding: 0 4em  ;
 }
 
-.logo {
-  width: 100%;
-  max-width: 100%;
-}
 
 .link {
   font-size: 1.2em;
@@ -27,4 +20,10 @@
     border-radius: 20px;
   }
   
+}
+
+@media screen and (max-width: 426px){
+  .brand {
+    font-size: 1.6em;
+  }
 }
