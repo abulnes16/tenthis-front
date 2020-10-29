@@ -1,27 +1,54 @@
 <div class="login-card text-white">
-  <form>
+  <form [formGroup]="loginForm">
     <h3 class="mb-3">Inicia Sesion</h3>
     <p class="mb-4">
       Cuentales a todos como estas tendiendo tus productos en Tenthis
     </p>
     <div class="form-group mb-4">
       <input
+        [ngClass]="{
+          'invalid-input': email.invalid && (email.dirty || email.touched)
+        }"
         type="email"
+        formControlName="email"
         class="form-control border-radius"
         placeholder="Correo electronico"
       />
+      <div
+        *ngIf="email.invalid && (email.dirty || email.touched)"
+        class="validation-error"
+      >
+        <span *ngIf="email.errors?.required">Debe ingresar un correo</span>
+      </div>
     </div>
     <div class="form-group mb-4">
       <input
+        [ngClass]="{
+          'invalid-input':
+            password.invalid && (password.dirty || password.touched)
+        }"
         type="password"
+        formControlName="password"
         class="form-control border-radius"
         placeholder="Contraseña"
       />
+      <div
+        *ngIf="password.invalid && (password.dirty || password.touched)"
+        class="validation-error"
+      >
+        <span *ngIf="password.errors?.required">
+          Debe ingresar una contraseña
+        </span>
+      </div>
     </div>
-    <a class="btn btn-block btn-light br-btn mt-4" routerLink="/admin/">Iniciar sesión</a>
+    <a class="btn btn-block btn-light br-btn mt-4" routerLink="/admin/"
+      >Iniciar sesión</a
+    >
   </form>
   <div class="auth-card__footer">
     <h6>¿No tienes cuenta todavía?</h6>
-    <a class="btn btn-light br-btn btn-register" routerLink="/auth/register/">Registrate</a>
+    <a class="btn btn-light br-btn btn-register" routerLink="/auth/register/"
+      >Registrate</a
+    >
   </div>
 </div>
