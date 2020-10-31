@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { faLayerGroup } from '@fortawesome/free-solid-svg-icons';
+import Template from 'src/app/models/template';
 
 @Component({
   selector: 'app-templates',
@@ -9,30 +10,56 @@ import { faLayerGroup } from '@fortawesome/free-solid-svg-icons';
 export class TemplatesComponent implements OnInit {
 
   templateIcon = faLayerGroup;
-  templates = [
+  editMode = false;
+  templates: Template[] = [
     {
-      name: 'Plantilla'
+      name: 'Plantilla',
+      css: '',
+      js: '',
+      description: '',
+      media: null
     },
     {
-      name: 'Plantilla'
+      name: 'Plantilla',
+      css: '',
+      js: '',
+      description: '',
+      media: null
     },
     {
-      name: 'Plantilla'
+      name: 'Plantilla',
+      css: '',
+      js: '',
+      description: '',
+      media: null
     },
     {
-      name: 'Plantilla'
+      name: 'Plantilla',
+      css: '',
+      js: '',
+      description: '',
+      media: null
     },
     {
-      name: 'Plantilla'
-    },
-    {
-      name: 'Plantilla'
+      name: 'Plantilla',
+      css: '',
+      js: '',
+      description: '',
+      media: null
     },
   ];
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  newTemplate(): void {
+    this.editMode = false;
+  }
+
+  editTemplate(): void {
+    this.editMode = true;
   }
 
 }
