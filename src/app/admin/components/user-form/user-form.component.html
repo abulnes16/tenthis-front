@@ -1,27 +1,80 @@
 <div class="box-shadow-card border-radius p-form">
-  <form>
-    <div class="form-group d-flex justify-content-center align-items-center ">
+  <form [formGroup]="userForm">
+    <div class="form-group d-flex justify-content-center align-items-center">
       <figure class="app-icon-xl mr-4">
         <fa-icon [icon]="userIcon" size="2x"></fa-icon>
       </figure>
       <div>
         <label for="">Username</label>
-        <input type="text" class="form-control" placeholder="Username" />
+        <input
+          [ngClass]="{
+            'invalid-input': name.invalid && (name.dirty || name.touched)
+          }"
+          formControlName="name"
+          type="text"
+          class="form-control"
+          placeholder="Username"
+        />
+        <div
+          *ngIf="name.invalid && (name.dirty || name.touched)"
+          class="validation-error text-danger"
+        >
+          <span>Debe ingresar un nombre de usuario</span>
+        </div>
       </div>
     </div>
-    <div class="d-flex  flex-column align-items-end px-4">
+    <div class="d-flex flex-column align-items-end px-4">
+      <div class="form-group w-100 mb-3">
+        <label for="">Rol</label>
+        <select
+          [ngClass]="{
+            'invalid-input': role.invalid && (role.dirty || role.touched)
+          }"
+          formControlName="role"
+          class="custom-select"
+        >
+          <option value="0">Rol</option>
+        </select>
+        <div
+          *ngIf="role.invalid && (role.dirty || role.touched)"
+          class="validation-error text-danger"
+        >
+          <span>Debe seleccionar un rol</span>
+        </div>
+      </div>
+      <div class="form-group w-100 mb-3">
+        <label for="">Plan</label>
+        <input disabled class="form-control" placeholder="Plan" />
+      </div>
       <div class="form-group w-100 mb-3">
         <label for="">Tienda</label>
-        <input type="text" class="form-control" placeholder="Tienda" />
+        <input
+          formControlName="store"
+          disabled
+          type="text"
+          class="form-control"
+          placeholder="Tienda"
+        />
       </div>
-      <div class="form-group w-100  mb-3">
+      <div class="form-group w-100 mb-3">
         <label for="">Correo</label>
-        <input type="text" class="form-control" placeholder="Correo" />
+        <input
+          formControlName="email"
+          disabled
+          type="text"
+          class="form-control"
+          placeholder="Correo"
+        />
       </div>
     </div>
     <div class="d-flex justify-content-end mt-2 px-4">
-      <button class="btn btn-danger br-btn mr-3 px-3">Eliminar</button>
-      <button class="btn btn-main br-btn px-3">Guardar</button>
+      <button *ngIf="editMode" class="btn btn-danger br-btn mr-3 px-3">
+        Eliminar
+      </button>
+      <button *ngIf="!editMode" class="btn btn-main br-btn px-3">
+        Guardar
+      </button>
+      <button *ngIf="editMode" class="btn btn-main br-btn px-3">Editar</button>
     </div>
   </form>
 </div>

@@ -4,7 +4,7 @@ import Store from './store';
 interface User {
   name: string;
   email: string;
-  store: Store;
+  store?: Store;
   plan: Plan;
   role: string;
 }
