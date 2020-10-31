@@ -14,6 +14,7 @@ import { UserFormComponent } from './components/user-form/user-form.component';
 import { PlanFormComponent } from './components/plan-form/plan-form.component';
 import { TemplateFormComponent } from './components/template-form/template-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -32,6 +33,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     AdminRoutingModule,
     SharedModule,
+    NgbModule,
     FontAwesomeModule,
     ReactiveFormsModule
   ]
