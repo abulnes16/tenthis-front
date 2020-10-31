@@ -1,16 +1,16 @@
 <div class="container p-5">
   <div class="row px-5">
-    <div class="col-lg-7 ">
+    <div class="col-lg-7">
       <h2>Planes</h2>
     </div>
     <div class="col-lg-5 d-flex justify-content-end">
-      <button class="btn-basic">Nuevo</button>
+      <button class="btn-basic" (click)="newPlan()">Nuevo</button>
     </div>
   </div>
   <div class="row mt-5">
     <div class="col-lg-4">
       <app-list>
-        <div *ngFor="let plan of plans" class="card-item">
+        <div *ngFor="let plan of plans" class="card-item" (click)="editPlan()">
           <figure class="app-icon">
             <fa-icon [icon]="planIcon" size="lg"></fa-icon>
           </figure>
@@ -21,7 +21,7 @@
       </app-list>
     </div>
     <div class="offset-1 col-lg-7 justify-content-center ml-auto mr-auto">
-      <app-plan-form [icon]="planIcon"></app-plan-form>
+      <app-plan-form [editMode]="editMode" [icon]="planIcon"></app-plan-form>
     </div>
   </div>
 </div>

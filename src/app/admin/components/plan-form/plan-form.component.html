@@ -1,38 +1,99 @@
 <div class="box-shadow-card border-radius p-form">
-  <form>
+  <form [formGroup]="planForm">
     <div class="form-group d-flex justify-content-center align-items-center">
       <figure class="app-icon-xl mr-4">
         <fa-icon [icon]="icon" size="2x"></fa-icon>
       </figure>
       <div>
         <label for="">Nombre del plan</label>
-        <input type="text" class="form-control" placeholder="Plan" />
+        <input
+          [ngClass]="{
+            'invalid-input': name.invalid && (name.dirty || name.touched)
+          }"
+          formControlName="name"
+          type="text"
+          class="form-control"
+          placeholder="Plan"
+        />
+        <div
+          *ngIf="name.invalid && (name.dirty || name.touched)"
+          class="validation-error text-danger"
+        >
+          <span>Debe ingresar un nombre para el plan</span>
+        </div>
       </div>
     </div>
     <div class="d-flex flex-column align-items-end px-4">
       <div class="form-group w-100 mb-3">
         <label for="">Precio</label>
-        <input type="number" class="form-control" placeholder="Precio" />
+        <input
+          [ngClass]="{
+            'invalid-input': price.invalid && (price.dirty || price.touched)
+          }"
+          formControlName="price"
+          type="number"
+          class="form-control"
+          placeholder="Precio"
+        />
+        <div
+          *ngIf="price.invalid && (price.dirty || price.touched)"
+          class="validation-error text-danger"
+        >
+          <span *ngIf="price.errors?.required">Debe ingresar un precio</span>
+          <span *ngIf="price.errors?.min">El precio debe ser mayor a 0</span>
+        </div>
       </div>
       <div class="row">
         <div class="col">
           <div class="form-group mb-3">
             <label for="">Almacenamiento</label>
             <input
+              [ngClass]="{
+                'invalid-input':
+                  storage.invalid && (storage.dirty || storage.touched)
+              }"
+              formControlName="storage"
               type="number"
               class="form-control"
               placeholder="Almacenamiento(GB)"
             />
+            <div
+              *ngIf="storage.invalid && (storage.dirty || storage.touched)"
+              class="validation-error text-danger"
+            >
+              <span *ngIf="storage.errors?.required"
+                >Debe ingresar un almacenamiento</span
+              >
+              <span *ngIf="storage.errors?.min"
+                >El almacenamiento debe ser mayor a 0</span
+              >
+            </div>
           </div>
         </div>
         <div class="col">
           <div class="form-group mb-3">
             <label for="">N° de Páginas</label>
             <input
+              [ngClass]="{
+                'invalid-input':
+                  numPages.invalid && (numPages.dirty || numPages.touched)
+              }"
+              formControlName="numPages"
               type="number"
               class="form-control"
               placeholder="N° de Páginas"
             />
+            <div
+              *ngIf="numPages.invalid && (numPages.dirty || numPages.touched)"
+              class="validation-error text-danger"
+            >
+              <span *ngIf="numPages.errors?.required"
+                >Debe ingresar una cantidad de páginas</span
+              >
+              <span *ngIf="numPages.errors?.min"
+                >El número de páginas debe ser mayor a 0</span
+              >
+            </div>
           </div>
         </div>
       </div>
@@ -41,27 +102,72 @@
           <div class="form-group mb-3">
             <label for="">N° de Productos</label>
             <input
+              [ngClass]="{
+                'invalid-input':
+                  numProducts.invalid &&
+                  (numProducts.dirty || numProducts.touched)
+              }"
+              formControlName="numProducts"
               type="number"
               class="form-control"
               placeholder="N° de Productos"
             />
+            <div
+              *ngIf="
+                numProducts.invalid &&
+                (numProducts.dirty || numProducts.touched)
+              "
+              class="validation-error text-danger"
+            >
+              <span *ngIf="numProducts.errors?.required"
+                >Debe ingresar una cantidad de productos</span
+              >
+              <span *ngIf="numProducts.errors?.min"
+                >La cantidad de productos debe ser mayor a 0</span
+              >
+            </div>
           </div>
         </div>
         <div class="col">
           <div class="form-group mb-3">
             <label for="">N° de Plantillas</label>
             <input
+              [ngClass]="{
+                'invalid-input':
+                  numTemplates.invalid &&
+                  (numTemplates.dirty || numTemplates.touched)
+              }"
+              formControlName="numTemplates"
               type="number"
               class="form-control"
               placeholder="N° de Plantillas"
             />
+            <div
+              *ngIf="
+                numTemplates.invalid &&
+                (numTemplates.dirty || numTemplates.touched)
+              "
+              class="validation-error text-danger"
+            >
+              <span *ngIf="numTemplates.errors?.required"
+                >Debe ingresar una cantidad de plantillas</span
+              >
+              <span *ngIf="numTemplates.errors?.min"
+                >La cantidad de plantillas debe ser mayor a 0</span
+              >
+            </div>
           </div>
         </div>
       </div>
     </div>
     <div class="d-flex justify-content-end mt-2 px-4">
-      <button class="btn btn-danger br-btn mr-3 px-3">Eliminar</button>
-      <button class="btn btn-main br-btn px-3">Guardar</button>
+      <button *ngIf="editMode" class="btn btn-danger br-btn mr-3 px-3">
+        Eliminar
+      </button>
+      <button *ngIf="editMode" class="btn btn-main br-btn px-3">Editar</button>
+      <button *ngIf="!editMode" class="btn btn-main br-btn px-3">
+        Guardar
+      </button>
     </div>
   </form>
 </div>
