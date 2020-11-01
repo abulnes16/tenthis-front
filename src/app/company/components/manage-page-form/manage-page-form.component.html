@@ -28,29 +28,38 @@
       </button>
     </div>
   </div>
-  <form class="px-4">
+  <form [formGroup]="pageForm" class="px-4">
     <div class="row no-gutters mb-3">
       <ng-container [ngSwitch]="currentForm">
         <ng-container *ngSwitchCase="'ct'">
           <div class="col-lg-12">
             <label for="">HTML</label>
-            <ace-editor [mode]="'html'" style="min-height: 180px"></ace-editor>
+            <ace-editor
+              formControlName="html"
+              [mode]="'html'"
+              style="min-height: 180px"
+            ></ace-editor>
           </div>
           <div class="col-lg-12 mb-3">
             <label for="">CSS</label>
-            <ace-editor [mode]="'css'" style="min-height: 180px"></ace-editor>
+            <ace-editor
+              formControlName="css"
+              [mode]="'css'"
+              style="min-height: 180px"
+            ></ace-editor>
           </div>
         </ng-container>
         <ng-container *ngSwitchCase="'nbt'">
           <div class="col-lg-12 mb-3">
             <label for="">Tipo de bloque</label>
-            <select class="custom-select">
+            <select formControlName="blockType" class="custom-select">
               <option value="0">Bloque A</option>
             </select>
           </div>
           <div class="col-lg-12 mb-3">
             <label for="">Columnas a ocupar</label>
             <input
+              formControlName="columns"
               type="text"
               class="form-control"
               placeholder="N° de columnas"
@@ -63,8 +72,12 @@
                 Agregar shortcout
               </button>
             </div>
-           
-            <quill-editor id="quill-1" class="mb-3"></quill-editor>
+
+            <quill-editor
+              formControlName="wyswyg"
+              id="quill-1"
+              class="mb-3"
+            ></quill-editor>
           </div>
           <div class="col-lg-12 mb-3">
             <p>Fondo</p>
@@ -79,7 +92,12 @@
                 >Agregar</label
               >
             </div>
-            <input type="file" class="file-input" id="background-img" />
+            <input
+              formControlName="bgBlock"
+              type="file"
+              class="file-input"
+              id="background-img"
+            />
           </div>
         </ng-container>
         <ng-container *ngSwitchCase="'bt'">
@@ -90,7 +108,7 @@
                 Agregar shortcout
               </button>
             </div>
-           <quill-editor id="quill-2"></quill-editor>
+            <quill-editor id="quill-2"></quill-editor>
           </div>
           <div class="col-lg-12 mb-3">
             <p>Fondo</p>
@@ -105,7 +123,12 @@
                 >Agregar</label
               >
             </div>
-            <input type="file" class="file-input" id="background-img" />
+            <input
+              formControlName="imgBlock"
+              type="file"
+              class="file-input"
+              id="background-img"
+            />
           </div>
         </ng-container>
       </ng-container>
