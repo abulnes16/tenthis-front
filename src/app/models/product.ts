@@ -5,7 +5,7 @@ interface Product {
   name: string;
   description: string;
   price: number;
-  categories: Array<Category>;
+  category: Array<Category>;
   quantity: number;
   tags: Array<string>;
   media: Array<Media>;
