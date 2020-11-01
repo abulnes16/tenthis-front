@@ -1,23 +1,58 @@
 <div class="box-shadow-card border-radius p-form">
-  <form>
+  <form [formGroup]="categoryForm">
     <div class="form-group d-flex justify-content-center align-items-center">
       <figure class="app-icon-xl mr-4">
         <fa-icon [icon]="icon" size="2x"></fa-icon>
       </figure>
       <div>
-        <label for="">Nombre categoria</label>
-        <input type="text" class="form-control" placeholder="Categoria" />
+        <label for="">Nombre de la categoria</label>
+        <input
+          [ngClass]="{
+            'invalid-input': name.invalid && (name.dirty || name.touched)
+          }"
+          formControlName="name"
+          type="text"
+          class="form-control"
+          placeholder="Categoria"
+        />
+        <div
+          *ngIf="name.invalid && (name.dirty || name.touched)"
+          class="validation-error text-danger"
+        >
+          <span>Debe ingresar un nombre de categoria</span>
+        </div>
       </div>
     </div>
     <div class="d-flex flex-column align-items-end px-4">
       <div class="form-group w-100 mb-3">
         <label for="">Descripción</label>
-        <textarea class="form-control" placeholder="Descripción"></textarea>
+        <textarea
+          [ngClass]="{
+            'invalid-input':
+              description.invalid && (description.dirty || description.touched)
+          }"
+          formControlName="description"
+          class="form-control"
+          placeholder="Descripción"
+        ></textarea>
+        <div
+          *ngIf="
+            description.invalid && (description.dirty || description.touched)
+          "
+          class="validation-error text-danger"
+        >
+          <span>Debe ingresar una descripción de la categoria</span>
+        </div>
       </div>
     </div>
     <div class="d-flex justify-content-end mt-2 px-4">
-      <button class="btn btn-danger br-btn mr-3 px-3">Eliminar</button>
-      <button class="btn btn-main br-btn px-3">Guardar</button>
+      <button *ngIf="editMode" class="btn btn-danger br-btn mr-3 px-3">
+        Eliminar
+      </button>
+      <button *ngIf="editMode" class="btn btn-main br-btn px-3">Editar</button>
+      <button *ngIf="!editMode" class="btn btn-main br-btn px-3">
+        Guardar
+      </button>
     </div>
   </form>
 </div>
