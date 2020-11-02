@@ -2,11 +2,19 @@
   padding: 3px 20px;
 }
 
-.order-client-img {
+@mixin order-client-img($width: 38px, $height: 38px) {
   img {
-    width: 38px;
-    height: 38px;
+    width: $width;
+    height: $width;
     border-radius: 50%;
     object-fit: cover;
   }
+}
+
+.order-client-img-md {
+  @include order-client-img();
+}
+
+.order-client-img-xl {
+  @include order-client-img(80px, 80px);
 }

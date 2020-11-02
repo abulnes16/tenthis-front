@@ -1,9 +1,9 @@
 import Product from './product';
 
 interface Order {
-  numOrder: number;
+  numOrder: string;
   client: any;
-  date: Date;
+  date: string;
   total: number;
   products: Array<Product>;
 }

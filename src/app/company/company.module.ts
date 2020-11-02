@@ -18,6 +18,7 @@ import { NewPageFormComponent } from './components/new-page-form/new-page-form.c
 import { ManagePageFormComponent } from './components/manage-page-form/manage-page-form.component';
 import { PagePreviewComponent } from './components/page-preview/page-preview.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -41,6 +42,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     CompanyRoutingModule,
     SharedModule,
+    NgbModule,
     ReactiveFormsModule,
     QuillModule.forRoot()
   ]
