@@ -11,7 +11,11 @@
     </div>
     <div class="col-lg-11 ml-auto mr-auto">
       <div class="row">
-        <div *ngFor="let store of stores" class="col-lg-6 col-md-12">
+        <div
+          *ngFor="let store of stores"
+          class="col-lg-6 col-md-12"
+          (click)="showStore()"
+        >
           <div class="block-item box-shadow-card">
             <div class="block-item__left">
               <figure class="app-icon-lg mr-4">
@@ -32,4 +36,72 @@
       </div>
     </div>
   </div>
+
+  <ng-template #storeModal let-modal>
+    <div class="modal-header bg-main">
+      <h4 class="modal-title" id="modal-basic-title"></h4>
+      <button
+        type="button"
+        class="close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      >
+        <span class="text-white" aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="px-5 py-2">
+        <div class="d-flex">
+          <figure>
+            <img
+              class="rounded-circle img-fluid"
+              src="./assets/images/default.png"
+              alt="Shop logo"
+              width="100"
+            />
+          </figure>
+          <div class="ml-5">
+            <h3>Nombre tienda</h3>
+            <h4>Dueño - <span class="font-weight-normal">Plan</span></h4>
+          </div>
+        </div>
+        <div class="mt-4">
+          <h5>Estadisticas</h5>
+          <div class="row">
+            <div
+              class="col-lg-6 d-flex align-items-center justify-content-lg-between"
+            >
+              <strong>Productos creados</strong>
+              <span class="app-icon">10</span>
+            </div>
+            <div
+              class="col-lg-6 d-flex align-items-center justify-content-lg-between"
+            >
+              <strong>Categorias creadas</strong>
+              <span class="app-icon">10</span>
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div
+              class="col-lg-6 d-flex align-items-center justify-content-lg-between"
+            >
+              <strong>Páginas creadas</strong> <span class="app-icon">10</span>
+            </div>
+            <div
+              class="col-lg-6 d-flex align-items-center justify-content-lg-between"
+            >
+              <strong>Ordenes recibidas </strong>
+              <span class="app-icon">10</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-danger br-btn">
+        Bloquear tienda
+      </button>
+      <button type="button" class="btn btn-main br-btn">Eliminar tienda</button>
+    </div>
+  </ng-template>
 </div>

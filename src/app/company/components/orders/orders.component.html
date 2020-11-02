@@ -32,17 +32,17 @@
           </thead>
           <tbody>
             <tr *ngFor="let order of orders">
-              <th scope="row ">{{ order.id }}</th>
+              <th scope="row ">{{ order.numOrder }}</th>
               <td class="d-flex justify-content-center">
-                <figure class="order-client-img mr-4 mb-0">
-                  <img class="" src="./assets/images/dev.jpg" alt="Client">
+                <figure class="order-client-img-md mr-4 mb-0">
+                  <img class="" src="./assets/images/dev.jpg" alt="Client" />
                 </figure>
                 {{ order.client }}
               </td>
               <td>{{ order.date }}</td>
               <td>{{ order.total | currency: "L." }}</td>
               <td class="d-flex justify-content-center align-items-center">
-                <button class="btn btn-main btn-action">
+                <button class="btn btn-main btn-action" (click)="showOrder()">
                   <fa-icon [icon]="goIcon"></fa-icon>
                 </button>
               </td>
@@ -52,4 +52,68 @@
       </div>
     </div>
   </div>
+
+  <ng-template #orderModal let-modal>
+    <div class="modal-header bg-main">
+      <h4 class="modal-title text-white" id="modal-basic-title">Orden N°</h4>
+      <button
+        type="button"
+        class="close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      >
+        <span class="text-white" aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="px-5 py-2">
+        <div class="d-flex">
+          <figure class="order-client-img-xl">
+            <img
+              class="img-fluid rounded-circle"
+              src="./assets/images/dev.jpg"
+              alt="Shop logo"
+            />
+          </figure>
+          <div class="ml-5">
+            <h4>Nombre cliente</h4>
+            <p>Fecha: 25/05/2020</p>
+          </div>
+        </div>
+        <div class="mt-4">
+          <h4>Detalle de orden</h4>
+          <table class="table mt-3">
+            <thead>
+              <tr>
+                <th scope="col">Productos</th>
+                <th scope="col">Cantidad</th>
+                <th scope="col">Precio</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Producto 1</th>
+                <td>2</td>
+                <td>15.00</td>
+              </tr>
+              <tr>
+                <th scope="row">Producto 1</th>
+                <td>2</td>
+                <td>15.00</td>
+              </tr>
+              <tr>
+                <th scope="row">Producto 1</th>
+                <td>2</td>
+                <td>15.00</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="d-flex justify-content-end">
+            <h5 class="mr-3">Total:</h5>
+            <h5>L. 45.00</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
 </div>

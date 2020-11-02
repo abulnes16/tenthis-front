@@ -4,13 +4,13 @@
       <h2>Productos</h2>
     </div>
     <div class="col-lg-5 d-flex justify-content-end">
-      <button class="btn-basic">Nuevo</button>
+      <button class="btn-basic" (click)="newProduct()">Nuevo</button>
     </div>
   </div>
   <div class="row mt-5">
     <div class="col-lg-4">
       <app-list>
-        <div *ngFor="let product of products" class="card-item">
+        <div *ngFor="let product of products" class="card-item" (click)="editProduct()">
           <figure class="app-icon">
             <fa-icon [icon]="productIcon" size="lg"></fa-icon>
           </figure>
@@ -21,7 +21,7 @@
       </app-list>
     </div>
     <div class="offset-1 col-lg-7 justify-content-center ml-auto mr-auto">
-      <app-product-form [icon]="productIcon"></app-product-form>
+      <app-product-form [editMode]="editMode" [icon]="productIcon"></app-product-form>
     </div>
   </div>
 </div>

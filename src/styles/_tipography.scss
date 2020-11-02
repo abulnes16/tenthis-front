@@ -1,3 +1,25 @@
+/* Texts */
+
 .txt-sm {
   font-size: 12px;
+}
+
+.text-danger {
+  color: var(--color-danger);
+}
+
+.text-main {
+  color: var(--color-primary);
+}
+
+.text-darken {
+  color: var(--color-darken);
+}
+
+.text-gray-darken {
+  color: var(--color-gray-darken);
+}
+
+.text-gray-dark {
+  color: var(--color-gray-dark);
 }

@@ -4,7 +4,7 @@
       <h2>Configuración</h2>
     </div>
   </div>
-  <form>
+  <form [formGroup]="configForm">
     <div class="row mt-3 no-gutters px-5">
       <div class="col-lg-12 mb-3">
         <h4>Generales</h4>
@@ -14,13 +14,35 @@
           <div class="col-lg-6">
             <div class="form-group">
               <label for="">Nombre de la tienda</label>
-              <input type="text" class="form-control" placeholder="Nombre" />
+              <input
+                [ngClass]="{
+                  'invalid-input':
+                    storeName.invalid && (storeName.dirty || storeName.touched)
+                }"
+                formControlName="storeName"
+                type="text"
+                class="form-control"
+                placeholder="Nombre"
+              />
+              <div
+                *ngIf="
+                  storeName.invalid && (storeName.dirty || storeName.touched)
+                "
+                class="validation-error text-danger"
+              >
+                <span>Debe ingresar el nombre de la tienda</span>
+              </div>
             </div>
           </div>
           <div class="col-lg-6">
             <div class="form-group">
               <label for="">Palabras clave</label>
-              <input type="text" class="form-control" placeholder="Keywords" />
+              <input
+                formControlName="keywords"
+                type="text"
+                class="form-control"
+                placeholder="Keywords"
+              />
             </div>
           </div>
         </div>
@@ -29,6 +51,7 @@
             <div class="form-group">
               <label for="">Descripción</label>
               <textarea
+                formControlName="description"
                 class="form-control"
                 placeholder="Descripción"
                 rows="5"
@@ -45,7 +68,12 @@
                     src="./assets/images/shop.jpg"
                     alt="Store logo"
                   />
-                  <input class="file-input" id="logo-file" type="file" />
+                  <input
+                    formControlName="logo"
+                    class="file-input"
+                    id="logo-file"
+                    type="file"
+                  />
                   <div>
                     <label for="logo-file" class="btn btn-main block config-btn"
                       >Agregar</label
@@ -61,7 +89,12 @@
                     src="./assets/images/shop.jpg"
                     alt="Store logo"
                   />
-                  <input class="file-input" id="fav-file" type="file" />
+                  <input
+                    formControlName="favicon"
+                    class="file-input"
+                    id="fav-file"
+                    type="file"
+                  />
                   <div>
                     <label for="fav-file" class="btn btn-main block config-btn"
                       >Agregar</label
@@ -84,6 +117,7 @@
             <div class="form-group">
               <label for="">Header</label>
               <ace-editor
+                formControlName="header"
                 [mode]="'html'"
                 style="min-height: 150px"
               ></ace-editor>
@@ -96,6 +130,7 @@
             <div class="form-group">
               <label for="">Footer</label>
               <ace-editor
+                formControlName="footer"
                 [mode]="'html'"
                 style="min-height: 150px"
               ></ace-editor>
@@ -107,13 +142,18 @@
           <div class="col-lg-6">
             <div class="form-group">
               <label for="">CSS del sitio</label>
-              <ace-editor [mode]="'css'" style="min-height: 150px"></ace-editor>
+              <ace-editor
+                formControlName="css"
+                [mode]="'css'"
+                style="min-height: 150px"
+              ></ace-editor>
             </div>
           </div>
           <div class="col-lg-6">
             <div class="form-group">
               <label for="">JS del sitio</label>
               <ace-editor
+                formControlName="js"
                 [mode]="'javascript'"
                 style="min-height: 150px"
               ></ace-editor>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { faClipboard } from '@fortawesome/free-solid-svg-icons';
+import Category from 'src/app/models/category';
 
 @Component({
   selector: 'app-categories',
@@ -9,24 +10,24 @@ import { faClipboard } from '@fortawesome/free-solid-svg-icons';
 export class CategoriesComponent implements OnInit {
 
   categoryIcon = faClipboard;
-  categories = [
+  editMode = false;
+
+  categories: Category[] = [
     {
-      name: 'Categoria'
+      name: 'Categoria',
+      description: '',
     },
     {
-      name: 'Categoria'
+      name: 'Categoria',
+      description: '',
     },
     {
-      name: 'Categoria'
+      name: 'Categoria',
+      description: '',
     },
     {
-      name: 'Categoria'
-    },
-    {
-      name: 'Categoria'
-    },
-    {
-      name: 'Categoria'
+      name: 'Categoria',
+      description: '',
     },
   ];
   constructor() { }
@@ -34,4 +35,11 @@ export class CategoriesComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  newCategory(): void {
+    this.editMode = false;
+  }
+
+  editCategory(): void {
+    this.editMode = true;
+  }
 }

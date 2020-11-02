@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { faBox } from '@fortawesome/free-solid-svg-icons';
+import Product from 'src/app/models/product';
 
 @Component({
   selector: 'app-products',
@@ -9,25 +10,44 @@ import { faBox } from '@fortawesome/free-solid-svg-icons';
 export class ProductsComponent implements OnInit {
 
   productIcon = faBox;
+  editMode = false;
 
-  products = [
+  products: Product[] = [
     {
-      name: 'Producto'
+      name: 'Producto',
+      category: null,
+      description: '',
+      media: null,
+      price: 0,
+      quantity: 0,
+      tags: ['']
     },
     {
-      name: 'Producto'
+      name: 'Producto',
+      category: null,
+      description: '',
+      media: null,
+      price: 0,
+      quantity: 0,
+      tags: ['']
     },
     {
-      name: 'Producto'
+      name: 'Producto',
+      category: null,
+      description: '',
+      media: null,
+      price: 0,
+      quantity: 0,
+      tags: ['']
     },
     {
-      name: 'Producto'
-    },
-    {
-      name: 'Producto'
-    },
-    {
-      name: 'Producto'
+      name: 'Producto',
+      category: null,
+      description: '',
+      media: null,
+      price: 0,
+      quantity: 0,
+      tags: ['']
     },
   ];
 
@@ -36,4 +56,11 @@ export class ProductsComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  newProduct(): void {
+    this.editMode = false;
+  }
+
+  editProduct(): void {
+    this.editMode = true;
+  }
 }

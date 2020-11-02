@@ -13,16 +13,29 @@ import { AdminStoresComponent } from './components/admin-stores/admin-stores.com
 import { UserFormComponent } from './components/user-form/user-form.component';
 import { PlanFormComponent } from './components/plan-form/plan-form.component';
 import { TemplateFormComponent } from './components/template-form/template-form.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 
 @NgModule({
-  declarations: [AdminLayoutComponent, UsersComponent, TemplatesComponent, AdminPlansComponent, AdminStoresComponent, UserFormComponent, PlanFormComponent, TemplateFormComponent],
+  declarations: [
+    AdminLayoutComponent,
+    UsersComponent,
+    TemplatesComponent,
+    AdminPlansComponent,
+    AdminStoresComponent,
+    UserFormComponent,
+    PlanFormComponent,
+    TemplateFormComponent
+  ],
   imports: [
     CommonModule,
     AdminRoutingModule,
     SharedModule,
+    NgbModule,
     FontAwesomeModule,
+    ReactiveFormsModule
   ]
 })
 export class AdminModule { }

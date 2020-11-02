@@ -1,33 +1,95 @@
 <div class="box-shadow-card border-radius p-form">
-  <form>
+  <form [formGroup]="productForm">
     <div class="form-group d-flex justify-content-center align-items-center">
       <figure class="app-icon-xl mr-4">
         <fa-icon [icon]="icon" size="2x"></fa-icon>
       </figure>
       <div>
         <label for="">Nombre producto</label>
-        <input type="text" class="form-control" placeholder="Producto" />
+        <input
+          [ngClass]="{
+            'invalid-input': name.invalid && (name.dirty || name.touched)
+          }"
+          formControlName="name"
+          type="text"
+          class="form-control"
+          placeholder="Producto"
+        />
+        <div
+          *ngIf="name.invalid && (name.dirty || name.touched)"
+          class="validation-error text-danger"
+        >
+          <span>Debe ingresar un nombre de producto</span>
+        </div>
       </div>
     </div>
     <div class="d-flex flex-column align-items-end px-4">
       <div class="form-group w-100 mb-3">
         <label for="">Descripción</label>
-        <textarea class="form-control" placeholder="Descripción"></textarea>
+        <textarea
+          [ngClass]="{
+            'invalid-input':
+              description.invalid && (description.dirty || description.touched)
+          }"
+          formControlName="description"
+          class="form-control"
+          placeholder="Descripción"
+        ></textarea>
+        <div
+          *ngIf="
+            description.invalid && (description.dirty || description.touched)
+          "
+          class="validation-error text-danger"
+        >
+          <span>Debe ingresar una descripción del producto</span>
+        </div>
       </div>
       <h5 class="mr-auto mb-3">Datos del producto</h5>
       <div class="row">
         <div class="col">
           <div class="form-group w-100 mb-3">
             <label for="">Precio</label>
-            <input type="number" class="form-control" placeholder="Precio" />
+            <input
+              [ngClass]="{
+                'invalid-input': price.invalid && (price.dirty || price.touched)
+              }"
+              formControlName="price"
+              type="number"
+              class="form-control"
+              placeholder="Precio"
+            />
+            <div
+              *ngIf="price.invalid && (price.dirty || price.touched)"
+              class="validation-error text-danger"
+            >
+              <span *ngIf="price.errors?.required"
+                >Debe ingresar un precio</span
+              >
+              <span *ngIf="price.errors?.min"
+                >El precio no puede ser menor a 1
+              </span>
+            </div>
           </div>
         </div>
         <div class="col">
           <div class="form-group w-100 mb-3">
             <label for="">Categoria</label>
-            <select class="custom-select">
+            <select
+              [ngClass]="{
+                'invalid-input':
+                  category.invalid && (category.dirty || category.touched)
+              }"
+              formControlName="category"
+              class="custom-select"
+            >
               <option value="0">Categoria</option>
             </select>
+            <div
+              *ngIf="category.invalid && (category.dirty || category.touched)"
+              class="validation-error text-danger"
+            >
+              <span>Debe seleccionar una categoria</span>
+            </div>
           </div>
         </div>
       </div>
@@ -35,13 +97,33 @@
         <div class="col">
           <div class="form-group w-100 mb-3">
             <label for="">Cantidad</label>
-            <input type="number" class="form-control" placeholder="Cantidad" />
+            <input
+              [ngClass]="{
+                'invalid-input':
+                  quantity.invalid && (quantity.dirty || quantity.touched)
+              }"
+              formControlName="quantity"
+              type="number"
+              class="form-control"Debe ingresar unDebe ingresar un nombre de usuario nombre de usuario
+              placeholder="Cantidad"
+            />
+            <div
+              *ngIf="quantity.invalid && (quantity.dirty || quantity.touched)"
+              class="validation-error text-danger"
+            >
+              <span>Debe ingresar la cantidad de producto a vender</span>
+            </div>
           </div>
         </div>
         <div class="col">
           <div class="form-group w-100 mb-3">
             <label for="">Tags</label>
-            <input type="text" class="form-control" placeholder="Tags" />
+            <input
+              formControlName="tags"
+              type="text"
+              class="form-control"
+              placeholder="Tags"
+            />
           </div>
         </div>
       </div>
@@ -75,8 +157,13 @@
       </div>
     </div>
     <div class="d-flex justify-content-end mt-2 px-4">
-      <button class="btn btn-danger br-btn mr-3 px-3">Eliminar</button>
-      <button class="btn btn-main br-btn px-3">Guardar</button>
+      <button *ngIf="editMode" class="btn btn-danger br-btn mr-3 px-3">
+        Eliminar
+      </button>
+      <button *ngIf="editMode" class="btn btn-main br-btn px-3">Editar</button>
+      <button *ngIf="!editMode" class="btn btn-main br-btn px-3">
+        Guardar
+      </button>
     </div>
   </form>
 </div>
