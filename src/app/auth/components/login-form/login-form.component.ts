@@ -4,6 +4,7 @@ import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/fo
 import { Router } from '@angular/router';
 
 import Swal from 'sweetalert2';
+import decode from 'jwt-decode';
 
 import { AuthService } from '../../../core/services/auth/auth.service';
 @Component({
@@ -38,12 +39,12 @@ export class LoginFormComponent implements OnInit {
 
       this.authService.login(this.email.value, this.password.value)
         .subscribe(async (res: any) => {
-          console.log(res);
           if (res.status === 200) {
-            sessionStorage.setItem('user', JSON.stringify(res.data));
+            const { token } = res.data;
+            sessionStorage.setItem('token', token);
             await Swal.fire('Login exitoso', '¡Bienvenido a Tenthis!', 'success');
-            const { role } = res.data;
-            switch (role) {
+            const tokenPayload = decode(token);
+            switch (tokenPayload.role) {
               case 'client':
                 this.router.navigateByUrl('/shop');
                 break;
