@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { OwnerGuard } from '../core/guards/owner.guard';
 import { WelcomeComponent } from '../shared/components/welcome/welcome.component';
 import { CategoriesComponent } from './components/categories/categories.component';
 import { CompanyLayoutComponent } from './components/company-layout/company-layout.component';
@@ -49,15 +50,18 @@ const routes: Routes = [
         path: 'configuration',
         component: ConfigComponent
       }
-    ]
+    ],
+    canActivate: [OwnerGuard]
   },
   {
     path: 'pages/create',
-    component: NewPageComponent
+    component: NewPageComponent,
+    canActivate: [OwnerGuard]
   },
   {
     path: ':company-id/pages/:page-id',
-    component: ManagePageComponent
+    component: ManagePageComponent,
+    canActivate: [OwnerGuard]
   },
 ];
 
