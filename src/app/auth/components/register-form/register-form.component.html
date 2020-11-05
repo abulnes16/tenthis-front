@@ -4,11 +4,13 @@
     <p *ngIf="registerText">{{ registerText }}</p>
     <div class="form-group">
       <select
+        (change)="validatePlan($event)"
         [ngClass]="{ 'invalid-input': plan.invalid }"
         formControlName="plan"
         class="custom-select border-radius"
       >
         <option value="0">Seleccione un plan</option>
+        <option *ngFor="let p of plans" [value]="p.name">{{ p.name }}</option>
       </select>
       <div
         *ngIf="plan.invalid && (plan.dirty || plan.touched)"
@@ -21,12 +23,30 @@
       <input
         [ngClass]="{ 'invalid-input': store.invalid }"
         type="text"
-        formControlName="store"
+        formControlName="storeName"
         class="form-control border-radius"
         placeholder="Nombre de tu tienda"
       />
       <div *ngIf="store.invalid" class="validation-error">
         Debe ponerle nombre a su tienda
+      </div>
+    </div>
+    <div class="form-group">
+      <input
+        [ngClass]="{
+          'invalid-input':
+            name.invalid && (name.touched || name.dirty)
+        }"
+        type="text"
+        formControlName="name"
+        class="form-control border-radius"
+        placeholder="Nombre de usaurio"
+      />
+      <div
+        *ngIf="name.invalid && (name.touched || name.dirty)"
+        class="validation-error"
+      >
+        Debe ingresar un nombre de usuario
       </div>
     </div>
     <div class="form-group">
@@ -64,7 +84,7 @@
         <span *ngIf="password.errors?.required"
           >Debe ingresar una contraseña</span
         >
-        <span *ngIf="password.errors?.minLength"
+        <span *ngIf="password.errors?.minlength"
           >La contraseña debe ser minimo de 8 caracteres</span
         >
       </div>
@@ -89,10 +109,14 @@
         <span *ngIf="confirm.hasError('mismatch')">
           Las contraseñas no coinciden
         </span>
+        <span *ngIf="confirm.errors?.minlength">
+          La contraseña debe ser minimo de 8 caracteres
+        </span>
       </div>
     </div>
     <button
       [disabled]="!registerForm.valid"
+      (click)="register()"
       class="btn btn-block btn-light br-btn mt-4"
     >
       Registrate

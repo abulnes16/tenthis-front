@@ -8,10 +8,16 @@ import { RegisterComponent } from './components/register/register.component';
 import { LoginFormComponent } from './components/login-form/login-form.component';
 import { LoginComponent } from './components/login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CoreModule } from '../core/core.module';
 
 
 @NgModule({
-  declarations: [RegisterFormComponent, RegisterComponent, LoginFormComponent, LoginComponent],
+  declarations: [
+    RegisterFormComponent,
+    RegisterComponent,
+    LoginFormComponent,
+    LoginComponent
+  ],
   exports: [RegisterFormComponent],
   imports: [
     CommonModule,
