@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { OwnerGuard } from '../core/guards/owner.guard';
+import { AuthGuard } from '../core/guards/auth.guard';
 import { WelcomeComponent } from '../shared/components/welcome/welcome.component';
 import { CategoriesComponent } from './components/categories/categories.component';
 import { CompanyLayoutComponent } from './components/company-layout/company-layout.component';
@@ -51,17 +51,21 @@ const routes: Routes = [
         component: ConfigComponent
       }
     ],
-    canActivate: [OwnerGuard]
+    canActivate: [AuthGuard],
+    data: { expectedRole: 'owner' }
+
   },
   {
     path: 'pages/create',
     component: NewPageComponent,
-    canActivate: [OwnerGuard]
+    canActivate: [AuthGuard],
+    data: { expectedRole: 'owner' }
   },
   {
     path: ':company-id/pages/:page-id',
     component: ManagePageComponent,
-    canActivate: [OwnerGuard]
+    canActivate: [AuthGuard],
+    data: { expectedRole: 'owner' }
   },
 ];
 

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ClientGuard } from '../core/guards/client.guard';
+import { AuthGuard } from '../core/guards/auth.guard';
 import { ClientLayoutComponent } from './components/client-layout/client-layout.component';
 import { ClientOrdersComponent } from './components/client-orders/client-orders.component';
 import { StoreListComponent } from './components/store-list/store-list.component';
@@ -24,7 +24,8 @@ const routes: Routes = [
         component: ClientOrdersComponent
       }
     ],
-    canActivate: [ClientGuard]
+    canActivate: [AuthGuard],
+    data: { expectedRole: 'client' }
   }
 ];
 
