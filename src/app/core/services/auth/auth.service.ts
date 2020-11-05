@@ -9,12 +9,17 @@ import { environment } from '../../../../environments/environment';
 })
 export class AuthService {
 
-  private baseRoute = 'auth';
+  private static baseRoute = `${environment.apiURL}/auth`;
 
   constructor(private http: HttpClient) { }
 
   register(userData): Observable<any> {
-    return this.http.post(`${environment.apiURL}/${this.baseRoute}/register`, userData);
+    return this.http.post(`${AuthService.baseRoute}/register`, userData);
+  }
+
+  login(email, password): Observable<any> {
+    const data = { email, password };
+    return this.http.post(`${AuthService.baseRoute}/login`, data);
   }
 
   setRegisterRole(planName): string {

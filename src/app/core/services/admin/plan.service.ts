@@ -10,11 +10,11 @@ import { environment } from '../../../../environments/environment';
 })
 export class PlanService {
 
-  private baseRoute = 'plan';
+  private static baseRoute = `${environment.apiURL}/plan`;
 
   constructor(private http: HttpClient) { }
 
   getPlans(): Observable<any> {
-    return this.http.get(`${environment.apiURL}/${this.baseRoute}`);
+    return this.http.get(PlanService.baseRoute);
   }
 }

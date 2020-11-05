@@ -65,9 +65,7 @@ export class RegisterFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.planService.getPlans().subscribe((res: any) => {
-      console.log(res.data, 'Data');
       this.plans = [...res.data];
-      console.log(this.plans);
     });
   }
 
@@ -108,6 +106,4 @@ export class RegisterFormComponent implements OnInit {
       Swal.fire('Información invalida', 'Debe ingresar la información correspondiente', 'error');
     }
   }
-
-
 }
