@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
+import APIResponse from 'src/app/models/response';
 import User from 'src/app/models/user';
+
+import { UserService } from '../../../core/services/admin/user.service';
 
 @Component({
   selector: 'app-users',
@@ -11,40 +14,18 @@ export class UsersComponent implements OnInit {
 
   userIcon = faUser;
   editMode = false;
-  users: User[] = [
-    {
-      name: 'Nombre',
-      email: '',
-      role: 'Rol',
-      store: null,
-      plan: null
-    },
-    {
-      name: 'Nombre',
-      email: '',
-      role: 'Rol',
-      store: null,
-      plan: null
-    },
-    {
-      name: 'Nombre',
-      email: '',
-      role: 'Rol',
-      store: null,
-      plan: null
-    },
-    {
-      name: 'Nombre',
-      email: '',
-      role: 'Rol',
-      store: null,
-      plan: null
-    },
-  ];
+  users: User[];
 
-  constructor() { }
+  constructor(private userService: UserService) { }
 
   ngOnInit(): void {
+    this.userService.getUsers().subscribe((res: APIResponse) => {
+      this.users = res.data;
+    });
+  }
+
+  addUser(user: User): void {
+    this.users.push(user);
   }
 
   newUser(): void {
