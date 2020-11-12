@@ -22,4 +22,16 @@ export class UserService {
     return this.http.post(`${environment.apiURL}/auth/register`, user);
   }
 
+  getUserById(id: string): Observable<any> {
+    return this.http.get(`${UserService.route}/${id}`);
+  }
+
+  updateUser(id: string, user: User): Observable<any> {
+    return this.http.put(`${UserService.route}/${id}`, user);
+  }
+
+  deleteUser(id: string): Observable<any> {
+    return this.http.delete(`${UserService.route}/${id}`);
+  }
+
 }

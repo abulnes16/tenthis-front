@@ -10,7 +10,11 @@
   <div class="row mt-5">
     <div class="col-lg-4">
       <app-list>
-        <div *ngFor="let user of users" class="card-item" (click)="editUser()">
+        <div
+          *ngFor="let user of users"
+          class="card-item"
+          (click)="editUser(user._id)"
+        >
           <figure class="app-icon">
             <fa-icon [icon]="userIcon" size="lg"></fa-icon>
           </figure>
@@ -23,8 +27,11 @@
     </div>
     <div class="offset-1 col-lg-7 justify-content-center ml-auto mr-auto">
       <app-user-form
-        (newUser)="addUser($event)"
+        (updatedUser)="updateUserList($event)"
+        (deletedUser)="deleteUserFromList()"
+        (createdUser)="addUserToList($event)"
         [editMode]="editMode"
+        [editUser]="currentUser"
       ></app-user-form>
     </div>
   </div>

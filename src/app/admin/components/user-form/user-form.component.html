@@ -71,7 +71,7 @@
           [ngClass]="{
             'invalid-input': store.invalid && (store.dirty || store.touched)
           }"
-          formControlName="storeName"
+          formControlName="store"
           type="text"
           class="form-control"
           placeholder="Nombre tienda"
@@ -106,7 +106,7 @@
           >
         </div>
       </div>
-      <div class="form-group w-100 mb-3">
+      <div [hidden]="editMode" class="form-group w-100 mb-3">
         <label for="">Contraseña</label>
         <input
           [ngClass]="{
@@ -132,7 +132,11 @@
       </div>
     </div>
     <div class="d-flex justify-content-end mt-2 px-4">
-      <button *ngIf="editMode" class="btn btn-danger br-btn mr-3 px-3">
+      <button
+        (click)="deleteUser()"
+        *ngIf="editMode"
+        class="btn btn-danger br-btn mr-3 px-3"
+      >
         Eliminar
       </button>
       <button
@@ -143,7 +147,13 @@
       >
         Guardar
       </button>
-      <button *ngIf="editMode" class="btn btn-main br-btn px-3">Editar</button>
+      <button
+        (click)="updateUser()"
+        *ngIf="editMode"
+        class="btn btn-main br-btn px-3"
+      >
+        Editar
+      </button>
     </div>
   </form>
 </div>
