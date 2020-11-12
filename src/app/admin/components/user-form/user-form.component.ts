@@ -76,39 +76,48 @@ export class UserFormComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(): void {
+    this.setFormData();
+  }
+
+  validateRole(event: any): void {
+    this.disableInputs(event.target.value);
+  }
+
+  setFormData(): void {
     if (!this.editMode) {
       this.userForm.reset();
       this.plan.enable();
       this.store.enable();
       this.email.enable();
     } else {
+      if (this.editUser) {
+        switch (this.editUser.role) {
+          case 'admin':
+            this.plan.disable();
+            this.store.disable();
+            break;
+          case 'client':
+            this.store.disable();
+            this.plan.enable();
+            break;
+          default:
+            this.plan.enable();
+            this.store.enable();
+            break;
+        }
 
-      switch (this.editUser.role) {
-        case 'admin':
-          this.plan.disable();
-          this.store.disable();
-          break;
-        case 'client':
-          this.store.disable();
-          this.plan.enable();
-          break;
-        default:
-          this.plan.enable();
-          this.store.enable();
-          break;
+        this.email.disable();
+
+        // Erase _id property for fill the form group
+        const formData = { ...this.editUser };
+        delete formData._id;
+        this.userForm.setValue(formData);
       }
-
-      this.email.disable();
-
-      // Erase _id property for fill the form group
-      const formData = { ...this.editUser };
-      delete formData._id;
-      this.userForm.setValue(formData);
     }
   }
 
-  validateRole(event: any): void {
-    switch (event.target.value) {
+  disableInputs(value: any): void {
+    switch (value) {
       case 'admin':
         if (this.plan.value) {
           this.plan.setValue(null);
@@ -135,10 +144,6 @@ export class UserFormComponent implements OnInit, OnChanges {
         break;
     }
   }
-
-
-
-
 
   createUser(): void {
     if (this.userForm.valid) {
