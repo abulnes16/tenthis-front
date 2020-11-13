@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { faTag } from '@fortawesome/free-solid-svg-icons';
 import Plan from 'src/app/models/plan';
+import APIResponse from 'src/app/models/response';
 
+import { PlanService } from '../../../core/services/admin/plan.service';
 @Component({
   selector: 'app-admin-plans',
   templateUrl: './admin-plans.component.html',
@@ -11,51 +13,36 @@ export class AdminPlansComponent implements OnInit {
 
   editMode = false;
   planIcon = faTag;
-  plans: Plan[] = [
-    {
-      name: 'Plan',
-      price: 0,
-      storage: 0,
-      numPages: 0,
-      numProducts: 0,
-      numTemplates: 0,
-    },
-    {
-      name: 'Plan',
-      price: 0,
-      storage: 0,
-      numPages: 0,
-      numProducts: 0,
-      numTemplates: 0,
-    },
-    {
-      name: 'Plan',
-      price: 0,
-      storage: 0,
-      numPages: 0,
-      numProducts: 0,
-      numTemplates: 0,
-    },
-    {
-      name: 'Plan',
-      price: 0,
-      storage: 0,
-      numPages: 0,
-      numProducts: 0,
-      numTemplates: 0,
-    },
-  ];
+  plans: Plan[];
+  currentPlan: Plan;
 
-  constructor() { }
+  constructor(private planService: PlanService) { }
 
   ngOnInit(): void {
+    this.planService.getPlans().subscribe((res: APIResponse) => {
+      this.plans = res.data;
+    });
   }
 
   newPlan(): void {
     this.editMode = false;
+    this.currentPlan = null;
   }
 
-  editPlan(): void {
+  addPlan(plan: Plan): void {
+    this.plans.push(plan);
+  }
+
+  updatePlan(plan: Plan): void {
+    this.plans = this.plans.map((p: Plan) => p._id === plan._id ? plan : p);
+  }
+
+  deletePlan(id: string): void {
+    this.plans = this.plans.filter((p: Plan) => p._id !== id);
+  }
+
+  editPlan(id: string): void {
+    this.currentPlan = this.plans.find((p: Plan) => p._id === id);
     this.editMode = true;
   }
 

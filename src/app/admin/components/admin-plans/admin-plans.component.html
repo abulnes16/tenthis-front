@@ -10,7 +10,11 @@
   <div class="row mt-5">
     <div class="col-lg-4">
       <app-list>
-        <div *ngFor="let plan of plans" class="card-item" (click)="editPlan()">
+        <div
+          *ngFor="let plan of plans"
+          class="card-item"
+          (click)="editPlan(plan._id)"
+        >
           <figure class="app-icon">
             <fa-icon [icon]="planIcon" size="lg"></fa-icon>
           </figure>
@@ -21,7 +25,14 @@
       </app-list>
     </div>
     <div class="offset-1 col-lg-7 justify-content-center ml-auto mr-auto">
-      <app-plan-form [editMode]="editMode" [icon]="planIcon"></app-plan-form>
+      <app-plan-form
+        [editMode]="editMode"
+        [editPlan]="currentPlan"
+        [icon]="planIcon"
+        (updatedPlan)="updatePlan($event)"
+        (createdPlan)="addPlan($event)"
+        (deletedPlan)="deletePlan($event)"
+      ></app-plan-form>
     </div>
   </div>
 </div>
