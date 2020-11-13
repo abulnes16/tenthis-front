@@ -17,15 +17,19 @@
   </div>
   <div class="right-content">
     <div ngbDropdown>
-      <div class="user-container" id="dropdown" ngbDropdownToggle>
+      <div
+        class="user-container cursor-pointer"
+        id="dropdown"
+        ngbDropdownToggle
+      >
         <img class="user-img" src="./assets/images/dev.jpg" alt="User image" />
-        <h5 class="mr-2 font-weight-normal">Username</h5>
+        <h5 class="mr-2 font-weight-normal">{{ username }}</h5>
       </div>
       <div class="drop-container" ngbDropdownMenu aria-labelledby="dropdown">
         <a
           *ngIf="isInAdminCompanies()"
           routerLink="configuration"
-          class="drop-item tooltip-up-arrow"
+          class="drop-item cursor-pointer tooltip-up-arrow"
           ngbDropdownItem
         >
           <fa-icon
@@ -35,7 +39,7 @@
           ></fa-icon>
           <span>Configuración</span>
         </a>
-        <a class="drop-item" ngbDropdownItem>
+        <a class="drop-item cursor-pointer" ngbDropdownItem (click)="logout()">
           <fa-icon
             [icon]="signOutIcon"
             class="text-darken mr-3"

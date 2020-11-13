@@ -11,10 +11,11 @@ import { WelcomeComponent } from './components/welcome/welcome.component';
 import { ListComponent } from './components/list/list.component';
 import { AceEditorModule } from 'ng2-ace-editor';
 import { FilterPipe } from './pipes/filter.pipe';
+import { TrimPipe } from './pipes/trim.pipe';
 
 
 @NgModule({
-  declarations: [NavComponent, SidebarComponent, WelcomeComponent, ListComponent, FilterPipe],
+  declarations: [NavComponent, SidebarComponent, WelcomeComponent, ListComponent, FilterPipe, TrimPipe],
   imports: [
     CommonModule,
     FontAwesomeModule,
@@ -31,6 +32,7 @@ import { FilterPipe } from './pipes/filter.pipe';
     FontAwesomeModule,
     // Pipes
     FilterPipe,
+    TrimPipe,
   ]
 })
 export class SharedModule { }
