@@ -16,34 +16,7 @@ export class TemplatesComponent implements OnInit {
       name: 'Plantilla',
       css: '',
       js: '',
-      description: '',
-      media: null
-    },
-    {
-      name: 'Plantilla',
-      css: '',
-      js: '',
-      description: '',
-      media: null
-    },
-    {
-      name: 'Plantilla',
-      css: '',
-      js: '',
-      description: '',
-      media: null
-    },
-    {
-      name: 'Plantilla',
-      css: '',
-      js: '',
-      description: '',
-      media: null
-    },
-    {
-      name: 'Plantilla',
-      css: '',
-      js: '',
+      html: '',
       description: '',
       media: null
     },

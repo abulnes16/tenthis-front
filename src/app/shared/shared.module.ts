@@ -10,10 +10,11 @@ import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { ListComponent } from './components/list/list.component';
 import { AceEditorModule } from 'ng2-ace-editor';
+import { FilterPipe } from './pipes/filter.pipe';
 
 
 @NgModule({
-  declarations: [NavComponent, SidebarComponent, WelcomeComponent, ListComponent],
+  declarations: [NavComponent, SidebarComponent, WelcomeComponent, ListComponent, FilterPipe],
   imports: [
     CommonModule,
     FontAwesomeModule,
@@ -28,6 +29,8 @@ import { AceEditorModule } from 'ng2-ace-editor';
     WelcomeComponent,
     AceEditorModule,
     FontAwesomeModule,
+    // Pipes
+    FilterPipe,
   ]
 })
 export class SharedModule { }

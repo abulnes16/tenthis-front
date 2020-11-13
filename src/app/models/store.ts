@@ -5,14 +5,17 @@ import Product from './product';
 import User from './user';
 
 interface Store {
+  _id?: string;
   name: string;
-  owner: User;
+  user: User;
   description: string;
   products: Array<Product>;
   categories: Array<Category>;
   pages: Array<any>;
   configuration: Configuration;
   media: Array<Media>;
+  isBlock: boolean;
+  isActive: boolean;
 }
 
 export default Store;
