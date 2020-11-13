@@ -165,31 +165,68 @@ export class UserFormComponent implements OnInit, OnChanges {
 
   updateUser(): void {
     const updateUser = { ...this.userForm.getRawValue(), storeName: this.store.value };
-    this.userService.updateUser(this.editUser._id, updateUser).subscribe((res: APIResponse) => {
-      if (res.status === 200) {
-        Swal.fire('Usuario actualizado', 'El usuario se actualizó con exito', 'success');
-        this.updatedUser.emit(res.data);
-      } else {
+    if (this.validateUpdate(updateUser)) {
+      this.userService.updateUser(this.editUser._id, updateUser).subscribe((res: APIResponse) => {
+        if (res.status === 200) {
+          Swal.fire('Usuario actualizado', 'El usuario se actualizó con exito', 'success');
+          this.updatedUser.emit(res.data);
+        } else {
+          Swal.fire('Actualización fallida', 'Ocurrió un error al actualizar el usuario', 'error');
+        }
+      }, (error) => {
+        console.log(error);
         Swal.fire('Actualización fallida', 'Ocurrió un error al actualizar el usuario', 'error');
-      }
-    }, (error) => {
-      console.log(error);
-      Swal.fire('Actualización fallida', 'Ocurrió un error al actualizar el usuario', 'error');
-    });
+      });
+    } else {
+      Swal.fire(
+        'Datos invalidos',
+        `No puede seleccionar el rol ${updateUser.role} con el plan seleccionado actualmente`,
+        'error'
+      );
+    }
   }
 
-  deleteUser(): void {
-    this.userService.deleteUser(this.editUser._id).subscribe((res: APIResponse) => {
-      if (res.status === 200) {
-        Swal.fire('Usuario eliminado', 'El usuario se eliminó con exito', 'success');
-        this.userForm.reset();
-        this.deletedUser.emit();
-      } else {
-        Swal.fire('Eliminación fallida', 'Ocurrió un error al eliminar el usuario', 'error');
-      }
-    }, (error) => {
-      console.log(error);
-      Swal.fire('Eliminación fallida', 'Ocurrió un error al eliminar el usuario', 'error');
+  validateUpdate(user: User): boolean {
+
+    const clientPlan = this.plans.find(plan => plan.name === 'Client');
+    if (user.role === 'client' && user.plan !== clientPlan._id) {
+      return false;
+    }
+
+    if (user.role === 'owner' && user.plan === clientPlan._id) {
+      return false;
+    }
+    return true;
+  }
+
+  async deleteUser(): Promise<any> {
+    const confirm = await Swal.fire({
+      title: '¿Esta seguro de eliminar este usuario?',
+      text: `Esta acción es irreversible,
+             si borra el usuario es probable que
+             tambien se borre su tienda`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#108b47',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, eliminalo',
+      cancelButtonText: 'Cancelar',
+      reverseButtons: true,
     });
+
+    if (confirm.isConfirmed) {
+      this.userService.deleteUser(this.editUser._id).subscribe((res: APIResponse) => {
+        if (res.status === 200) {
+          Swal.fire('Usuario eliminado', 'El usuario se eliminó con exito', 'success');
+          this.userForm.reset();
+          this.deletedUser.emit();
+        } else {
+          Swal.fire('Eliminación fallida', 'Ocurrió un error al eliminar el usuario', 'error');
+        }
+      }, (error) => {
+        console.log(error);
+        Swal.fire('Eliminación fallida', 'Ocurrió un error al eliminar el usuario', 'error');
+      });
+    }
   }
 }
