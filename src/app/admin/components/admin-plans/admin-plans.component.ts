@@ -42,7 +42,9 @@ export class AdminPlansComponent implements OnInit {
   }
 
   editPlan(id: string): void {
-    this.currentPlan = this.plans.find((p: Plan) => p._id === id);
+    this.planService.getPlanById(id).subscribe((res: APIResponse) => {
+      this.currentPlan = res.data;
+    });
     this.editMode = true;
   }
 

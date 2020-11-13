@@ -20,6 +20,10 @@ export class PlanService {
     return this.http.get(PlanService.route);
   }
 
+  getPlanById(id: string): Observable<any> {
+    return this.http.get(`${PlanService.route}/${id}`);
+  }
+
   createPlan(plan: Plan): Observable<any> {
     return this.http.post(PlanService.route, plan);
   }
