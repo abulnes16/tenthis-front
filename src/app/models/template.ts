@@ -7,7 +7,7 @@ interface Template {
   html: string;
   css: string;
   js: string;
-  media: Array<Media>;
+  media: Array<any> | Array<Blob>;
 }
 
 export default Template;
