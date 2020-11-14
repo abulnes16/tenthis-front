@@ -33,8 +33,15 @@ export class TemplatesComponent implements OnInit {
     this.templates.push(template);
   }
 
-  editTemplate(): void {
+  deleteTemplate(id: string): void {
+    this.templates = this.templates.filter((t: Template) => t._id !== id);
+  }
+
+  editTemplate(id: string): void {
     this.editMode = true;
+    this.templateService.getTemplateById(id).subscribe((res: APIResponse) => {
+      this.currentTemplate = res.data;
+    });
   }
 
 }

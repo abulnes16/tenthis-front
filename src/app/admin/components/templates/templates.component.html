@@ -11,15 +11,15 @@
     <div class="col-lg-4">
       <app-list>
         <div
-          *ngFor="let t of templates"
+          *ngFor="let template of templates"
           class="card-item"
-          (click)="editTemplate()"
+          (click)="editTemplate(template._id)"
         >
           <figure class="app-icon">
             <fa-icon [icon]="templateIcon" size="lg"></fa-icon>
           </figure>
           <div class="ml-3">
-            <p>{{ t.name }}</p>
+            <p>{{ template.name }}</p>
           </div>
         </div>
       </app-list>
@@ -27,7 +27,9 @@
     <div class="offset-1 col-lg-7 justify-content-center ml-auto mr-auto">
       <app-template-form
         (createdTemplate)="addTemplate($event)"
+        (deletedTemplate)="deleteTemplate($event)"
         [editMode]="editMode"
+        [editTemplate]="currentTemplate"
         [icon]="templateIcon"
       ></app-template-form>
     </div>

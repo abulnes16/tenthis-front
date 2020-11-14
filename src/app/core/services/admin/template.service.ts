@@ -18,6 +18,10 @@ export class TemplateService {
     return this.http.get(TemplateService.route);
   }
 
+  getTemplateById(id: string): Observable<any> {
+    return this.http.get(`${TemplateService.route}/${id}`);
+  }
+
   createTemplate(template: Template): Observable<any> {
     // Create form data
     const formData = new FormData();
@@ -28,5 +32,9 @@ export class TemplateService {
     formData.append('js', template.js);
     template.media.forEach(file => formData.append('media', file));
     return this.http.post(TemplateService.route, formData);
+  }
+
+  deleteTemplate(id: string): Observable<any> {
+    return this.http.delete(`${TemplateService.route}/${id}`);
   }
 }
