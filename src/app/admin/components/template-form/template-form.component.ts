@@ -165,4 +165,10 @@ export class TemplateFormComponent implements OnInit, OnChanges {
     }
   }
 
+  removeFromGallery(path: string): void {
+    this.gallery = this.gallery.filter((imgPath: string) => imgPath !== path);
+    const newGallery = this.media.value.filter((img: any) => img.path !== path);
+    this.media.setValue(newGallery);
+  }
+
 }

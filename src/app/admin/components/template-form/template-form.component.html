@@ -89,7 +89,14 @@
         <div class="form-gallery scrollbar">
           <div *ngIf="gallery.length !== 0; else emptyMedia" class="row">
             <div *ngFor="let img of gallery" class="col-lg-4 mb-3">
-              <img [src]="img" alt="Gallery" />
+              <div class="relative">
+                <img [src]="img" alt="Gallery" />
+                <span
+                  class="r-gallery app-icon-xs bg-danger"
+                  (click)="removeFromGallery(img)"
+                  >&times;</span
+                >
+              </div>
             </div>
           </div>
           <ng-template #emptyMedia>
