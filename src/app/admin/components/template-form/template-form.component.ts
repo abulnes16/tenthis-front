@@ -57,22 +57,37 @@ export class TemplateFormComponent implements OnInit, OnChanges {
   }
 
 
-  constructor(private templateService: TemplateService) { }
+  constructor(private templateService: TemplateService) {
+  }
 
   ngOnInit(): void {
   }
 
   ngOnChanges(): void {
-    this.setFormData();
+    if (!this.editMode) {
+      this.templateForm.reset();
+      this.media.setValue([]);
+      this.gallery = [];
+    }
+    if (this.editTemplate) {
+
+      this.setFormData();
+    }
   }
 
   setFormData(): void {
-    if (this.editTemplate) {
-      const formData = { ...this.editTemplate };
-      delete formData._id;
-      this.gallery = this.editTemplate.media.map((img: any) => (img.path));
-      this.templateForm.setValue(formData);
-    }
+
+    const formData = {
+      name: this.editTemplate.name,
+      description: this.editTemplate.description,
+      html: this.editTemplate.html,
+      css: this.editTemplate.css,
+      js: this.editTemplate.js,
+      media: this.editTemplate.media
+    };
+    this.gallery = this.editTemplate.media.map((img: any) => (img.path));
+    this.templateForm.setValue(formData);
+
   }
   createTemplate(): void {
     if (this.templateForm.valid) {
@@ -111,6 +126,7 @@ export class TemplateFormComponent implements OnInit, OnChanges {
         if (res.status === 200) {
           Swal.fire('Plantilla eliminada', 'La plantilla se eliminó con exito', 'success');
           this.templateForm.reset();
+          this.gallery = [];
           this.deletedTemplate.emit(this.editTemplate._id);
         } else {
           Swal.fire('Eliminación fallida', 'Ocurrió un error al eliminar la plantilla ', 'error');
