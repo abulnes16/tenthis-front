@@ -85,7 +85,12 @@ export class TemplateFormComponent implements OnInit, OnChanges {
       js: this.editTemplate.js,
       media: this.editTemplate.media
     };
-    this.gallery = this.editTemplate.media.map((img: any) => (img.path));
+    if (this.editTemplate.media) {
+      this.gallery = this.editTemplate.media.map((img: any) => (img.path));
+    } else {
+      formData.media = [];
+      this.gallery = [];
+    }
     this.templateForm.setValue(formData);
 
   }
@@ -104,6 +109,24 @@ export class TemplateFormComponent implements OnInit, OnChanges {
         }, (error) => {
           console.log(error);
           Swal.fire('Registro fallido', 'Ocurrió un error al crear la plantilla', 'error');
+        });
+    }
+  }
+
+  updateTemplate(): void {
+    if (this.templateForm.valid) {
+      this.templateService.updateTemplate(this.editTemplate._id, this.templateForm.value)
+        .subscribe((res: APIResponse) => {
+          if (res.status === 200) {
+            Swal.fire('Plantilla actualizada', 'La plantilla se actualizó con exito', 'success');
+            this.templateForm.reset();
+            this.gallery = [];
+          } else {
+            Swal.fire('Actualización fallida', 'Ocurrió un error al actualizar la plantilla', 'error');
+          }
+        }, (error) => {
+          console.log(error);
+          Swal.fire('Actualización fallida', 'Ocurrió un error al actualizar la plantilla', 'error');
         });
     }
   }

@@ -123,7 +123,11 @@
       >
         Eliminar
       </button>
-      <button *ngIf="editMode" class="btn btn-main br-btn mr-3 px-3">
+      <button
+        (click)="updateTemplate()"
+        *ngIf="editMode"
+        class="btn btn-main br-btn mr-3 px-3"
+      >
         Editar
       </button>
     </div>
