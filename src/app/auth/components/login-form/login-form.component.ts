@@ -39,13 +39,11 @@ export class LoginFormComponent implements OnInit {
 
       this.authService.login(this.email.value, this.password.value)
         .subscribe(async (res: any) => {
-          console.log(res);
           if (res.status === 200) {
             const { token } = res.data;
             sessionStorage.setItem('token', token);
             await Swal.fire('Login exitoso', '¡Bienvenido a Tenthis!', 'success');
             const tokenPayload = decode(token);
-            console.log(tokenPayload);
             switch (tokenPayload.role) {
               case 'client':
                 this.router.navigateByUrl('/shop');
