@@ -1,6 +1,6 @@
 <div class="container p-5">
   <div class="row px-5">
-    <div class="col-lg-7 ">
+    <div class="col-lg-7">
       <h2>Productos</h2>
     </div>
     <div class="col-lg-5 d-flex justify-content-end">
@@ -10,7 +10,11 @@
   <div class="row mt-5">
     <div class="col-lg-4">
       <app-list>
-        <div *ngFor="let product of products" class="card-item" (click)="editProduct()">
+        <div
+          *ngFor="let product of products"
+          class="card-item"
+          (click)="editProduct(product._id)"
+        >
           <figure class="app-icon">
             <fa-icon [icon]="productIcon" size="lg"></fa-icon>
           </figure>
@@ -21,7 +25,11 @@
       </app-list>
     </div>
     <div class="offset-1 col-lg-7 justify-content-center ml-auto mr-auto">
-      <app-product-form [editMode]="editMode" [icon]="productIcon"></app-product-form>
+      <app-product-form
+        (createdProduct)="addProduct($event)"
+        [editMode]="editMode"
+        [icon]="productIcon"
+      ></app-product-form>
     </div>
   </div>
 </div>

@@ -82,7 +82,9 @@
               formControlName="category"
               class="custom-select"
             >
-              <option value="0">Categoria</option>
+              <option *ngFor="let category of categories" value="category._id">
+                {{ category.name }}
+              </option>
             </select>
             <div
               *ngIf="category.invalid && (category.dirty || category.touched)"
@@ -104,7 +106,7 @@
               }"
               formControlName="quantity"
               type="number"
-              class="form-control"Debe ingresar unDebe ingresar un nombre de usuario nombre de usuario
+              class="form-control"
               placeholder="Cantidad"
             />
             <div
@@ -130,30 +132,33 @@
       <div class="form-group w-100 mb-3">
         <div class="d-flex justify-content-between mb-4">
           <label for="">Multimedia</label>
-          <button class="btn btn-sm btn-basic">Añadir</button>
+          <label class="btn btn-sm btn-basic" for="input-gallery">Añadir</label>
+          <input
+            type="file"
+            hidden
+            id="input-gallery"
+            (change)="addToGallery($event)"
+          />
         </div>
         <div class="form-gallery scrollbar">
-          <div class="row">
-            <div class="col-lg-4 mb-3">
-              <img src="./assets/images/shop.jpg" alt="Gallery" />
-            </div>
-            <div class="col-lg-4 mb-3">
-              <img src="./assets/images/shop.jpg" alt="Gallery" />
-            </div>
-            <div class="col-lg-4 mb-3">
-              <img src="./assets/images/shop.jpg" alt="Gallery" />
-            </div>
-            <div class="col-lg-4 mb-3">
-              <img src="./assets/images/shop.jpg" alt="Gallery" />
-            </div>
-            <div class="col-lg-4 mb-3">
-              <img src="./assets/images/shop.jpg" alt="Gallery" />
-            </div>
-            <div class="col-lg-4 mb-3">
-              <img src="./assets/images/shop.jpg" alt="Gallery" />
+          <div *ngIf="gallery.length !== 0; else emptyMedia" class="row">
+            <div *ngFor="let img of gallery" class="col-lg-4 mb-3">
+              <div class="relative">
+                <img [src]="img" alt="Gallery" />
+                <span
+                  class="r-gallery app-icon-xs bg-danger"
+                  (click)="removeFromGallery(img)"
+                  >&times;</span
+                >
+              </div>
             </div>
           </div>
         </div>
+        <ng-template #emptyMedia>
+          <div class="text-center mt-4">
+            <p>No hay imagenes para esta plantilla</p>
+          </div>
+        </ng-template>
       </div>
     </div>
     <div class="d-flex justify-content-end mt-2 px-4">
@@ -161,7 +166,12 @@
         Eliminar
       </button>
       <button *ngIf="editMode" class="btn btn-main br-btn px-3">Editar</button>
-      <button *ngIf="!editMode" class="btn btn-main br-btn px-3">
+      <button
+        (click)="createProduct()"
+        *ngIf="!editMode"
+        [disabled]="!productForm.valid"
+        class="btn btn-main br-btn px-3"
+      >
         Guardar
       </button>
     </div>
