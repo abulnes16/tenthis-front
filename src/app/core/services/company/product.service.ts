@@ -27,7 +27,8 @@ export class ProductService {
   }
 
   updateProduct(id: string, product: Product): Observable<any> {
-    return this.http.put(`${ProductService.route}/${id}`, product);
+    const formData = this.updateFormData(product);
+    return this.http.put(`${ProductService.route}/${id}`, formData);
   }
 
   deleteProduct(id: string): Observable<any> {
@@ -41,11 +42,39 @@ export class ProductService {
     formData.append('description', product.description);
     formData.append('price', product.price.toString());
     formData.append('category', product.category);
-    const tags = product.tags.split(',');
+
+    let tags = [];
+    if (product.tags) {
+      tags = this.parseTags(product.tags);
+    }
+
     formData.append('quantity', product.quantity.toString());
     formData.append('tags', tags.toString());
     product.media.forEach(file => formData.append('media', file));
     return formData;
+  }
+
+  updateFormData(product: Product): FormData {
+    const formData = new FormData();
+    formData.append('name', product.name);
+    formData.append('description', product.description);
+    formData.append('price', product.price.toString());
+    formData.append('category', product.category);
+    formData.append('quantity', product.quantity.toString());
+    let tags = [];
+    if (product.tags) {
+      tags = this.parseTags(product.tags);
+    }
+    formData.append('tags', tags.toString());
+    const refFiles = product.media.filter(file => !file.size);
+    formData.append('media', JSON.stringify(refFiles));
+    product.media.forEach(file => formData.append('files', file));
+    return formData;
+  }
+
+
+  parseTags(tags: string): Array<string> {
+    return tags.split(',');
   }
 
 }

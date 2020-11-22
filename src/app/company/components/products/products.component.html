@@ -27,6 +27,9 @@
     <div class="offset-1 col-lg-7 justify-content-center ml-auto mr-auto">
       <app-product-form
         (createdProduct)="addProduct($event)"
+        (updatedProduct)="updateProduct($event)"
+        (deletedProduct)="deleteProduct()"
+        [editProduct]="currentProduct"
         [editMode]="editMode"
         [icon]="productIcon"
       ></app-product-form>

@@ -35,7 +35,7 @@ export class TemplateService {
   }
 
   updateFormData(template: Template): FormData {
-    console.log(template.media);
+
     const formData = new FormData();
     formData.append('name', template.name);
     formData.append('description', template.description);

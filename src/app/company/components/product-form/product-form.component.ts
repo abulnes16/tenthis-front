@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, OnChanges, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { Icon } from '@fortawesome/fontawesome-svg-core';
 import Category from 'src/app/models/category';
@@ -13,11 +13,14 @@ import { ProductService } from '../../../core/services/company/product.service';
   templateUrl: './product-form.component.html',
   styleUrls: ['./product-form.component.scss']
 })
-export class ProductFormComponent implements OnInit {
+export class ProductFormComponent implements OnInit, OnChanges {
 
   @Input() icon: Icon;
   @Input() editMode: boolean;
+  @Input() editProduct: Product;
   @Output() createdProduct = new EventEmitter<Product>();
+  @Output() updatedProduct = new EventEmitter<Product>();
+  @Output() deletedProduct = new EventEmitter<any>();
 
   gallery: any = [];
   categories: Category[];
@@ -71,6 +74,18 @@ export class ProductFormComponent implements OnInit {
     });
   }
 
+  ngOnChanges(): void {
+    if (!this.editMode) {
+      this.productForm.reset();
+      this.gallery = [];
+      this.media.setValue([]);
+    }
+
+    if (this.editProduct) {
+      this.setFormData();
+    }
+  }
+
   createProduct(): void {
     if (this.productForm.valid) {
       this.productService.createProduct(this.productForm.value).subscribe((res: APIResponse) => {
@@ -78,6 +93,7 @@ export class ProductFormComponent implements OnInit {
           Swal.fire('Producto creado', 'El producto se registro con exito', 'success');
           this.productForm.reset();
           this.gallery = [];
+          this.media.setValue([]);
           this.createdProduct.emit(res.data);
         } else {
           Swal.fire('Registro fallido', 'Ocurrió un error al crear el producto', 'error');
@@ -85,6 +101,58 @@ export class ProductFormComponent implements OnInit {
       }, (error) => {
         console.log(error);
         Swal.fire('Registro fallido', 'Ocurrió un error al crear el producto', 'error');
+      });
+    }
+  }
+
+  updateProduct(): void {
+    if (this.productForm.valid) {
+      this.productService.updateProduct(this.editProduct._id, this.productForm.value)
+        .subscribe((res: APIResponse) => {
+          if (res.status === 200) {
+            Swal.fire('Producto actualizado', 'El producto se actualizó con exito', 'success');
+            this.productForm.reset();
+            this.gallery = [];
+            this.media.setValue([]);
+            this.updatedProduct.emit(res.data);
+          } else {
+            Swal.fire('Actualización fallida', 'Ocurrió un error al actualizar el producto', 'error');
+          }
+        }, (error) => {
+          console.log(error);
+          Swal.fire('Actualización fallida', 'Ocurrió un error al actualizar el producto', 'error');
+        });
+    }
+  }
+
+
+  async deleteProduct(): Promise<void> {
+    const confirm = await Swal.fire({
+      title: '¿Esta seguro de eliminar este producto?',
+      text: `Esta acción es irreversible`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#108b47',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, eliminar',
+      cancelButtonText: 'Cancelar',
+      reverseButtons: true,
+    });
+
+    if (confirm.isConfirmed) {
+      this.productService.deleteProduct(this.editProduct._id).subscribe((res: APIResponse) => {
+        if (res.status === 200) {
+          Swal.fire('Producto eliminado', 'El producto se eliminó con exito', 'success');
+          this.productForm.reset();
+          this.gallery = [];
+          this.media.setValue([]);
+          this.deletedProduct.emit();
+        } else {
+          Swal.fire('Eliminación fallida', 'Ocurrió un error al eliminar el producto', 'error');
+        }
+      }, (error) => {
+        console.log(error);
+        Swal.fire('Eliminación fallida', 'Ocurrió un error al eliminar el producto', 'error');
       });
     }
   }
@@ -119,6 +187,26 @@ export class ProductFormComponent implements OnInit {
     this.gallery = this.gallery.filter((imgPath: string) => imgPath !== path);
     const newGallery = this.media.value.filter((img: any) => img.path !== path);
     this.media.setValue(newGallery);
+  }
+
+
+  setFormData(): void {
+
+    const tags = this.editProduct.tags ? this.editProduct.tags.toString() : '';
+
+    const formData = {
+      name: this.editProduct.name,
+      description: this.editProduct.description,
+      quantity: this.editProduct.quantity,
+      price: this.editProduct.price,
+      tags,
+      media: this.editProduct.media,
+      category: this.editProduct.category
+    };
+
+    this.gallery = this.editProduct.media.map(file => file.path);
+
+    this.productForm.setValue(formData);
   }
 
 }

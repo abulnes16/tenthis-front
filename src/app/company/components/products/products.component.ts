@@ -36,6 +36,14 @@ export class ProductsComponent implements OnInit {
     this.products.push(product);
   }
 
+  updateProduct(product: Product): void {
+    this.products = this.products.map((p: Product) => p._id === product._id ? product : p);
+  }
+
+  deleteProduct(): void {
+    this.products = this.products.filter((p: Product) => p._id !== this.currentProduct._id);
+  }
+
   editProduct(id: string): void {
     this.editMode = true;
     this.productService.getProduct(id).subscribe((res: APIResponse) => {
