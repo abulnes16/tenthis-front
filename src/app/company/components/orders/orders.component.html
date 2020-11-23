@@ -9,11 +9,11 @@
       <h4>Ordenes</h4>
       <div class="d-flex justify-content-end">
         <input
+          [(ngModel)]="orderFilter"
           type="text"
           class="form-control mr-3 w-50"
-          placeholder="Cliente"
+          placeholder="N° de orden"
         />
-        <button class="btn btn-main">Buscar</button>
       </div>
     </div>
   </div>
@@ -34,7 +34,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let order of orders">
+            <tr *ngFor="let order of orders | filter: '_id':orderFilter">
               <th scope="row ">{{ order._id | slice: 0:8 }}...</th>
               <td class="d-flex justify-content-center">
                 <figure class="order-client-img-md mr-4 mb-0">

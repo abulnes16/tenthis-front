@@ -15,6 +15,7 @@ export class OrdersComponent implements OnInit {
   @ViewChild('orderModal') orderModal;
   goIcon = faChevronRight;
 
+  orderFilter: string;
   orders: Order[];
   currentOrder: Order;
 
