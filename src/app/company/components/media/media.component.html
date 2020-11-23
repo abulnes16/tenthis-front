@@ -4,7 +4,7 @@
       <h2>Media</h2>
     </div>
     <div class="col-lg-5 d-flex justify-content-end">
-      <button class="btn-basic">Añadir</button>
+      <button (click)="showFileModal()" class="btn-basic">Añadir</button>
     </div>
   </div>
   <div class="row mt-5 px-5">
@@ -42,7 +42,7 @@
             <div class="card border-radius box-shadow-card">
               <img
                 class="card-img-top"
-                [src]="image.url"
+                [src]="image.path"
                 alt="Card image cap"
               />
               <div class="card-body p-2 text-center">
@@ -57,17 +57,75 @@
       <div class="docs">
         <div class="row">
           <div *ngFor="let file of files" class="col-lg-6 mb-3">
-            <div
-              class="box-shadow-card p-3 file-card border-radius"
-            >
+            <div class="box-shadow-card p-3 file-card border-radius">
               <figure class="app-icon mb-2">
                 <fa-icon [icon]="fileIcon"></fa-icon>
               </figure>
-              <small>{{file.name}}</small>
+              <small>{{ file.name }}</small>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+
+  <ng-template #fileModal let-modal>
+    <div class="modal-header bg-main">
+      <h4 class="modal-title text-white" id="modal-basic-title">
+        Añade un archivo
+      </h4>
+      <button
+        type="button"
+        class="close"
+        aria-label="Close"
+        (click)="closeModal()"
+      >
+        <span class="text-white" aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="px-5 py-2">
+        <div class="form-group">
+          <label>Nombre archivo</label>
+          <input [(ngModel)]="fileName" type="text" class="form-control" />
+        </div>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroupFileAddon01"
+              >Cargar</span
+            >
+          </div>
+          <div class="custom-file">
+            <input
+              type="file"
+              class="custom-file-input"
+              id="inputGroupFile01"
+              (change)="saveFile($event)"
+            />
+            <label class="custom-file-label" for="inputGroupFile01">{{
+              file === null ? "Seleccione un archivo" : file.name
+            }}</label>
+          </div>
+        </div>
+        <div *ngIf="file" class="progress">
+          <div
+            class="progress-bar progress-bar-info progress-bar-striped"
+            role="progressbar"
+            attr.aria-valuenow="{{ progress }}"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            [ngStyle]="{ width: progress + '%' }"
+          >
+            {{ progress }}%
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn br-btn btn-danger" (click)="closeModal()">
+        Cancelar
+      </button>
+      <button (click)="uploadFile()" class="btn br-btn btn-main">Subir</button>
+    </div>
+  </ng-template>
 </div>
