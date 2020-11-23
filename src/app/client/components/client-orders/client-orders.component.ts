@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { faShoppingBag } from '@fortawesome/free-solid-svg-icons';
+import { OrderService } from 'src/app/core/services/shared/order.service';
+import APIResponse from 'src/app/models/response';
 
+import { StoreService } from '../../../core/services/shared/store.service';
+import Order from '../../../models/orders';
 @Component({
   selector: 'app-client-orders',
   templateUrl: './client-orders.component.html',
@@ -10,41 +14,19 @@ export class ClientOrdersComponent implements OnInit {
 
   orderIcon = faShoppingBag;
 
-  orders = [
-    {
-      id: '1345',
-      store: 'Gardens',
-      date: '25/05/2020',
-      total: 1500
-    },
-    {
-      id: '2567',
-      store: 'Dog suvenir',
-      date: '25/05/2020',
-      total: 1500
-    },
-    {
-      id: '4571',
-      store : 'Game world',
-      date: '25/05/2020',
-      total: 1500
-    },
-    {
-      id: '4571',
-      store : 'Game world',
-      date: '25/05/2020',
-      total: 1500
-    },
-    {
-      id: '4571',
-      store : 'Game world',
-      date: '25/05/2020',
-      total: 1500
-    }
-  ];
-  constructor() { }
+  orders: Order[];
+  orderFilter: string;
+  currentOrder: Order;
+  constructor(private orderService: OrderService) { }
 
   ngOnInit(): void {
+    this.orderService.getOrders().subscribe((res: APIResponse) => {
+      this.orders = res.data;
+    });
+  }
+
+  showOrderDetails(id: string): void {
+    this.currentOrder = this.orders.find((o: Order) => o._id === id);
   }
 
 }
