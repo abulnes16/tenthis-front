@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthGuard } from './core/guards/auth.guard';
+import { CompanyPageComponent } from './shared/components/company-page/company-page.component';
 
 const routes: Routes = [
   {
@@ -21,6 +23,12 @@ const routes: Routes = [
   {
     path: 'shop',
     loadChildren: () => import('./client/client.module').then(m => m.ClientModule)
+  },
+  {
+    path: 'companies/:companyId',
+    component: CompanyPageComponent,
+    canActivate: [AuthGuard],
+    data: { expectedRole: 'client' }
   }
 ];
 

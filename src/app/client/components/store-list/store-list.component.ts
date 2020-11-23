@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { faCampground } from '@fortawesome/free-solid-svg-icons';
+import APIResponse from 'src/app/models/response';
+import Store from 'src/app/models/store';
+
+import { StoreService } from '../../../core/services/shared/store.service';
 
 @Component({
   selector: 'app-store-list',
@@ -10,24 +14,16 @@ export class StoreListComponent implements OnInit {
 
   storeIcon = faCampground;
 
-  stores = [
-    {
-      name: 'Tienda A'
-    },
-    {
-      name: 'Tienda B'
-    },
-    {
-      name: 'Tienda C'
-    },
-    {
-      name: 'Tienda D'
-    },
-  ];
+  stores: Store;
+  storeFilter: string;
 
-  constructor() { }
+  constructor(private storeService: StoreService) { }
 
   ngOnInit(): void {
+
+    this.storeService.getStores().subscribe((res: APIResponse) => {
+      this.stores = res.data;
+    });
   }
 
 }

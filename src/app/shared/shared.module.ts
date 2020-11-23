@@ -12,10 +12,11 @@ import { ListComponent } from './components/list/list.component';
 import { AceEditorModule } from 'ng2-ace-editor';
 import { FilterPipe } from './pipes/filter.pipe';
 import { TrimPipe } from './pipes/trim.pipe';
+import { CompanyPageComponent } from './components/company-page/company-page.component';
 
 
 @NgModule({
-  declarations: [NavComponent, SidebarComponent, WelcomeComponent, ListComponent, FilterPipe, TrimPipe],
+  declarations: [NavComponent, SidebarComponent, WelcomeComponent, ListComponent, FilterPipe, TrimPipe, CompanyPageComponent],
   imports: [
     CommonModule,
     FontAwesomeModule,
@@ -30,6 +31,7 @@ import { TrimPipe } from './pipes/trim.pipe';
     WelcomeComponent,
     AceEditorModule,
     FontAwesomeModule,
+    CompanyPageComponent,
     // Pipes
     FilterPipe,
     TrimPipe,
