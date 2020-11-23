@@ -2,7 +2,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import Order from 'src/app/models/orders';
+import APIResponse from 'src/app/models/response';
 
+import { OrderService } from '../../../core/services/shared/order.service';
 @Component({
   selector: 'app-orders',
   templateUrl: './orders.component.html',
@@ -13,43 +15,22 @@ export class OrdersComponent implements OnInit {
   @ViewChild('orderModal') orderModal;
   goIcon = faChevronRight;
 
-  orders: Order[] = [
-    {
-      numOrder: '1234',
-      client: 'Mark',
-      date: new Date().toUTCString(),
-      total: 50,
-      products: []
-    },
-    {
-      numOrder: '1234',
-      client: 'Mark',
-      date: new Date().toUTCString(),
-      total: 50,
-      products: []
-    },
-    {
-      numOrder: '1234',
-      client: 'Mark',
-      date: new Date().toUTCString(),
-      total: 50,
-      products: []
-    },
-    {
-      numOrder: '1234',
-      client: 'Mark',
-      date: new Date().toUTCString(),
-      total: 50,
-      products: []
-    },
-  ];
+  orders: Order[];
+  currentOrder: Order;
 
-  constructor(private modalService: NgbModal) { }
+  constructor(
+    private modalService: NgbModal,
+    private orderService: OrderService
+  ) { }
 
   ngOnInit(): void {
+    this.orderService.getOrders().subscribe((res: APIResponse) => {
+      this.orders = res.data;
+    });
   }
 
-  showOrder(): void {
+  showOrder(id: string): void {
+    this.currentOrder = this.orders.find((o: Order) => o._id === id);
     this.modalService.open(this.orderModal, { size: 'lg' });
   }
 
