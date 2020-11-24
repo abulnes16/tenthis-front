@@ -31,4 +31,8 @@ export class MediaService {
 
     return this.http.request(req);
   }
+
+  deleteMedia(id: string): Observable<any> {
+    return this.http.delete(`${MediaService.route}/${id}`);
+  }
 }

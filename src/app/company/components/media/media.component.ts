@@ -21,6 +21,8 @@ export class MediaComponent implements OnInit {
   fileName: string;
   progress = 0;
   modalReference: NgbModalRef;
+  modalDetailReference: NgbModalRef;
+
   media: Media[] = [];
   images: Media[] = [];
   files: Media[] = [];
@@ -35,7 +37,6 @@ export class MediaComponent implements OnInit {
 
   ngOnInit(): void {
     this.mediaService.getMediaFiles().subscribe((res: APIResponse) => {
-      console.log(res.data);
       this.media = res.data;
       this.filterFiles(this.media);
     });
@@ -85,11 +86,42 @@ export class MediaComponent implements OnInit {
 
   showDetails(id: string): void {
     this.currentFile = this.media.find((m: Media) => m._id === id);
-    this.modalService.open(this.fileDetailModal, { size: 'lg' });
+    this.modalDetailReference = this.modalService.open(this.fileDetailModal, { size: 'lg' });
   }
 
   closeModal(): void {
     this.file = null;
     this.modalReference.close();
+  }
+
+  async deleteMedia(): Promise<void> {
+    const confirm = await Swal.fire({
+      title: '¿Esta seguro de eliminar esta archivo?',
+      text: `Esta acción es irreversible`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#108b47',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, eliminar',
+      cancelButtonText: 'Cancelar',
+      reverseButtons: true,
+    });
+
+    if (confirm.isConfirmed) {
+      this.mediaService.deleteMedia(this.currentFile._id).subscribe((res: APIResponse) => {
+        if (res.status === 200) {
+          Swal.fire('Archivo eliminado', 'El archivo se eliminó con exito', 'success');
+          this.media = this.media.filter((m: Media) => m._id !== this.currentFile._id);
+          this.filterFiles(this.media);
+          this.currentFile = null;
+          this.modalDetailReference.close();
+        } else {
+          Swal.fire('Eliminación fallida', 'Ocurrió un error al eliminar el archivo', 'error');
+        }
+      }, (error) => {
+        console.log(error);
+        Swal.fire('Eliminación fallida', 'Ocurrió un error al eliminar el archivo', 'error');
+      });
+    }
   }
 }
