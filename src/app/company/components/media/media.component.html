@@ -13,22 +13,52 @@
         <div class="col-lg-8">
           <div class="media__options">
             <ul class="d-flex list-unstyled border-radius box-shadow-card p-3">
-              <li class="media-pill">Todo</li>
-              <li class="media-pill">Imágenes</li>
-              <li class="media-pill">Videos</li>
-              <li class="media-pill">Documentos</li>
-              <li class="media-pill">Audio</li>
+              <li
+                [ngClass]="{ 'media-pill-active': currentTab === 'todo' }"
+                class="media-pill"
+                (click)="changeMediaTab('todo')"
+              >
+                Todo
+              </li>
+              <li
+                [ngClass]="{ 'media-pill-active': currentTab === 'img' }"
+                class="media-pill"
+                (click)="changeMediaTab('img')"
+              >
+                Imágenes
+              </li>
+              <li
+                [ngClass]="{ 'media-pill-active': currentTab === 'video' }"
+                class="media-pill"
+                (click)="changeMediaTab('video')"
+              >
+                Videos
+              </li>
+              <li
+                [ngClass]="{ 'media-pill-active': currentTab === 'doc' }"
+                class="media-pill"
+                (click)="changeMediaTab('doc')"
+              >
+                Documentos
+              </li>
+              <li
+                [ngClass]="{ 'media-pill-active': currentTab === 'sound' }"
+                class="media-pill"
+                (click)="changeMediaTab('sound')"
+              >
+                Audio
+              </li>
             </ul>
           </div>
         </div>
         <div class="col-lg-4">
           <div class="media__search d-flex">
             <input
+              [(ngModel)]="fileFilter"
               type="text"
               class="form-control mr-3"
-              placeholder="Archivo"
+              placeholder="Buscar por nombre de archivo"
             />
-            <button class="btn btn-main br-btn px-3">Buscar</button>
           </div>
         </div>
       </div>
@@ -38,7 +68,10 @@
     <div class="col-lg-8">
       <div *ngIf="images.length !== 0; else mediaPlaceholder" class="gallery">
         <div class="row">
-          <div *ngFor="let image of images" class="col-lg-4 mb-3">
+          <div
+            *ngFor="let image of images | filter: 'name':fileFilter"
+            class="col-lg-4 mb-3"
+          >
             <div
               class="card border-radius box-shadow-card cursor-pointer"
               (click)="showDetails(image._id)"
@@ -57,14 +90,17 @@
       </div>
       <ng-template #mediaPlaceholder>
         <div class="px-3 py-2 text-center">
-          <h5>No hay imagenes en tu galeria</h5>
+          <h5>{{ galleryMessage }}</h5>
         </div>
       </ng-template>
     </div>
     <div class="col-lg-4">
       <div *ngIf="files.length !== 0; else filePlaceholder" class="docs">
         <div class="row">
-          <div *ngFor="let file of files" class="col-lg-6 mb-3">
+          <div
+            *ngFor="let file of files | filter: 'name':fileFilter"
+            class="col-lg-6 mb-3"
+          >
             <div
               class="box-shadow-card p-3 file-card border-radius cursor-pointer"
               (click)="showDetails(file._id)"

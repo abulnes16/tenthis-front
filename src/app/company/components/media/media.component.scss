@@ -12,6 +12,11 @@
   }
 }
 
+.media-pill-active {
+  background-color: var(--color-primary);
+  color: white;
+}
+
 .file-card {
   display: flex;
   flex-direction: column;

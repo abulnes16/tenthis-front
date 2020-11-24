@@ -15,14 +15,24 @@ export class MediaComponent implements OnInit {
 
   @ViewChild('fileModal') fileModal;
   @ViewChild('fileDetailModal') fileDetailModal;
-  fileIcon = faFile;
   currentFile: Media;
+
+  // Media tabs
+  currentTab = 'todo';
+  galleryMessage = 'No hay imagenes en tu galeria';
+  // File upload form
   file: any;
-  fileName: string;
   progress = 0;
+  fileName: string;
+
+  // File filter
+  fileFilter: string;
+
+  // Modals
   modalReference: NgbModalRef;
   modalDetailReference: NgbModalRef;
 
+  // Files array
   media: Media[] = [];
   images: Media[] = [];
   files: Media[] = [];
@@ -43,8 +53,12 @@ export class MediaComponent implements OnInit {
   }
 
   filterFiles(media: Media[]): void {
-    this.images = media.filter((m: Media) => m.type.startsWith('image'));
-    this.files = media.filter((m: Media) => !m.type.startsWith('image'));
+    this.images = media.filter((m: Media) => (
+      m.type.startsWith('image') || m.type.startsWith('video')
+    ));
+    this.files = media.filter((m: Media) =>
+      (!m.type.startsWith('image') && !m.type.startsWith('video'))
+    );
   }
 
   saveFile(event: any): void {
@@ -92,6 +106,31 @@ export class MediaComponent implements OnInit {
   closeModal(): void {
     this.file = null;
     this.modalReference.close();
+  }
+
+  changeMediaTab(tab: string): void {
+    this.currentTab = tab;
+
+    switch (tab) {
+      case 'video':
+        this.images = this.media.filter((m: Media) => m.type.startsWith('video'));
+        this.galleryMessage = this.galleryMessage.replace('imagenes', 'videos');
+        break;
+      case 'img':
+        this.images = this.media.filter((m: Media) => m.type.startsWith('image'));
+        this.galleryMessage = this.galleryMessage.replace('videos', 'imagenes');
+        break;
+      case 'doc':
+        this.files = this.media.filter((m: Media) =>
+          (!m.type.startsWith('audio') && !m.type.startsWith('image') && !m.type.startsWith('video')));
+        break;
+      case 'sound':
+        this.files = this.media.filter((m: Media) => m.type.startsWith('audio'));
+        break;
+      default:
+        this.filterFiles(this.media);
+        break;
+    }
   }
 
   async deleteMedia(): Promise<void> {
