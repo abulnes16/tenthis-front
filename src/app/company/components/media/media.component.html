@@ -36,36 +36,52 @@
   </div>
   <div class="row mt-3 px-5">
     <div class="col-lg-8">
-      <div class="gallery">
+      <div *ngIf="images.length !== 0; else mediaPlaceholder" class="gallery">
         <div class="row">
           <div *ngFor="let image of images" class="col-lg-4 mb-3">
-            <div class="card border-radius box-shadow-card">
+            <div
+              class="card border-radius box-shadow-card cursor-pointer"
+              (click)="showDetails(image._id)"
+            >
               <img
                 class="card-img-top"
                 [src]="image.path"
                 alt="Card image cap"
               />
               <div class="card-body p-2 text-center">
-                <p class="mb-1">{{ image.name }}</p>
+                <p class="mb-1">{{ image.name | mediaName }}</p>
               </div>
             </div>
           </div>
         </div>
       </div>
+      <ng-template #mediaPlaceholder>
+        <div class="px-3 py-2 text-center">
+          <h5>No hay imagenes en tu galeria</h5>
+        </div>
+      </ng-template>
     </div>
     <div class="col-lg-4">
-      <div class="docs">
+      <div *ngIf="files.length !== 0; else filePlaceholder" class="docs">
         <div class="row">
           <div *ngFor="let file of files" class="col-lg-6 mb-3">
-            <div class="box-shadow-card p-3 file-card border-radius">
+            <div
+              class="box-shadow-card p-3 file-card border-radius cursor-pointer"
+              (click)="showDetails(file._id)"
+            >
               <figure class="app-icon mb-2">
-                <fa-icon [icon]="fileIcon"></fa-icon>
+                <fa-icon [icon]="file.name | mediaIcon"></fa-icon>
               </figure>
-              <small>{{ file.name }}</small>
+              <small>{{ file.name | mediaName }}</small>
             </div>
           </div>
         </div>
       </div>
+      <ng-template #filePlaceholder>
+        <div class="px-3 py-2 text-center">
+          <h5>No hay archivos en tu galeria</h5>
+        </div>
+      </ng-template>
     </div>
   </div>
 
@@ -126,6 +142,56 @@
         Cancelar
       </button>
       <button (click)="uploadFile()" class="btn br-btn btn-main">Subir</button>
+    </div>
+  </ng-template>
+
+  <ng-template #fileDetailModal let-modal>
+    <div class="modal-header bg-main">
+      <h4 class="modal-title text-white" id="modal-basic-title">
+        Detalle del archivo
+      </h4>
+      <button
+        type="button"
+        class="close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      >
+        <span class="text-white" aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="px-5 py-2">
+        <div class="d-flex">
+          <div class="mr-4">
+            <figure class="app-icon-xl">
+              <fa-icon
+                size="2x"
+                [icon]="currentFile.name | mediaIcon"
+              ></fa-icon>
+            </figure>
+          </div>
+          <div class="file__details">
+            <div class="file__id">
+              <strong>Identificador</strong>
+              <p>{{ currentFile._id }}</p>
+            </div>
+            <div class="file__name">
+              <strong>Nombre del archivo</strong>
+              <p>{{ currentFile.name }}</p>
+            </div>
+            <div class="file__date">
+              <strong>Ultima fecha de modificación</strong>
+              <p>{{ currentFile.date | date: "dd/MM/yyyy" }}</p>
+            </div>
+            <div *ngIf="currentFile.type.startsWith('image')">
+              <img class="img-fluid" [src]="currentFile.path" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn br-btn btn-danger">Eliminar</button>
     </div>
   </ng-template>
 </div>

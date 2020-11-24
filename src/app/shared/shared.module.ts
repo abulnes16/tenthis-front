@@ -13,10 +13,22 @@ import { AceEditorModule } from 'ng2-ace-editor';
 import { FilterPipe } from './pipes/filter.pipe';
 import { TrimPipe } from './pipes/trim.pipe';
 import { CompanyPageComponent } from './components/company-page/company-page.component';
+import { MediaNamePipe } from './pipes/media-name.pipe';
+import { MediaIconPipe } from './pipes/media-icon.pipe';
 
 
 @NgModule({
-  declarations: [NavComponent, SidebarComponent, WelcomeComponent, ListComponent, FilterPipe, TrimPipe, CompanyPageComponent],
+  declarations: [
+    NavComponent,
+    SidebarComponent,
+    WelcomeComponent,
+    ListComponent,
+    FilterPipe,
+    TrimPipe,
+    CompanyPageComponent,
+    MediaNamePipe,
+    MediaIconPipe
+  ],
   imports: [
     CommonModule,
     FontAwesomeModule,
@@ -35,6 +47,8 @@ import { CompanyPageComponent } from './components/company-page/company-page.com
     // Pipes
     FilterPipe,
     TrimPipe,
+    MediaNamePipe,
+    MediaIconPipe,
   ]
 })
 export class SharedModule { }

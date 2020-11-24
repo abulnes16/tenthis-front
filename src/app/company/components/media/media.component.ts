@@ -13,35 +13,19 @@ import { HttpEventType, HttpResponse } from '@angular/common/http';
 })
 export class MediaComponent implements OnInit {
 
+  @ViewChild('fileModal') fileModal;
+  @ViewChild('fileDetailModal') fileDetailModal;
   fileIcon = faFile;
+  currentFile: Media;
   file: any;
   fileName: string;
-  @ViewChild('fileModal') fileModal;
   progress = 0;
   modalReference: NgbModalRef;
-  media: Media[];
-  images: Media[];
+  media: Media[] = [];
+  images: Media[] = [];
+  files: Media[] = [];
 
-  files = [
-    {
-      name: 'Nombre archivo'
-    },
-    {
-      name: 'Nombre archivo'
-    },
-    {
-      name: 'Nombre archivo'
-    },
-    {
-      name: 'Nombre archivo'
-    },
-    {
-      name: 'Nombre archivo'
-    },
-    {
-      name: 'Nombre archivo'
-    },
-  ];
+
   constructor(
     private modalService: NgbModal,
     private mediaService: MediaService
@@ -51,9 +35,15 @@ export class MediaComponent implements OnInit {
 
   ngOnInit(): void {
     this.mediaService.getMediaFiles().subscribe((res: APIResponse) => {
+      console.log(res.data);
       this.media = res.data;
-      this.images = res.data;
+      this.filterFiles(this.media);
     });
+  }
+
+  filterFiles(media: Media[]): void {
+    this.images = media.filter((m: Media) => m.type.startsWith('image'));
+    this.files = media.filter((m: Media) => !m.type.startsWith('image'));
   }
 
   saveFile(event: any): void {
@@ -71,7 +61,8 @@ export class MediaComponent implements OnInit {
         } else if (event instanceof HttpResponse) {
           Swal.fire('Archivo subido', 'El archivo se subió con exito', 'success');
           this.mediaService.getMediaFiles().subscribe((res: APIResponse) => {
-            this.images = res.data;
+            this.media = res.data;
+            this.filterFiles(this.media);
           });
           this.modalReference.close();
         }
@@ -90,6 +81,11 @@ export class MediaComponent implements OnInit {
 
   showFileModal(): void {
     this.modalReference = this.modalService.open(this.fileModal, { size: 'lg' });
+  }
+
+  showDetails(id: string): void {
+    this.currentFile = this.media.find((m: Media) => m._id === id);
+    this.modalService.open(this.fileDetailModal, { size: 'lg' });
   }
 
   closeModal(): void {
