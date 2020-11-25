@@ -6,6 +6,8 @@ interface Configuration {
   js: string;
   header: string;
   footer: string;
+  useTemplate: boolean;
+  template?: string;
 }
 
 export default Configuration;
