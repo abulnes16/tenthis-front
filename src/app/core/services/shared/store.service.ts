@@ -13,6 +13,9 @@ export class StoreService {
   getStores(): Observable<any> {
     return this.http.get(StoreService.route);
   }
+  getStore(id: string): Observable<any> {
+    return this.http.get(`${StoreService.route}/${id}`);
+  }
 
   blockStore(id: string, unblock = false): Observable<any> {
     const url = unblock ?

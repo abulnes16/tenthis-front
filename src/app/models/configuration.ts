@@ -1,6 +1,8 @@
+import Media from './media';
+
 interface Configuration {
-  logo: string;
-  favicon: string;
+  logo: string | any;
+  favicon: string | any;
   keywords: Array<string>;
   css: string;
   js: string;
