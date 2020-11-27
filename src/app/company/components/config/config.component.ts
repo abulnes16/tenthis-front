@@ -2,10 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { StoreService } from '../../../core/services/shared/store.service';
+import { TemplateService } from '../../../core/services/admin/template.service';
 import decode from 'jwt-decode';
 import APIResponse from 'src/app/models/response';
 import Swal from 'sweetalert2';
 import Store from 'src/app/models/store';
+import Template from 'src/app/models/template';
 @Component({
   selector: 'app-config',
   templateUrl: './config.component.html',
@@ -27,6 +29,7 @@ export class ConfigComponent implements OnInit {
     template: new FormControl(''),
   });
 
+  templates: Template[];
   faviconImg: any;
   logoImg: any;
   store: Store;
@@ -51,22 +54,38 @@ export class ConfigComponent implements OnInit {
     return this.configForm.get('footer');
   }
 
+  get useTemplate(): AbstractControl {
+    return this.configForm.get('useTemplate');
+  }
+
+  get template(): AbstractControl {
+    return this.configForm.get('template');
+  }
+
   constructor(
     private storeService: StoreService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private templateService: TemplateService,
   ) { }
 
   ngOnInit(): void {
     const decodedToken = decode(sessionStorage.getItem('token'));
     this.storeService.getStore(decodedToken.store).subscribe((res: APIResponse) => {
       const { configuration, name, description } = res.data;
-      const { logo, favicon } = configuration;
-      if (logo !== '') {
+      const { logo, favicon, useTemplate } = configuration;
+      if (logo && logo !== '') {
         this.logoImg = logo.path;
       }
 
-      if (favicon !== '') {
+      if (favicon && favicon !== '') {
         this.faviconImg = favicon.path;
+      }
+
+      console.log(useTemplate);
+      if (useTemplate) {
+        this.template.enable();
+      } else {
+        this.template.disable();
       }
 
       this.store = res.data;
@@ -75,6 +94,10 @@ export class ConfigComponent implements OnInit {
         storeName: name,
         description,
       });
+    });
+
+    this.templateService.getTemplates().subscribe((res: APIResponse) => {
+      this.templates = res.data;
     });
 
   }
@@ -133,6 +156,35 @@ export class ConfigComponent implements OnInit {
 
   }
 
+  checkTemplate(): void {
+    if (this.useTemplate.value) {
+      this.template.enable();
+    } else {
+      this.template.disable();
+    }
+  }
+
+  saveConfig(): void {
+    if (this.configForm.valid) {
+      const { storeName, description } = this.configForm.value;
+      this.storeService.saveConfig(
+        this.store._id,
+        storeName, description,
+        this.configForm.value,
+        this.logo.value,
+        this.favicon.value)
+        .subscribe((res: APIResponse) => {
+          if (res.status === 200) {
+            Swal.fire('Configuración guardada', 'La configuración se guardo con exito', 'success');
+          } else {
+            Swal.fire('Registro fallido', 'Ocurrió un error al guardar la configuración', 'error');
+          }
+        }, (error) => {
+          console.log(error);
+          Swal.fire('Registro fallido', 'Ocurrió un error al guardar la configuración', 'error');
+        });
+    }
+  }
 
 
 
