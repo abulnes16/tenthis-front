@@ -1,16 +1,14 @@
 <div class="container">
-  
-  <div class="save-container justify-content-center">
-    <button class="btn btn-danger br-btn mr-3">Descartar</button>
-    <button class="btn btn-darker br-btn mr-3">Guardar página</button>
-  </div>
-  <div *ngIf="page" class="row no-gutters">
-    <div *ngFor="let block of page.html" [class]="'col-lg-' + block.columns">
-      <div [innerHTML]="block.html"></div>
+  <div *ngIf="page" class="row">
+    <div
+      *ngFor="let block of page.html; let i = index"
+      [class]="'col-lg-' + block.columns"
+    >
+      <div [style]="setBackground(block)" [innerHTML]="block.html"></div>
 
       <div class="w-25 d-flex flex-wrap">
-        <button class="btn btn-page edit-lg btn-main">Editar</button>
-        <button class="btn btn-page delete btn-main">Eliminar</button>
+        <button class="btn btn-page btn-main" (click)="editBlock(i)">Editar</button>
+        <button class="btn btn-page delete btn-main" (click)="deleteBlock(i)">Eliminar</button>
       </div>
     </div>
   </div>

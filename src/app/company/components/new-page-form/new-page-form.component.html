@@ -1,6 +1,14 @@
 <aside class="page-form bg-lighten-gray">
+  <div class="save-container justify-content-center">
+    <button class="btn btn-danger br-btn mr-3" (click)="discard()">
+      Descartar
+    </button>
+    <button class="btn btn-darker br-btn" (click)="savePage()">
+      Guardar página
+    </button>
+  </div>
   <div class="row no-gutters mb-4">
-    <div class="col-lg-4">
+    <div class="col-lg-6">
       <button
         class="btn btn-tab"
         (click)="currentForm = 'ct'"
@@ -9,22 +17,13 @@
         Editor CT
       </button>
     </div>
-    <div class="col-lg-4">
-      <button
-        class="btn btn-tab"
-        (click)="currentForm = 'bt'"
-        [class.active]="currentForm === 'bt'"
-      >
-        Editor BT
-      </button>
-    </div>
-    <div class="col-lg-4">
+    <div class="col-lg-6">
       <button
         class="btn btn-tab"
         (click)="currentForm = 'nbt'"
         [class.active]="currentForm === 'nbt'"
       >
-        Nuevo BT
+        Editor BT
       </button>
     </div>
   </div>
@@ -59,7 +58,7 @@
     </div>
     <div class="row no-gutters mb-3">
       <h5 class="mb-4">
-        {{ currentForm === "nbt" ? "Nuevo bloque" : "Bloques" }}
+        {{ setEditorTitle() }}
       </h5>
       <ng-container [ngSwitch]="currentForm">
         <ng-container *ngSwitchCase="'ct'">
@@ -78,6 +77,9 @@
               [mode]="'css'"
               style="min-height: 180px"
             ></ace-editor>
+            <button class="btn btn-small btn-main txt-sm br-btn mt-2" (click)="addStyles()">
+              Agregar estilos
+            </button>
           </div>
         </ng-container>
         <ng-container *ngSwitchDefault>
@@ -107,28 +109,32 @@
           <div class="col-lg-12 mb-3">
             <p>Fondo</p>
             <select formControlName="bgBlock" class="form-control">
-              <option *ngFor="let image of media" [value]="image._id">
+              <option *ngFor="let image of media" [value]="image.path">
                 {{ image.name | mediaName }}
               </option>
             </select>
-            <div class="d-flex justify-content-end">
-              <button class="mt-2 btn btn-danger br-btn mr-3">Quitar</button>
-              <button
-                class="mt-2 btn btn-main br-btn mr-3"
-                (click)="saveBlock()"
-              >
-                Agregar
-              </button>
-            </div>
           </div>
         </ng-container>
       </ng-container>
     </div>
     <div class="row no-gutters">
       <div class="col-lg-12 d-flex justify-content-end">
-        <button class="btn btn-danger br-btn mr-2">Cancelar</button>
-        <button class="btn btn-main br-btn" (click)="saveBlock()">
+        <button class="btn btn-danger br-btn mr-2" (click)="cleanForm()">
+          Cancelar
+        </button>
+        <button
+          *ngIf="!editBlock"
+          class="btn btn-main br-btn"
+          (click)="saveBlock()"
+        >
           Guardar bloque
+        </button>
+        <button
+          *ngIf="editBlock"
+          class="btn btn-main br-btn"
+          (click)="changeBlock()"
+        >
+          Editar bloque
         </button>
       </div>
     </div>

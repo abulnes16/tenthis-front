@@ -79,7 +79,6 @@ export class ConfigComponent implements OnInit {
       this.faviconImg = favicon.path;
     }
 
-    console.log(useTemplate);
     if (useTemplate) {
       this.template.enable();
     } else {

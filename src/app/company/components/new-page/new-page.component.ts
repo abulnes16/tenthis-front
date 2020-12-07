@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import Block from 'src/app/models/block';
 import Page from 'src/app/models/page';
-import APIResponse from 'src/app/models/response';
 import Template from 'src/app/models/template';
 
 
@@ -13,6 +12,7 @@ import Template from 'src/app/models/template';
 export class NewPageComponent implements OnInit {
   newPage: Page;
   template: Template;
+  editBlock: Block;
   constructor(
 
   ) {
@@ -31,8 +31,26 @@ export class NewPageComponent implements OnInit {
   }
 
   addBlock(block: Block): void {
-    console.log(block);
     this.newPage.html.push(block);
+  }
+
+  getEditBlock(index: number): void {
+    this.editBlock = this.newPage.html[index];
+    this.editBlock._id = index;
+  }
+
+  updateBlock(newBlock: Block): void {
+    this.newPage.html = this.newPage.html.map(
+      (block) => block === this.editBlock ? newBlock : block
+    );
+  }
+
+  removeBlock(index: number): void {
+    if (this.newPage.html[index] === this.editBlock) {
+      this.editBlock = null;
+    }
+
+    this.newPage.html.splice(index, 1);
   }
 
 }

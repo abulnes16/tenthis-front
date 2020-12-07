@@ -1,6 +1,7 @@
 interface Block {
+  _id?: string | number;
   html: string;
-  columns: number;
+  columns?: number;
   background?: any;
 }
 

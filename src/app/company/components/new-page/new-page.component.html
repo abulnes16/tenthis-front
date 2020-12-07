@@ -6,10 +6,18 @@
   </div>
   <div class="row no-gutters">
     <div class="col-md-3">
-      <app-new-page-form (block)="addBlock($event)"></app-new-page-form>
+      <app-new-page-form
+        [editBlock]="editBlock"
+        (block)="addBlock($event)"
+        (updateBlock)="updateBlock($event)"
+      ></app-new-page-form>
     </div>
     <div class="col-md-9">
-      <app-page-preview [page]="newPage"></app-page-preview>
+      <app-page-preview
+        (deletedBlock)="removeBlock($event)"
+        (editedBlock)="getEditBlock($event)"
+        [page]="newPage"
+      ></app-page-preview>
     </div>
   </div>
 </div>
