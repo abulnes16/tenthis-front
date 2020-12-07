@@ -1,18 +1,29 @@
 .buttons-container {
-    position:  absolute;
-    top: 5%;
-    right: 3%;
+  position: absolute;
+  top: 5%;
+  right: 3%;
 }
 
 .btn-page {
-    font-size: 12px;
-    margin-right: 5px;
+  font-size: 12px;
+  margin-right: 5px;
 }
 
 .edit-lg {
-    right: 8%;
+  right: 8%;
 }
 
 .edit-sm {
-    right: 20%;
+  right: 20%;
+}
+
+.save-container {
+  position: fixed;
+  bottom: 5%;
+  right: 0;
+  z-index: 10;
+}
+
+iframe {
+  border: none;
 }

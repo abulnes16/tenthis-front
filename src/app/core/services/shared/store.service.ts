@@ -1,21 +1,37 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import Configuration from 'src/app/models/configuration';
+import Store from 'src/app/models/store';
+import APIResponse from 'src/app/models/response';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StoreService {
+
   private static route = `${environment.apiURL}/store`;
+
+  private loggedStore: Store;
+
   constructor(private http: HttpClient) { }
+
+  get store(): Store {
+    return this.loggedStore;
+  }
 
   getStores(): Observable<any> {
     return this.http.get(StoreService.route);
   }
   getStore(id: string): Observable<any> {
-    return this.http.get(`${StoreService.route}/${id}`);
+    const subject = new Subject<Store>();
+    this.http.get(`${StoreService.route}/${id}`).subscribe((res: APIResponse) => {
+      this.loggedStore = res.data;
+      subject.next(res.data);
+    });
+
+    return subject.asObservable();
   }
 
   blockStore(id: string, unblock = false): Observable<any> {

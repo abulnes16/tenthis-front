@@ -3,7 +3,6 @@ import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/fo
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { StoreService } from '../../../core/services/shared/store.service';
 import { TemplateService } from '../../../core/services/admin/template.service';
-import decode from 'jwt-decode';
 import APIResponse from 'src/app/models/response';
 import Swal from 'sweetalert2';
 import Store from 'src/app/models/store';
@@ -69,32 +68,30 @@ export class ConfigComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    const decodedToken = decode(sessionStorage.getItem('token'));
-    this.storeService.getStore(decodedToken.store).subscribe((res: APIResponse) => {
-      const { configuration, name, description } = res.data;
-      const { logo, favicon, useTemplate } = configuration;
-      if (logo && logo !== '') {
-        this.logoImg = logo.path;
-      }
+    this.store = this.storeService.store;
+    const { configuration, name, description } = this.store;
+    const { logo, favicon, useTemplate } = configuration;
+    if (logo && logo !== '') {
+      this.logoImg = logo.path;
+    }
 
-      if (favicon && favicon !== '') {
-        this.faviconImg = favicon.path;
-      }
+    if (favicon && favicon !== '') {
+      this.faviconImg = favicon.path;
+    }
 
-      console.log(useTemplate);
-      if (useTemplate) {
-        this.template.enable();
-      } else {
-        this.template.disable();
-      }
+    console.log(useTemplate);
+    if (useTemplate) {
+      this.template.enable();
+    } else {
+      this.template.disable();
+    }
 
-      this.store = res.data;
-      this.configForm.setValue({
-        ...configuration,
-        storeName: name,
-        description,
-      });
+    this.configForm.setValue({
+      ...configuration,
+      storeName: name,
+      description,
     });
+    ;
 
     this.templateService.getTemplates().subscribe((res: APIResponse) => {
       this.templates = res.data;

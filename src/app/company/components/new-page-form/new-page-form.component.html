@@ -29,7 +29,38 @@
     </div>
   </div>
   <form [formGroup]="pageForm" class="px-4">
+    <div class="row no-gutters mb-4">
+      <h5>Datos de la página</h5>
+      <div class="form-group">
+        <label for="">Título</label>
+        <input
+          formControlName="title"
+          type="text"
+          class="form-control"
+          placeholder="Título de la página"
+        />
+      </div>
+      <div class="form-group">
+        <label for="">Descripcion</label>
+        <textarea
+          formControlName="description"
+          class="form-control"
+          placeholder="Descripcion"
+        ></textarea>
+      </div>
+      <div class="form-group d-flex align-items-center">
+        <small class="" for="">Marcar como página principal</small>
+        <input formControlName="isMain" class="ml-3" type="checkbox" />
+      </div>
+      <div class="form-group d-flex align-items-center">
+        <small class="" for="">¿Es visible al cliente?</small>
+        <input formControlName="isVisible" class="ml-3" type="checkbox" />
+      </div>
+    </div>
     <div class="row no-gutters mb-3">
+      <h5 class="mb-4">
+        {{ currentForm === "nbt" ? "Nuevo bloque" : "Bloques" }}
+      </h5>
       <ng-container [ngSwitch]="currentForm">
         <ng-container *ngSwitchCase="'ct'">
           <div class="col-lg-12">
@@ -49,21 +80,19 @@
             ></ace-editor>
           </div>
         </ng-container>
-        <ng-container *ngSwitchCase="'nbt'">
-          <div class="col-lg-12 mb-3">
-            <label for="">Tipo de bloque</label>
-            <select formControlName="blockType" class="custom-select">
-              <option value="0">Bloque A</option>
-            </select>
-          </div>
+        <ng-container *ngSwitchDefault>
           <div class="col-lg-12 mb-3">
             <label for="">Columnas a ocupar</label>
-            <input
+            <select
               formControlName="columns"
               type="text"
               class="form-control"
               placeholder="N° de columnas"
-            />
+            >
+              <option *ngFor="let num of columns" [value]="num">
+                {{ num }}
+              </option>
+            </select>
           </div>
           <div class="col-lg-12 wyswyg-editor">
             <div class="d-flex justify-content-between mb-3">
@@ -73,58 +102,24 @@
               </button>
             </div>
 
-            <quill-editor></quill-editor>
-          </div>
-          <div class="col-lg-12 mb-3">
-            <p>Fondo</p>
-            <img
-              src="./assets/images/shop.jpg"
-              class="mb-2"
-              alt="Background"
-              width="290"
-            />
-            <div class="">
-              <label for="background-img" class="btn br-btn btn-main"
-                >Agregar</label
-              >
-            </div>
-            <input
-              formControlName="bgBlock"
-              type="file"
-              class="file-input"
-              id="background-img"
-            />
-          </div>
-        </ng-container>
-        <ng-container *ngSwitchCase="'bt'">
-          <div class="col-lg-12 wyswyg-editor">
-            <div class="d-flex justify-content-between mb-3">
-              <label for="">Editor</label>
-              <button class="btn btn-main br-btn txt-sm">
-                Agregar shortcout
-              </button>
-            </div>
             <quill-editor formControlName="wyswyg"></quill-editor>
           </div>
           <div class="col-lg-12 mb-3">
             <p>Fondo</p>
-            <img
-              src="./assets/images/shop.jpg"
-              class="mb-2"
-              alt="Background"
-              width="290"
-            />
-            <div class="">
-              <label for="background-img" class="btn br-btn btn-main"
-                >Agregar</label
+            <select formControlName="bgBlock" class="form-control">
+              <option *ngFor="let image of media" [value]="image._id">
+                {{ image.name | mediaName }}
+              </option>
+            </select>
+            <div class="d-flex justify-content-end">
+              <button class="mt-2 btn btn-danger br-btn mr-3">Quitar</button>
+              <button
+                class="mt-2 btn btn-main br-btn mr-3"
+                (click)="saveBlock()"
               >
+                Agregar
+              </button>
             </div>
-            <input
-              formControlName="imgBlock"
-              type="file"
-              class="file-input"
-              id="background-img"
-            />
           </div>
         </ng-container>
       </ng-container>
@@ -132,7 +127,9 @@
     <div class="row no-gutters">
       <div class="col-lg-12 d-flex justify-content-end">
         <button class="btn btn-danger br-btn mr-2">Cancelar</button>
-        <button class="btn btn-main br-btn">Guardar</button>
+        <button class="btn btn-main br-btn" (click)="saveBlock()">
+          Guardar bloque
+        </button>
       </div>
     </div>
   </form>
