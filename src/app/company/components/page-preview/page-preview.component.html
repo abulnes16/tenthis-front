@@ -3,12 +3,17 @@
     <div
       *ngFor="let block of page.html; let i = index"
       [class]="'col-lg-' + block.columns"
+      [style]="setBackground(block)"
     >
-      <div [style]="setBackground(block)" [innerHTML]="block.html"></div>
+      <div [innerHTML]="block.html"></div>
 
-      <div class="w-25 d-flex flex-wrap">
-        <button class="btn btn-page btn-main" (click)="editBlock(i)">Editar</button>
-        <button class="btn btn-page delete btn-main" (click)="deleteBlock(i)">Eliminar</button>
+      <div class="buttons-container">
+        <button class="btn btn-page btn-main" (click)="editBlock(i)">
+          Editar
+        </button>
+        <button class="btn btn-page delete btn-main" (click)="deleteBlock(i)">
+          Eliminar
+        </button>
       </div>
     </div>
   </div>

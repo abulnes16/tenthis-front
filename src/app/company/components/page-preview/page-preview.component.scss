@@ -1,7 +1,9 @@
 .buttons-container {
-  position: absolute;
-  top: 5%;
-  right: 3%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 50%;
+  margin: 0 auto;
 }
 
 .btn-page {
