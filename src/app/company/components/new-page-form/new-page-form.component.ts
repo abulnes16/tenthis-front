@@ -9,6 +9,7 @@ import APIResponse from 'src/app/models/response';
 import Template from 'src/app/models/template';
 import Swal from 'sweetalert2';
 
+
 @Component({
   selector: 'app-new-page-form',
   templateUrl: './new-page-form.component.html',
@@ -26,11 +27,12 @@ export class NewPageFormComponent implements OnInit, OnChanges {
 
   @Output() block = new EventEmitter<Block>();
   @Output() updateBlock = new EventEmitter<any>();
+  @Output() pageData = new EventEmitter<any>();
 
   pageForm = new FormGroup({
     title: new FormControl('', [Validators.required]),
     description: new FormControl('', [Validators.required]),
-    isMain: new FormControl(''),
+    isMain: new FormControl(false),
     isVisible: new FormControl(true),
     html: new FormControl(''),
     css: new FormControl(''),
@@ -96,7 +98,7 @@ export class NewPageFormComponent implements OnInit, OnChanges {
     return this.pageForm.get('css');
   }
 
-  saveBlock(): void {
+  private getBlock(): Block {
     let blockHTML = null;
     if (this.currentForm === 'nbt' || this.currentForm === 'bt') {
       blockHTML = this.pageForm.get('wyswyg').value;
@@ -107,15 +109,20 @@ export class NewPageFormComponent implements OnInit, OnChanges {
     const columns = this.pageForm.get('columns').value;
     const background = this.pageForm.get('bgBlock').value;
 
-    const newBlock: Block = {
+    const block: Block = {
       html: blockHTML,
       columns: columns !== '' ? columns : '',
       background,
     };
 
+    return block;
+  }
 
+  saveBlock(): void {
+    const newBlock = this.getBlock();
     this.block.emit(newBlock);
 
+    // Clean data
     this.pageForm.get('wyswyg').setValue('');
     this.pageForm.get('html').setValue('');
     this.pageForm.get('columns').setValue(12);
@@ -123,22 +130,7 @@ export class NewPageFormComponent implements OnInit, OnChanges {
   }
 
   changeBlock(): void {
-    let blockHTML = null;
-    if (this.currentForm === 'nbt' || this.currentForm === 'bt') {
-      blockHTML = this.pageForm.get('wyswyg').value;
-    } else {
-      blockHTML = this.pageForm.get('html').value;
-    }
-
-    const columns = this.pageForm.get('columns').value;
-    const background = this.pageForm.get('bgBlock').value;
-
-    const updateBlock: Block = {
-      html: blockHTML,
-      columns: columns !== '' ? columns : '',
-      background,
-    };
-
+    const updateBlock = this.getBlock();
     this.updateBlock.emit(updateBlock);
   }
 
@@ -166,6 +158,7 @@ export class NewPageFormComponent implements OnInit, OnChanges {
         isMain,
         isVisible
       };
+      this.pageData.emit(data);
     } else {
       Swal.fire(
         'Datos invalidos',

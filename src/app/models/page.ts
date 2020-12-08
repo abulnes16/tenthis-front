@@ -1,6 +1,7 @@
 import Block from './block';
 
 interface Page {
+  _id?: string;
   title: string;
   description: string;
   isMain: boolean;

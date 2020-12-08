@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnInit, Output, SecurityContext } from '@angular/core';
-import Page from 'src/app/models/page';
 import APIResponse from 'src/app/models/response';
 import Template from 'src/app/models/template';
 import { TemplateService } from '../../../core/services/admin/template.service';
@@ -13,7 +12,7 @@ import Block from 'src/app/models/block';
   styleUrls: ['./page-preview.component.scss']
 })
 export class PagePreviewComponent implements OnInit {
-  @Input() page: Page;
+  @Input() blocks: Block;
   template: Template;
   styles: SafeHtml;
 

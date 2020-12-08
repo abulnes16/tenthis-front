@@ -1,7 +1,7 @@
 <div class="container">
-  <div *ngIf="page" class="row">
+  <div *ngIf="blocks" class="row">
     <div
-      *ngFor="let block of page.html; let i = index"
+      *ngFor="let block of blocks; let i = index"
       [class]="'col-lg-' + block.columns"
       [style]="setBackground(block)"
     >

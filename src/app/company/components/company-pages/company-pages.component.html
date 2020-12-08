@@ -1,30 +1,41 @@
 <div class="container p-5">
   <div class="row px-5">
-    <div class="col-lg-7 ">
+    <div class="col-lg-7">
       <h2>Páginas</h2>
     </div>
     <div class="col-lg-5 d-flex justify-content-end">
       <a class="btn btn-basic br-btn txt-md" routerLink="./create">Nuevo</a>
     </div>
   </div>
-  <div class="row mt-5">
-    <div class="col-lg-8 ml-auto mr-auto">
+  <div *ngIf="!loading" class="row mt-5">
+    <div
+      *ngIf="pages.length !== 0; else placeholder"
+      class="col-lg-8 ml-auto mr-auto"
+    >
       <div *ngFor="let page of pages" class="block-item box-shadow-card">
         <div class="block-item__left">
           <figure class="app-icon-lg mr-4">
             <fa-icon [icon]="pageIcon" size="lg"></fa-icon>
           </figure>
-          <h3>{{ page.name }}</h3>
+          <h3>{{ page.title }}</h3>
         </div>
         <div class="block-item__actions">
-          <figure class="app-icon bg-primary mr-2 edit-icon">
+          <a
+            class="app-icon edit-icon bg-primary mr-2"
+            [routerLink]="'/admin-companies/' + store + '/pages/' + page._id"
+          >
             <fa-icon [icon]="editIcon" size="lg"></fa-icon>
-          </figure>
-          <figure class="app-icon delete-icon">
+          </a>
+          <figure class="app-icon delete-icon" (click)="deletePage(page._id)">
             <fa-icon [icon]="deleteIcon" size="lg"></fa-icon>
           </figure>
         </div>
       </div>
     </div>
+    <ng-template #placeholder>
+      <div class="col-lg-8 ml-auto mr-auto">
+        <h2>Todavia no has creado ninguna página :(</h2>
+      </div>
+    </ng-template>
   </div>
 </div>

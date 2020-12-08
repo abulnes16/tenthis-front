@@ -9,6 +9,7 @@
       <app-new-page-form
         [editBlock]="editBlock"
         (block)="addBlock($event)"
+        (pageData)="savePage($event)"
         (updateBlock)="updateBlock($event)"
       ></app-new-page-form>
     </div>
@@ -16,7 +17,7 @@
       <app-page-preview
         (deletedBlock)="removeBlock($event)"
         (editedBlock)="getEditBlock($event)"
-        [page]="newPage"
+        [blocks]="blocks"
       ></app-page-preview>
     </div>
   </div>
