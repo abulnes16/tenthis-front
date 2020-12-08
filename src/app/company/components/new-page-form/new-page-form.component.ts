@@ -151,12 +151,14 @@ export class NewPageFormComponent implements OnInit, OnChanges {
     if (this.pageForm.valid) {
       const title = this.title.value;
       const description = this.description.value;
-      const { isMain, isVisible } = this.pageForm.value;
+      const { isMain, isVisible, css } = this.pageForm.value;
+
       const data = {
         title,
         description,
         isMain,
-        isVisible
+        isVisible,
+        css
       };
       this.pageData.emit(data);
     } else {

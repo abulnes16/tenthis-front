@@ -24,4 +24,9 @@ export class RenderPageService {
       head.appendChild(style);
     }
   }
+
+  removeStyles(): void {
+    const style = document.querySelector('#page-style');
+    style.remove();
+  }
 }

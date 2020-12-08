@@ -62,7 +62,7 @@ const routes: Routes = [
     data: { expectedRole: 'owner' }
   },
   {
-    path: ':company-id/pages/:page-id',
+    path: ':companyId/pages/:pageId',
     component: ManagePageComponent,
     canActivate: [AuthGuard],
     data: { expectedRole: 'owner' }

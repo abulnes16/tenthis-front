@@ -15,6 +15,7 @@ import { TrimPipe } from './pipes/trim.pipe';
 import { CompanyPageComponent } from './components/company-page/company-page.component';
 import { MediaNamePipe } from './pipes/media-name.pipe';
 import { MediaIconPipe } from './pipes/media-icon.pipe';
+import { SpinnerComponent } from './components/spinner/spinner.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { MediaIconPipe } from './pipes/media-icon.pipe';
     TrimPipe,
     CompanyPageComponent,
     MediaNamePipe,
-    MediaIconPipe
+    MediaIconPipe,
+    SpinnerComponent
   ],
   imports: [
     CommonModule,
@@ -44,6 +46,7 @@ import { MediaIconPipe } from './pipes/media-icon.pipe';
     AceEditorModule,
     FontAwesomeModule,
     CompanyPageComponent,
+    SpinnerComponent,
     // Pipes
     FilterPipe,
     TrimPipe,

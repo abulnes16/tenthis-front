@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { PageService } from 'src/app/core/services/shared/page.service';
 import Block from 'src/app/models/block';
 import APIResponse from 'src/app/models/response';
 import Template from 'src/app/models/template';
 import Swal from 'sweetalert2';
+import { RenderPageService } from 'src/app/core/services/shared/render-page.service';
 
 
 @Component({
@@ -12,19 +13,24 @@ import Swal from 'sweetalert2';
   templateUrl: './new-page.component.html',
   styleUrls: ['./new-page.component.scss']
 })
-export class NewPageComponent implements OnInit {
+export class NewPageComponent implements OnInit, OnDestroy {
   blocks: Block[];
   template: Template;
   editBlock: Block;
   constructor(
     private pageService: PageService,
     private location: Location,
+    private render: RenderPageService,
   ) {
     this.blocks = [];
   }
 
   ngOnInit(): void {
 
+  }
+
+  ngOnDestroy(): void {
+    this.render.removeStyles();
   }
 
   savePage(data: any): void {
