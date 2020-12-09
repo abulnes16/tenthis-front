@@ -34,6 +34,7 @@ export class CompanyPageComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     const companyId = this.router.snapshot.params.companyId;
+    console.log(this.dataLoaded);
     if (!this.dataLoaded) {
       this.loadData(companyId);
     }
@@ -79,6 +80,8 @@ export class CompanyPageComponent implements OnInit, OnDestroy {
         const pageId = this.router.snapshot.params.pageId;
         if (pageId === 'home') {
           this.currentPage = this.pages.find(p => p.isMain);
+        } else {
+          this.currentPage = this.pages.find(p => p._id === pageId);
         }
         if (this.currentPage.css) {
           this.render.setStyles(this.currentPage.css);
@@ -90,7 +93,7 @@ export class CompanyPageComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.render.removeStyles();
   }
 
