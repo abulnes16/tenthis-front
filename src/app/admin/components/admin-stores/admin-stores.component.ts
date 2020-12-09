@@ -22,6 +22,7 @@ export class AdminStoresComponent implements OnInit {
   deleteIcon = faTrash;
 
   nameFilter: string;
+  loading = true;
 
   stores: Store[];
   currentStore: Store;
@@ -35,6 +36,7 @@ export class AdminStoresComponent implements OnInit {
     this.storeService.getStores().subscribe((res: APIResponse) => {
 
       this.stores = res.data;
+      this.loading = false;
     });
   }
 

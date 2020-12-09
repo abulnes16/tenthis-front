@@ -15,12 +15,14 @@ export class TemplatesComponent implements OnInit {
   editMode = false;
   currentTemplate: Template;
   templates: Template[];
+  loading = true;
 
   constructor(private templateService: TemplateService) { }
 
   ngOnInit(): void {
     this.templateService.getTemplates().subscribe((res: APIResponse) => {
       this.templates = res.data;
+      this.loading = false;
     });
   }
 

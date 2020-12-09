@@ -16,12 +16,14 @@ export class UsersComponent implements OnInit {
   editMode = false;
   currentUser: User;
   users: User[];
+  loading = true;
 
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
     this.userService.getUsers().subscribe((res: APIResponse) => {
       this.users = res.data;
+      this.loading = false;
     });
   }
 

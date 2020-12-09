@@ -15,12 +15,14 @@ export class AdminPlansComponent implements OnInit {
   planIcon = faTag;
   plans: Plan[];
   currentPlan: Plan;
+  loading = true;
 
   constructor(private planService: PlanService) { }
 
   ngOnInit(): void {
     this.planService.getPlans().subscribe((res: APIResponse) => {
       this.plans = res.data;
+      this.loading = false;
     });
   }
 
