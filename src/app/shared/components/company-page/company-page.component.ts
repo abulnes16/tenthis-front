@@ -23,7 +23,6 @@ export class CompanyPageComponent implements OnInit, OnDestroy {
   storeHeader: SafeHtml;
   storeFooter: SafeHtml;
 
-  dataLoaded = false;
   constructor(
     private router: ActivatedRoute,
     private storeService: StoreService,
@@ -34,18 +33,13 @@ export class CompanyPageComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     const companyId = this.router.snapshot.params.companyId;
-    console.log(this.dataLoaded);
-    if (!this.dataLoaded) {
-      this.loadData(companyId);
-    }
-
+    this.loadData(companyId);
   }
 
-  changeCurrentPage() {
+  changeCurrentPage(): void {
     this.router.params.subscribe((params) => {
-      console.log(params);
-      this.currentPage = this.pages.find(p => p._id === params['pageId']);
-    })
+      this.currentPage = this.pages.find(p => p._id === params.pageId);
+    });
   }
 
   loadData(companyId: string): void {
@@ -58,7 +52,7 @@ export class CompanyPageComponent implements OnInit, OnDestroy {
         this.templateService.getTemplateById(template).subscribe((res: APIResponse) => {
           this.template = res.data;
           this.render.setStyles(this.template.css);
-        })
+        });
       }
 
       if (header) {
@@ -87,7 +81,6 @@ export class CompanyPageComponent implements OnInit, OnDestroy {
           this.render.setStyles(this.currentPage.css);
         }
         this.loading = false;
-        this.dataLoaded = true;
       });
 
     });
