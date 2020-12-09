@@ -16,6 +16,7 @@ import { CompanyPageComponent } from './components/company-page/company-page.com
 import { MediaNamePipe } from './pipes/media-name.pipe';
 import { MediaIconPipe } from './pipes/media-icon.pipe';
 import { SpinnerComponent } from './components/spinner/spinner.component';
+import { RenderPageComponent } from './components/render-page/render-page.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
     CompanyPageComponent,
     MediaNamePipe,
     MediaIconPipe,
-    SpinnerComponent
+    SpinnerComponent,
+    RenderPageComponent
   ],
   imports: [
     CommonModule,

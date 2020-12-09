@@ -28,8 +28,8 @@ export class StoreService {
     const subject = new Subject<Store>();
     this.http.get(`${StoreService.route}/${id}`).subscribe((res: APIResponse) => {
       this.loggedStore = res.data;
-      sessionStorage.setItem('store', JSON.stringify(res.data));
       subject.next(res.data);
+      sessionStorage.setItem('store', JSON.stringify(res.data));
     });
 
     return subject.asObservable();

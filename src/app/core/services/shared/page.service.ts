@@ -13,8 +13,15 @@ export class PageService {
 
   constructor(private http: HttpClient) { }
 
-  getPages(): Observable<any> {
-    return this.http.get(PageService.route);
+  getPages(storeId: string = null): Observable<any> {
+    let route = "";
+    if (storeId !== null) {
+      route = `${PageService.route}?store=${storeId}`;
+    } else {
+      route = PageService.route;
+    }
+    
+    return this.http.get(route);
   }
 
   getPage(id: string): Observable<any> {

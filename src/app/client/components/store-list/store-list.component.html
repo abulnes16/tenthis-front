@@ -18,7 +18,7 @@
         <a
           *ngFor="let store of stores | filter: 'name':storeFilter"
           class="col-lg-6 text-dark text-decoration-none"
-          [routerLink]="'/companies/' + store._id"
+          [routerLink]="'/companies/' + store._id + '/pages/' + 'home'"
         >
           <div class="block-item box-shadow-card">
             <div class="block-item__left">

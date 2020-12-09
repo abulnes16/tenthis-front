@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RenderPageService {
 
-  constructor() { }
+  constructor(private sanitize: DomSanitizer) { }
 
   setStyles(css: string): any {
     const head = document.getElementsByTagName('head')[0];
@@ -28,5 +29,9 @@ export class RenderPageService {
   removeStyles(): void {
     const style = document.querySelector('#page-style');
     style.remove();
+  }
+
+  sanitizeHTML(html: string): SafeHtml {
+    return this.sanitize.bypassSecurityTrustHtml(html);
   }
 }

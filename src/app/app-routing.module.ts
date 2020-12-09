@@ -25,7 +25,7 @@ const routes: Routes = [
     loadChildren: () => import('./client/client.module').then(m => m.ClientModule)
   },
   {
-    path: 'companies/:companyId',
+    path: 'companies/:companyId/pages/:pageId',
     component: CompanyPageComponent,
     canActivate: [AuthGuard],
     data: { expectedRole: 'client' }
