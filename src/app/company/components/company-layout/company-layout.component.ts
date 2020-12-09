@@ -72,11 +72,17 @@ export class CompanyLayoutComponent implements OnInit {
   constructor(private storeService: StoreService) { }
 
   ngOnInit(): void {
-    const token = sessionStorage.getItem('token');
-    const decodedToken = decode(token);
-    this.storeService.getStore(decodedToken.store).subscribe((data) => {
-      this.currentStore = data;
-    })
+    const store = sessionStorage.getItem('store');
+    if (!store) {
+      const token = sessionStorage.getItem('token');
+      const decodedToken = decode(token);
+      this.storeService.getStore(decodedToken.store).subscribe((data) => {
+        this.currentStore = data;
+      });
+    } else {
+      this.currentStore = JSON.parse(store);
+    }
+
   }
 
 }

@@ -15,18 +15,27 @@ export class PagePreviewComponent implements OnInit {
   @Input() blocks: Block;
   template: Template;
   styles: SafeHtml;
+  storeHeader: SafeHtml;
+  storeFooter: SafeHtml;
 
   @Output() editedBlock = new EventEmitter<number>();
   @Output() deletedBlock = new EventEmitter<number>();
   constructor(
     private templateService: TemplateService,
-    private storeService: StoreService,
     private sanitizer: DomSanitizer,
     private render: RenderPageService,
   ) { }
 
   ngOnInit(): void {
-    const { configuration: { useTemplate, template } } = this.storeService.store;
+    const {
+      configuration: {
+        useTemplate,
+        template,
+        header,
+        footer,
+      },
+      css,
+    } = JSON.parse(sessionStorage.getItem('store'));
     if (useTemplate) {
       this.templateService.getTemplateById(template).subscribe((res: APIResponse) => {
         this.template = res.data;
@@ -34,10 +43,22 @@ export class PagePreviewComponent implements OnInit {
       });
     }
 
+    if (css) {
+      this.render.setStyles(css);
+    }
+
+
+    if (header !== '') {
+      this.storeHeader = this.getHTML(header);
+    }
+
+    if (footer !== '') {
+      this.storeFooter = this.getHTML(footer);
+    }
   }
 
-  getHTML(html: string): SafeHtml {
-    return this.sanitizer.sanitize(SecurityContext.URL, html);
+  private getHTML(html: string): SafeHtml {
+    return this.sanitizer.bypassSecurityTrustHtml(html);
   }
 
   setBackground(block: Block): string {
