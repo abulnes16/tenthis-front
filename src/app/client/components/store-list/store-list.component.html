@@ -14,7 +14,7 @@
       />
     </div>
     <div class="col-lg-11 ml-auto mr-auto">
-      <div class="row">
+      <div class="row" *ngIf="!loading else spinner">
         <a
           *ngFor="let store of stores | filter: 'name':storeFilter"
           class="col-lg-6 text-dark text-decoration-none"
@@ -30,6 +30,9 @@
           </div>
         </a>
       </div>
+      <ng-template #spinner>
+        <app-spinner></app-spinner>
+      </ng-template>
     </div>
   </div>
 </div>

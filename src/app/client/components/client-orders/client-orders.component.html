@@ -14,7 +14,7 @@
       />
     </div>
     <div class="col-lg-4">
-      <app-list>
+      <app-list *ngIf="!loading else spinner">
         <div
           *ngFor="let order of orders | filter: '_id':orderFilter"
           class="card-item"
@@ -29,6 +29,9 @@
           </div>
         </div>
       </app-list>
+      <ng-template #spinner>
+        <app-spinner></app-spinner>
+      </ng-template>
     </div>
     <div class="offset-1 col-lg-7 justify-content-center ml-auto mr-auto">
       <div *ngIf="currentOrder" class="box-shadow-card border-radius order">

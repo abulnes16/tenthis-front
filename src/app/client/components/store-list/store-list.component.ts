@@ -16,6 +16,7 @@ export class StoreListComponent implements OnInit {
 
   stores: Store;
   storeFilter: string;
+  loading = true;
 
   constructor(private storeService: StoreService) { }
 
@@ -23,6 +24,7 @@ export class StoreListComponent implements OnInit {
 
     this.storeService.getStores().subscribe((res: APIResponse) => {
       this.stores = res.data;
+      this.loading = false;
     });
   }
 

@@ -17,11 +17,14 @@ export class ClientOrdersComponent implements OnInit {
   orders: Order[];
   orderFilter: string;
   currentOrder: Order;
+  loading = true;
+
   constructor(private orderService: OrderService) { }
 
   ngOnInit(): void {
     this.orderService.getOrders().subscribe((res: APIResponse) => {
       this.orders = res.data;
+      this.loading = false;
     });
   }
 
