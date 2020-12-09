@@ -16,12 +16,14 @@ export class CategoriesComponent implements OnInit {
   currentCategory: Category;
 
   categories: Category[];
+  loading = true;
 
   constructor(private categoryService: CategoryService) { }
 
   ngOnInit(): void {
     this.categoryService.getCategories().subscribe((res: APIResponse) => {
       this.categories = res.data;
+      this.loading = false;
     });
   }
 

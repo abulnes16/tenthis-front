@@ -7,7 +7,7 @@
       <a class="btn btn-basic br-btn txt-md" routerLink="./create">Nuevo</a>
     </div>
   </div>
-  <div *ngIf="!loading" class="row mt-5">
+  <div *ngIf="!loading else spinner" class="row mt-5">
     <div
       *ngIf="pages.length !== 0; else placeholder"
       class="col-lg-8 ml-auto mr-auto"
@@ -38,4 +38,9 @@
       </div>
     </ng-template>
   </div>
+  <ng-template #spinner>
+    <div class="col-lg-12">
+      <app-spinner></app-spinner>
+    </div>
+  </ng-template>
 </div>

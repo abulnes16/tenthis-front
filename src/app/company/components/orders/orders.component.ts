@@ -18,6 +18,7 @@ export class OrdersComponent implements OnInit {
   orderFilter: string;
   orders: Order[];
   currentOrder: Order;
+  loading = true;
 
   constructor(
     private modalService: NgbModal,
@@ -27,6 +28,7 @@ export class OrdersComponent implements OnInit {
   ngOnInit(): void {
     this.orderService.getOrders().subscribe((res: APIResponse) => {
       this.orders = res.data;
+      this.loading = false;
     });
   }
 

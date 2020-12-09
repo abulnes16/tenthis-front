@@ -16,6 +16,7 @@ export class MediaComponent implements OnInit {
   @ViewChild('fileModal') fileModal;
   @ViewChild('fileDetailModal') fileDetailModal;
   currentFile: Media;
+  loading = true;
 
   // Media tabs
   currentTab = 'todo';
@@ -49,6 +50,7 @@ export class MediaComponent implements OnInit {
     this.mediaService.getMediaFiles().subscribe((res: APIResponse) => {
       this.media = res.data;
       this.filterFiles(this.media);
+      this.loading = false;
     });
   }
 

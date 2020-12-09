@@ -32,6 +32,7 @@ export class ConfigComponent implements OnInit {
   faviconImg: any;
   logoImg: any;
   store: Store;
+  loading = true;
 
   get storeName(): AbstractControl {
     return this.configForm.get('storeName');
@@ -68,7 +69,7 @@ export class ConfigComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.store = this.storeService.store;
+    this.store = JSON.parse(sessionStorage.getItem('store'));
     const { configuration, name, description } = this.store;
     const { logo, favicon, useTemplate } = configuration;
     if (logo && logo !== '') {
@@ -90,12 +91,12 @@ export class ConfigComponent implements OnInit {
       storeName: name,
       description,
     });
-    ;
+
 
     this.templateService.getTemplates().subscribe((res: APIResponse) => {
       this.templates = res.data;
     });
-
+    this.loading = false;
   }
 
   transformHTML(html: string): SafeHtml {

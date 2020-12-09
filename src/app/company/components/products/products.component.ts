@@ -17,6 +17,7 @@ export class ProductsComponent implements OnInit {
 
   products: Product[];
   currentProduct: Product;
+  loading = true;
 
 
   constructor(private productService: ProductService) { }
@@ -24,6 +25,7 @@ export class ProductsComponent implements OnInit {
   ngOnInit(): void {
     this.productService.getProducts().subscribe((res: APIResponse) => {
       this.products = res.data;
+      this.loading = false;
     });
   }
 

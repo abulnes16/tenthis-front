@@ -19,7 +19,7 @@
   </div>
   <div class="row mt-3 px-5">
     <div class="col-lg-12">
-      <div class="box-shadow-card border-radius">
+      <div class="box-shadow-card border-radius" *ngIf="!loading else spinner">
         <table
           *ngIf="orders.length !== 0; else orderPlaceholder"
           class="table text-center"
@@ -56,6 +56,9 @@
           </tbody>
         </table>
       </div>
+      <ng-template #spinner>
+        <app-spinner></app-spinner>
+      </ng-template>
     </div>
   </div>
 

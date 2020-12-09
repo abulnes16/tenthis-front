@@ -9,7 +9,7 @@
   </div>
   <div class="row mt-5">
     <div class="col-lg-4">
-      <app-list>
+      <app-list *ngIf="!loading else spinner">
         <div
           *ngFor="let category of categories"
           class="card-item"
@@ -23,6 +23,9 @@
           </div>
         </div>
       </app-list>
+      <ng-template #spinner>
+        <app-spinner></app-spinner>
+      </ng-template>
     </div>
     <div class="offset-1 col-lg-7 justify-content-center ml-auto mr-auto">
       <app-category-form
