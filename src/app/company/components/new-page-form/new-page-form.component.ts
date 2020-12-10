@@ -231,7 +231,7 @@ export class NewPageFormComponent implements OnInit, OnChanges {
 
   addShortcout(): void {
     const shortcout = { type: this.currentShortcout, value: this.shortcoutValue };
-    let newHTML;
+    let newHTML: string;
     newHTML = `${this._currentForm === 'nbt' ? this.wyswyg.value : this.html.value} ${JSON.stringify(shortcout)}`;
     if (this._currentForm === 'nbt') {
       this.wyswyg.setValue(newHTML);
