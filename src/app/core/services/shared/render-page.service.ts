@@ -1,12 +1,18 @@
 import { Injectable } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-
+import ShortTypes from '../../../constants/shortcouts';
 @Injectable({
   providedIn: 'root'
 })
 export class RenderPageService {
 
-  constructor(private sanitize: DomSanitizer) { }
+  static shortcoutTypes: Array<any>;
+
+  constructor(private sanitize: DomSanitizer) {
+    RenderPageService.shortcoutTypes = ShortTypes;
+  }
+
+
 
   setStyles(css: string): any {
     const head = document.getElementsByTagName('head')[0];

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
 import Block from 'src/app/models/block';
@@ -8,6 +8,9 @@ import APIResponse from 'src/app/models/response';
 import Swal from 'sweetalert2';
 import { MediaService } from '../../../core/services/company/media.service';
 import { RenderPageService } from '../../../core/services/shared/render-page.service';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { CategoryService } from 'src/app/core/services/company/category.service';
+import Category from 'src/app/models/category';
 
 @Component({
   selector: 'app-manage-page-form',
@@ -20,6 +23,13 @@ export class ManagePageFormComponent implements OnInit, OnChanges {
   private _currentForm = 'nbt';
   columns: Array<number>;
   media: Media[];
+  files: Media[];
+
+  currentShortcout: string;
+  shortcoutValue: any;
+  modalRef: NgbModalRef;
+  categories: Category[];
+  shortTypes: Array<any>;
 
   @Input() editBlock: Block;
   @Input() page: Page;
@@ -27,6 +37,7 @@ export class ManagePageFormComponent implements OnInit, OnChanges {
   @Output() pageData = new EventEmitter<any>();
   @Output() updateBlock = new EventEmitter<Block>();
 
+  @ViewChild('shortcoutModal') shortcoutModal;
 
   pageForm = new FormGroup({
     title: new FormControl('', [Validators.required]),
@@ -44,13 +55,21 @@ export class ManagePageFormComponent implements OnInit, OnChanges {
     private mediaService: MediaService,
     private render: RenderPageService,
     private location: Location,
+    private modalService: NgbModal,
+    private categoryService: CategoryService,
   ) {
     this.columns = Array(12).fill(0).map((x, i) => (i + 1));
+    this.shortTypes = RenderPageService.shortcoutTypes;
   }
 
   ngOnInit(): void {
     this.mediaService.getMediaFiles().subscribe((res: APIResponse) => {
       this.media = res.data.filter(file => file.type.startsWith('image'));
+      this.files = res.data.filter(file => !file.type.startsWith('image'));
+    });
+
+    this.categoryService.getCategories().subscribe((res: APIResponse) => {
+      this.categories = res.data;
     });
   }
 
@@ -216,5 +235,26 @@ export class ManagePageFormComponent implements OnInit, OnChanges {
     this.render.setStyles(styles);
   }
 
+
+  showShortcoutsModal(): void {
+    this.modalRef = this.modalService.open(this.shortcoutModal, { size: 'lg' });
+  }
+
+  addShortcout(): void {
+    const shortcout = { type: this.currentShortcout, value: this.shortcoutValue };
+    let currentHTML;
+    if (this._currentForm === 'nbt') {
+      currentHTML = this.wyswyg.value;
+      this.wyswyg.setValue(`${currentHTML} ${JSON.stringify(shortcout)}`);
+    } else {
+      currentHTML = this.html.value;
+      this.html.setValue(`${currentHTML} ${JSON.stringify(shortcout)}`);
+    }
+    this.modalRef.close();
+  }
+
+  clearValue(): void {
+    this.shortcoutValue = '';
+  }
 
 }

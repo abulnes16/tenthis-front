@@ -102,7 +102,7 @@
           <div class="col-lg-12 wyswyg-editor">
             <div class="d-flex justify-content-between mb-3">
               <label for="">Editor</label>
-              <button class="btn btn-main br-btn txt-sm">
+              <button class="btn btn-main br-btn txt-sm" (click)="showShortcoutsModal()">
                 Agregar shortcout
               </button>
             </div>
@@ -140,4 +140,123 @@
       </div>
     </div>
   </form>
+
+  <ng-template #shortcoutModal let-modal>
+    <div class="modal-header bg-main">
+      <h4 class="modal-title text-white" id="modal-basic-title">
+        Tenthis shortcouts
+      </h4>
+      <button
+        type="button"
+        class="close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      >
+        <span class="text-white" aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body px-5">
+      <div class="form-group">
+        <label for="">Seleccione el tipo de shortcout</label>
+        <select
+          (change)="clearValue()"
+          [(ngModel)]="currentShortcout"
+          class="form-control"
+        >
+          <option *ngFor="let type of shortTypes" [value]="type.value">
+            {{ type.key }}
+          </option>
+        </select>
+        <ng-container [ngSwitch]="currentShortcout">
+          <ng-container *ngSwitchCase="'login'">
+            <div class="mt-2">
+              <strong>Descripcion</strong>
+              <p>
+                El shortcout de login creara un login sencillo con nombre y
+                contraseña
+              </p>
+            </div>
+          </ng-container>
+          <ng-container *ngSwitchCase="'imageGallery'">
+            <div class="mt-2">
+              <strong>Descripcion</strong>
+              <p>
+                El shortcout de galeria mostrara una galeria de imagenes en
+                cuadros
+              </p>
+            </div>
+            <label class="mt-2" for=""
+              >Seleccione las imagenes a mostrar en la galeria</label
+            >
+            <div class="form-group">
+              <select
+                [(ngModel)]="shortcoutValue"
+                class="form-control"
+                multiple
+              >
+                <option *ngFor="let image of media" [value]="image._id">
+                  {{ image.name | mediaName }}
+                </option>
+              </select>
+            </div>
+          </ng-container>
+          <ng-container *ngSwitchCase="'productGallery'">
+            <div class="mt-2">
+              <strong>Descripcion</strong>
+              <p>
+                El shortcout de productos mostrara un catalogo de los productos.
+                <br /><strong>Importante:</strong>
+                La galeria de productos mostrará todos los productos si no
+                selecciona una categoria.
+              </p>
+            </div>
+
+            <label for="">Seleccione una categoria de productos</label>
+            <select [(ngModel)]="shortcoutValue" class="form-control">
+              <option
+                *ngFor="let category of categories"
+                [value]="category._id"
+              >
+                {{ category.name }}
+              </option>
+            </select>
+          </ng-container>
+          <ng-container *ngSwitchCase="'file'">
+            <div class="mt-2">
+              <strong>Descripcion</strong>
+              <p>
+                El shortcout de archivo mostrara un enlace para descargar el
+                archivo seleccionado
+              </p>
+              <label for="">Seleccione el archivo a descargar</label>
+              <select [(ngModel)]="shortcoutValue" class="form-control">
+                <option *ngFor="let file of files" [value]="file._id">
+                  {{ file.name | mediaName }}
+                </option>
+              </select>
+            </div>
+          </ng-container>
+          <ng-container *ngSwitchCase="'image'">
+            <div class="mt-2">
+              <strong>Descripcion</strong>
+              <p>El shortcout de imagen mostrara una sola imagen en cuadro</p>
+            </div>
+            <label class="mt-2" for="">Seleccione la imagen a mostrar</label>
+            <div class="form-group">
+              <select [(ngModel)]="shortcoutValue" class="form-control">
+                <option *ngFor="let image of media" [value]="image._id">
+                  {{ image.name | mediaName }}
+                </option>
+              </select>
+            </div>
+          </ng-container>
+        </ng-container>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-main br-btn" (click)="addShortcout()">
+        Agregar shortcout
+      </button>
+    </div>
+  </ng-template>
 </aside>
