@@ -242,14 +242,18 @@ export class ManagePageFormComponent implements OnInit, OnChanges {
 
   addShortcout(): void {
     const shortcout = { type: this.currentShortcout, value: this.shortcoutValue };
-    let currentHTML;
+    let newHTML;
+    newHTML = `${this._currentForm === 'nbt' ? this.wyswyg.value : this.html.value} ${JSON.stringify(shortcout)}`;
     if (this._currentForm === 'nbt') {
-      currentHTML = this.wyswyg.value;
-      this.wyswyg.setValue(`${currentHTML} ${JSON.stringify(shortcout)}`);
+      this.wyswyg.setValue(newHTML);
     } else {
-      currentHTML = this.html.value;
-      this.html.setValue(`${currentHTML} ${JSON.stringify(shortcout)}`);
+      this.html.setValue(newHTML);
     }
+
+    if (this.editBlock) {
+      this.html.setValue(newHTML);
+    }
+
     this.modalRef.close();
   }
 
