@@ -31,6 +31,7 @@ export class NewPageComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.render.removeStyles();
+    sessionStorage.removeItem('category-current');
   }
 
   savePage(data: any): void {

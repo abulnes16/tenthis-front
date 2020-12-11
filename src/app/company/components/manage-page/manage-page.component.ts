@@ -39,6 +39,7 @@ export class ManagePageComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.render.removeStyles();
+    sessionStorage.removeItem('category-current');
   }
 
   saveEditPage(data: any): void {
