@@ -98,8 +98,8 @@ export class RenderPageService {
   async createProductCatalog(productShortcout: any): Promise<string> {
     const products = sessionStorage.getItem('products-store');
     let productCatalog = '';
+    let category = null;
     if (!products) {
-      let category = null;
       if (productShortcout.value !== '') {
         sessionStorage.setItem('category-current', productShortcout.value);
         category = productShortcout.value;
@@ -108,7 +108,17 @@ export class RenderPageService {
       sessionStorage.setItem('products-store', JSON.stringify({ products: result.data }));
       productCatalog = this.makeCatalog(result.data);
     } else {
-      productCatalog = this.makeCatalog(JSON.parse(products).products);
+      if (productShortcout.value !== '') {
+        const currentCategory = sessionStorage.getItem('category-current');
+        if (currentCategory !== productShortcout.value) {
+          sessionStorage.setItem('category-current', productShortcout.value);
+          const newProducts = await this.productService.getProducts(productShortcout.value).toPromise();
+          productCatalog = this.makeCatalog(newProducts.data);
+        }
+        category = productShortcout.value;
+      }else {
+        productCatalog = this.makeCatalog(JSON.parse(products).products);
+      }
     }
 
     return productCatalog;
