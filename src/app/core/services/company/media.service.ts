@@ -18,7 +18,7 @@ export class MediaService {
       return this.http.get(`${MediaService.route}?bulk=true&media=${data}&store=${storeId}`);
     }
 
-    if(mediaIds !== null){
+    if (mediaIds !== null) {
       const data = JSON.stringify([...mediaIds]);
       return this.http.get(`${MediaService.route}?bulk=true&media=${data}`);
     }

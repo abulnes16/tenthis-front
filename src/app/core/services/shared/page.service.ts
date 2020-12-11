@@ -14,7 +14,7 @@ export class PageService {
   constructor(private http: HttpClient) { }
 
   getPages(storeId: string = null): Observable<any> {
-    let route = "";
+    let route = '';
     if (storeId !== null) {
       route = `${PageService.route}?store=${storeId}`;
     } else {
