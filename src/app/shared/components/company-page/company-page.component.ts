@@ -9,6 +9,7 @@ import Page from 'src/app/models/page';
 import APIResponse from 'src/app/models/response';
 import Store from 'src/app/models/store';
 import Template from 'src/app/models/template';
+import { addToCart } from '../../../constants/cartFunction';
 @Component({
   selector: 'app-company-page',
   templateUrl: './company-page.component.html',
@@ -35,6 +36,8 @@ export class CompanyPageComponent implements OnInit, OnDestroy {
     const companyId = this.router.snapshot.params.companyId;
     sessionStorage.setItem('currentStore', companyId);
     this.loadData(companyId);
+   /*  this.render.setScript(`const Swal = require('sweetalert2');`); */
+    this.render.setScript(addToCart.toString());
   }
 
   changeCurrentPage(): void {
@@ -89,16 +92,7 @@ export class CompanyPageComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.render.removeStyles();
-  }
-
-  addToCart(productId: string): void {
-    let cart: any = localStorage.getItem('cart');
-    if (!cart) {
-      cart = [productId];
-    } else {
-      cart = [...JSON.parse(cart).cart, productId];
-    }
-    localStorage.setItem('cart', JSON.stringify({ cart }));
+    this.render.removeScript();
   }
 
 }

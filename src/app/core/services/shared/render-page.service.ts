@@ -51,6 +51,26 @@ export class RenderPageService {
     style.remove();
   }
 
+  setScript(js: string): void {
+    const body = document.getElementsByTagName('body')[0];
+    let script = document.querySelector('#page-script');
+
+    if (script) {
+      const newScript = `${script.innerHTML} ${js}`;
+      script.innerHTML = newScript;
+    } else {
+      script = document.createElement('script');
+      script.appendChild(document.createTextNode(js));
+      script.id = 'page-script';
+      body.appendChild(script);
+    }
+  }
+
+  removeScript(): void {
+    const script = document.querySelector('#page-script');
+    script.remove();
+  }
+
   sanitizeHTML(html: string): SafeHtml {
     return this.sanitize.bypassSecurityTrustHtml(html);
   }
@@ -152,7 +172,7 @@ export class RenderPageService {
           <div class="card-body">
             <h5 class="card-title">${product.name}</h5>
                 <p class="card-text"><strong>Precio:</strong>L. ${product.price} </p>
-                <button (click)="addToCart(${product._id})" class="btn btn-primary">Agregar al carrito</button>
+                <button onclick="addToCart('${product._id}')" class="btn btn-primary">Agregar al carrito</button>
           </div>
         </div>
       </div>
