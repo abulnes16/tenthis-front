@@ -33,6 +33,7 @@ export class CompanyPageComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     const companyId = this.router.snapshot.params.companyId;
+    sessionStorage.setItem('currentStore', companyId);
     this.loadData(companyId);
   }
 
@@ -88,6 +89,16 @@ export class CompanyPageComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.render.removeStyles();
+  }
+
+  addToCart(productId: string): void {
+    let cart: any = localStorage.getItem('cart');
+    if (!cart) {
+      cart = [productId];
+    } else {
+      cart = [...JSON.parse(cart).cart, productId];
+    }
+    localStorage.setItem('cart', JSON.stringify({ cart }));
   }
 
 }

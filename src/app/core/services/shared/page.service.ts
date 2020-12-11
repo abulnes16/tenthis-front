@@ -20,7 +20,7 @@ export class PageService {
     } else {
       route = PageService.route;
     }
-    
+
     return this.http.get(route);
   }
 

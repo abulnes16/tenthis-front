@@ -4,9 +4,11 @@ import ShortTypes, { loginHTML } from '../../../constants/shortcouts';
 import { shortcoutRegex as shortRegex } from '../../../constants/regex';
 import { ProductService } from '../company/product.service';
 import { MediaService } from '../company/media.service';
-import APIResponse from 'src/app/models/response';
 import Product from 'src/app/models/product';
 import Media from 'src/app/models/media';
+
+import decoded from 'jwt-decode';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -63,10 +65,24 @@ export class RenderPageService {
       return html;
     }
   }
+  getRole(): string {
+    const decodedToken = decoded(sessionStorage.getItem('token'));
+    return decodedToken.role;
+  }
+
+  getStoreId(role: string): string {
+    let storeId = null;
+    if (role === 'client') {
+      storeId = sessionStorage.getItem('currentStore');
+    }
+    return storeId;
+  }
 
   async parseShortcout(html: string, stringShortcout: string): Promise<string> {
 
     const jsonShortcout = JSON.parse(stringShortcout);
+    const role = this.getRole();
+    const storeId = this.getStoreId(role);
     let transformHTML = '';
     switch (jsonShortcout.type) {
       case 'login':
@@ -75,19 +91,19 @@ export class RenderPageService {
       case 'productGallery':
         transformHTML = `
             <div class="row">
-              ${await this.createProductCatalog(jsonShortcout)}
+              ${await this.createProductCatalog(jsonShortcout, storeId)}
             </div>`;
         break;
       case 'imageGallery':
         transformHTML = `
             <div class="row">
               <div class="col-lg-12"><h3>Nuestra galeria</h3></div>
-              ${await this.createGallery(jsonShortcout)}
+              ${await this.createGallery(jsonShortcout, storeId)}
             </div>`;
         break;
       case 'file':
       case 'image':
-        transformHTML = await this.createFileResource(jsonShortcout);
+        transformHTML = await this.createFileResource(jsonShortcout, storeId);
         break;
 
     }
@@ -95,7 +111,7 @@ export class RenderPageService {
     return html.replace(stringShortcout, transformHTML);
   }
 
-  async createProductCatalog(productShortcout: any): Promise<string> {
+  async createProductCatalog(productShortcout: any, storeId: string): Promise<string> {
     const products = sessionStorage.getItem('products-store');
     let productCatalog = '';
     let category = null;
@@ -104,7 +120,8 @@ export class RenderPageService {
         sessionStorage.setItem('category-current', productShortcout.value);
         category = productShortcout.value;
       }
-      const result = await this.productService.getProducts(category).toPromise();
+
+      const result = await this.productService.getProducts(category, storeId).toPromise();
       sessionStorage.setItem('products-store', JSON.stringify({ products: result.data }));
       productCatalog = this.makeCatalog(result.data);
     } else {
@@ -112,11 +129,11 @@ export class RenderPageService {
         const currentCategory = sessionStorage.getItem('category-current');
         if (currentCategory !== productShortcout.value) {
           sessionStorage.setItem('category-current', productShortcout.value);
-          const newProducts = await this.productService.getProducts(productShortcout.value).toPromise();
+          const newProducts = await this.productService.getProducts(productShortcout.value, storeId).toPromise();
           productCatalog = this.makeCatalog(newProducts.data);
         }
         category = productShortcout.value;
-      }else {
+      } else {
         productCatalog = this.makeCatalog(JSON.parse(products).products);
       }
     }
@@ -135,7 +152,7 @@ export class RenderPageService {
           <div class="card-body">
             <h5 class="card-title">${product.name}</h5>
                 <p class="card-text"><strong>Precio:</strong>L. ${product.price} </p>
-                <button  class="btn btn-primary">Agregar al carrito</button>
+                <button (click)="addToCart(${product._id})" class="btn btn-primary">Agregar al carrito</button>
           </div>
         </div>
       </div>
@@ -145,11 +162,11 @@ export class RenderPageService {
     return html;
   }
 
-  async createGallery(mediaShortcout: any): Promise<string> {
+  async createGallery(mediaShortcout: any, storeId: string): Promise<string> {
     const media = sessionStorage.getItem('media-store');
     let gallery = '';
     if (!media) {
-      const result = await this.mediaService.getMediaFiles(mediaShortcout.value).toPromise();
+      const result = await this.mediaService.getMediaFiles(mediaShortcout.value, storeId).toPromise();
       sessionStorage.setItem('media-store', JSON.stringify({ media: result.data }));
       gallery = this.makeGallery(result.data);
     } else {
@@ -175,9 +192,9 @@ export class RenderPageService {
     return html;
   }
 
-  async createFileResource(fileShortcout: any): Promise<string> {
+  async createFileResource(fileShortcout: any, storeId: string): Promise<string> {
     const fileId = fileShortcout.value;
-    const result = await this.mediaService.getMediaFile(fileId).toPromise();
+    const result = await this.mediaService.getMediaFile(fileId, storeId).toPromise();
     const file = result.data;
     switch (fileShortcout.type) {
       case 'file':
