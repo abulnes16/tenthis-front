@@ -13,7 +13,10 @@ export class ProductService {
   private static route = `${environment.apiURL}/product`;
   constructor(private http: HttpClient) { }
 
-  getProducts(): Observable<any> {
+  getProducts(category: string = null): Observable<any> {
+    if (category !== null) {
+      return this.http.get(`${ProductService.route}?category=${category}`);
+    }
     return this.http.get(ProductService.route);
   }
 

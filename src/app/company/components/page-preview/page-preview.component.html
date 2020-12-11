@@ -6,7 +6,7 @@
       [class]="'col-lg-' + block.columns"
       [style]="setBackground(block)"
     >
-      <div [innerHTML]="block.html"></div>
+      <div [innerHTML]="block.html | renderHtml | async"></div>
 
       <div class="buttons-container">
         <button class="btn btn-page btn-main" (click)="editBlock(i)">

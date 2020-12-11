@@ -242,7 +242,8 @@ export class NewPageFormComponent implements OnInit, OnChanges {
     if (this.editBlock) {
       this.html.setValue(newHTML);
     }
-
+    this.currentShortcout = '';
+    this.shortcoutValue = '';
     this.modalRef.close();
   }
 

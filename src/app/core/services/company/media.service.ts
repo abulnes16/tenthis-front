@@ -12,7 +12,11 @@ export class MediaService {
   private static route = `${environment.apiURL}/media`;
   constructor(private http: HttpClient) { }
 
-  getMediaFiles(): Observable<any> {
+  getMediaFiles(mediaIds: string[] = null): Observable<any> {
+    if (mediaIds !== null) {
+      const data = JSON.stringify([...mediaIds]);
+      return this.http.get(`${MediaService.route}?bulk=true&media=${data}`);
+    }
     return this.http.get(MediaService.route);
   }
 
