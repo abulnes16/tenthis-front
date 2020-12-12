@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthGuard } from '../core/guards/auth.guard';
 import { WelcomeComponent } from '../shared/components/welcome/welcome.component';
 import { CategoriesComponent } from './components/categories/categories.component';
 import { CompanyLayoutComponent } from './components/company-layout/company-layout.component';
@@ -49,15 +50,22 @@ const routes: Routes = [
         path: 'configuration',
         component: ConfigComponent
       }
-    ]
+    ],
+    canActivate: [AuthGuard],
+    data: { expectedRole: 'owner' }
+
   },
   {
     path: 'pages/create',
-    component: NewPageComponent
+    component: NewPageComponent,
+    canActivate: [AuthGuard],
+    data: { expectedRole: 'owner' }
   },
   {
-    path: ':company-id/pages/:page-id',
-    component: ManagePageComponent
+    path: ':companyId/pages/:pageId',
+    component: ManagePageComponent,
+    canActivate: [AuthGuard],
+    data: { expectedRole: 'owner' }
   },
 ];
 

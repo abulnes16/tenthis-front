@@ -1,6 +1,6 @@
 <div class="container p-5">
   <div class="row px-5">
-    <div class="col-lg-7 ">
+    <div class="col-lg-7">
       <h2>Plantillas</h2>
     </div>
     <div class="col-lg-5 d-flex justify-content-end">
@@ -9,19 +9,32 @@
   </div>
   <div class="row mt-5">
     <div class="col-lg-4">
-      <app-list>
-        <div *ngFor="let t of templates" class="card-item" (click)="editTemplate()">
+      <app-list *ngIf="!loading else spinner">
+        <div
+          *ngFor="let template of templates"
+          class="card-item"
+          (click)="editTemplate(template._id)"
+        >
           <figure class="app-icon">
             <fa-icon [icon]="templateIcon" size="lg"></fa-icon>
           </figure>
           <div class="ml-3">
-            <p>{{ t.name }}</p>
+            <p>{{ template.name }}</p>
           </div>
         </div>
       </app-list>
+      <ng-template #spinner>
+        <app-spinner></app-spinner>
+      </ng-template>
     </div>
     <div class="offset-1 col-lg-7 justify-content-center ml-auto mr-auto">
-      <app-template-form [editMode]="editMode" [icon]="templateIcon"></app-template-form>
+      <app-template-form
+        (createdTemplate)="addTemplate($event)"
+        (deletedTemplate)="deleteTemplate($event)"
+        [editMode]="editMode"
+        [editTemplate]="currentTemplate"
+        [icon]="templateIcon"
+      ></app-template-form>
     </div>
   </div>
 </div>

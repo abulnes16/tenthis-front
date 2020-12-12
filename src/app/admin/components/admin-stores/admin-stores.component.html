@@ -6,34 +6,59 @@
   </div>
   <div class="row mt-5">
     <div class="offset-8 col-lg-4 d-flex justify-content-end mb-4 pr-5">
-      <input type="text" class="form-control mr-3" placeholder="Tienda" />
-      <button class="btn btn-main">Buscar</button>
+      <input
+        [(ngModel)]="nameFilter"
+        type="text"
+        class="form-control mr-3"
+        placeholder="Buscar tienda"
+      />
     </div>
     <div class="col-lg-11 ml-auto mr-auto">
-      <div class="row">
+      <div class="row" *ngIf="!loading else spinner">
         <div
-          *ngFor="let store of stores"
+          *ngFor="let store of stores | filter: 'name':nameFilter"
           class="col-lg-6 col-md-12"
-          (click)="showStore()"
         >
-          <div class="block-item box-shadow-card">
-            <div class="block-item__left">
+          <div
+            class="block-item box-shadow-card"
+            [ngClass]="{ 'bg-light': store.isBlock }"
+          >
+            <div class="block-item__left" (click)="showStore(store._id)">
               <figure class="app-icon-lg mr-4">
                 <fa-icon [icon]="tentIcon" size="lg"></fa-icon>
               </figure>
-              <h3>{{ store.name }}</h3>
+              <h3 [ngClass]="{ 'text-muted': store.isBlock }">
+                {{ store.name }}
+              </h3>
             </div>
             <div class="block-item__actions">
-              <figure class="app-icon bg-danger mr-2 block-icon">
+              <figure
+                *ngIf="!store.isBlock"
+                class="app-icon bg-danger mr-2 block-icon"
+                (click)="blockStore(store._id)"
+              >
                 <fa-icon [icon]="blockIcon" size="lg"></fa-icon>
               </figure>
-              <figure class="app-icon delete-icon">
+              <figure
+                *ngIf="store.isBlock"
+                class="app-icon bg-primary mr-2 edit-icon"
+                (click)="unblockStore(store._id)"
+              >
+                <fa-icon [icon]="unblockIcon" size="lg"></fa-icon>
+              </figure>
+              <figure
+                class="app-icon delete-icon"
+                (click)="deleteStore(store._id)"
+              >
                 <fa-icon [icon]="deleteIcon" size="lg"></fa-icon>
               </figure>
             </div>
           </div>
         </div>
       </div>
+      <ng-template #spinner>
+        <app-spinner></app-spinner>
+      </ng-template>
     </div>
   </div>
 
@@ -55,53 +80,87 @@
           <figure>
             <img
               class="rounded-circle img-fluid"
-              src="./assets/images/default.png"
+              [src]="
+                currentStore.configuration?.logo
+                  ? currentStore.configuration.logo.path
+                  : './assets/images/default.png'
+              "
               alt="Shop logo"
               width="100"
             />
           </figure>
           <div class="ml-5">
-            <h3>Nombre tienda</h3>
-            <h4>Dueño - <span class="font-weight-normal">Plan</span></h4>
+            <h3>{{ currentStore.name }}</h3>
+            <h4>
+              {{ currentStore.user.name }} -
+              <span class="font-weight-normal">
+                {{ currentStore.user.plan.name }}
+              </span>
+            </h4>
+            <div class="mt-3">
+              <strong class="mr-2">Estado:</strong>
+              <span class="bg-main br-btn text-white px-2">
+                {{ currentStore.isBlock ? "Bloqueada" : "Activa" }}
+              </span>
+            </div>
           </div>
         </div>
         <div class="mt-4">
+          <h5>Descripcion</h5>
+          <div class="row">
+            <div class="col-12">
+              <p>
+                {{
+                  currentStore.description
+                    ? currentStore.description
+                    : "Esta tienda no tiene descripcion"
+                }}
+              </p>
+            </div>
+          </div>
+        </div>
+       <!--  <div class="mt-4">
           <h5>Estadisticas</h5>
           <div class="row">
             <div
               class="col-lg-6 d-flex align-items-center justify-content-lg-between"
             >
               <strong>Productos creados</strong>
-              <span class="app-icon">10</span>
+              <span class="app-icon">{{ currentStore.products.length }}</span>
             </div>
             <div
               class="col-lg-6 d-flex align-items-center justify-content-lg-between"
             >
               <strong>Categorias creadas</strong>
-              <span class="app-icon">10</span>
+              <span class="app-icon">{{ currentStore.categories.length }}</span>
             </div>
           </div>
           <div class="row mt-3">
             <div
               class="col-lg-6 d-flex align-items-center justify-content-lg-between"
             >
-              <strong>Páginas creadas</strong> <span class="app-icon">10</span>
-            </div>
-            <div
-              class="col-lg-6 d-flex align-items-center justify-content-lg-between"
-            >
-              <strong>Ordenes recibidas </strong>
-              <span class="app-icon">10</span>
+              <strong>Páginas creadas</strong>
+              <span class="app-icon">{{ currentStore.pages.length }}</span>
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-danger br-btn">
+      <button
+        type="button"
+        class="btn btn-danger br-btn"
+        (click)="blockStore(currentStore._id)"
+      >
         Bloquear tienda
       </button>
-      <button type="button" class="btn btn-main br-btn">Eliminar tienda</button>
+      <button
+        type="button"
+        class="btn btn-main br-btn"
+        (click)="deleteStore(currentStore._id)"
+      >
+        Eliminar tienda
+      </button>
     </div>
   </ng-template>
 </div>

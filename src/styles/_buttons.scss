@@ -64,9 +64,19 @@
     background-color: var(--color-ligthen-gray);
     color: var(--color-darken);
   }
-  
+
   &.active {
     background-color: var(--color-ligthen-gray);
     color: var(--color-darken);
+  }
+}
+
+.btn-darker {
+  background-color: var(--color-dark);
+  color: white;
+
+  &:hover {
+    color: white;
+    background-color: var(--color-darken);
   }
 }

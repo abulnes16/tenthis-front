@@ -1,18 +1,21 @@
 .buttons-container {
-    position:  absolute;
-    top: 5%;
-    right: 3%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 50%;
+  margin: 0 auto;
 }
 
 .btn-page {
-    font-size: 12px;
-    margin-right: 5px;
+  font-size: 12px;
+  margin-right: 5px;
 }
 
 .edit-lg {
-    right: 8%;
+  right: 8%;
 }
 
 .edit-sm {
-    right: 20%;
+  right: 20%;
 }
+

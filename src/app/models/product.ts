@@ -2,13 +2,14 @@ import Category from './category';
 import Media from './media';
 
 interface Product {
+  _id?: string;
   name: string;
   description: string;
   price: number;
-  category: Array<Category>;
+  category: string;
   quantity: number;
-  tags: Array<string>;
-  media: Array<Media>;
+  tags: string;
+  media: Array<Media> | any;
 }
 
 export default Product;

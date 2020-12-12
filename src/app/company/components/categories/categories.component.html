@@ -1,6 +1,6 @@
 <div class="container p-5">
   <div class="row px-5">
-    <div class="col-lg-7 ">
+    <div class="col-lg-7">
       <h2>Categorias</h2>
     </div>
     <div class="col-lg-5 d-flex justify-content-end">
@@ -9,8 +9,12 @@
   </div>
   <div class="row mt-5">
     <div class="col-lg-4">
-      <app-list>
-        <div *ngFor="let category of categories" class="card-item" (click)="editCategory()">
+      <app-list *ngIf="!loading else spinner">
+        <div
+          *ngFor="let category of categories"
+          class="card-item"
+          (click)="editCategory(category._id)"
+        >
           <figure class="app-icon">
             <fa-icon [icon]="categoryIcon" size="lg"></fa-icon>
           </figure>
@@ -19,9 +23,19 @@
           </div>
         </div>
       </app-list>
+      <ng-template #spinner>
+        <app-spinner></app-spinner>
+      </ng-template>
     </div>
     <div class="offset-1 col-lg-7 justify-content-center ml-auto mr-auto">
-      <app-category-form [editMode]="editMode" [icon]="categoryIcon"></app-category-form>
+      <app-category-form
+        (createdCategory)="addCategory($event)"
+        (updatedCategory)="updateCategory($event)"
+        (deletedCategory)="deleteCategory($event)"
+        [editCategory]="currentCategory"
+        [editMode]="editMode"
+        [icon]="categoryIcon"
+      ></app-category-form>
     </div>
   </div>
 </div>

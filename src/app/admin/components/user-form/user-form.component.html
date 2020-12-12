@@ -30,10 +30,13 @@
           [ngClass]="{
             'invalid-input': role.invalid && (role.dirty || role.touched)
           }"
+          (change)="validateRole($event)"
           formControlName="role"
           class="custom-select"
         >
-          <option value="0">Rol</option>
+          <option *ngFor="let r of roles" [value]="r.value">
+            {{ r.name }}
+          </option>
         </select>
         <div
           *ngIf="role.invalid && (role.dirty || role.touched)"
@@ -44,37 +47,113 @@
       </div>
       <div class="form-group w-100 mb-3">
         <label for="">Plan</label>
-        <input disabled class="form-control" placeholder="Plan" />
+        <select
+          class="form-control"
+          formControlName="plan"
+          [ngClass]="{
+            'invalid-input': plan.invalid && (plan.dirty || plan.touched)
+          }"
+        >
+          <option *ngFor="let plan of plans" [value]="plan._id">
+            {{ plan.name }}
+          </option>
+        </select>
+        <div
+          *ngIf="plan.invalid && (plan.dirty || plan.touched)"
+          class="validation-error text-danger"
+        >
+          <span>Debe seleccionar un plan</span>
+        </div>
       </div>
       <div class="form-group w-100 mb-3">
-        <label for="">Tienda</label>
+        <label for="">Nombre tienda</label>
         <input
+          [ngClass]="{
+            'invalid-input': store.invalid && (store.dirty || store.touched)
+          }"
           formControlName="store"
-          disabled
           type="text"
           class="form-control"
-          placeholder="Tienda"
+          placeholder="Nombre tienda"
         />
+        <div
+          *ngIf="store.invalid && (store.dirty || store.touched)"
+          class="validation-error text-danger"
+        >
+          <span *ngIf="store.errors?.required"
+            >Debe ingresar un nombre de tienda</span
+          >
+        </div>
       </div>
       <div class="form-group w-100 mb-3">
         <label for="">Correo</label>
         <input
+          [ngClass]="{
+            'invalid-input': email.invalid && (email.dirty || email.touched)
+          }"
           formControlName="email"
-          disabled
           type="text"
           class="form-control"
           placeholder="Correo"
         />
+        <div
+          *ngIf="email.invalid && (email.dirty || email.touched)"
+          class="validation-error text-danger"
+        >
+          <span *ngIf="email.errors?.required">Debe ingresar un email</span>
+          <span *ngIf="email.errors?.pattern"
+            >Debe ingresar un email valido</span
+          >
+        </div>
+      </div>
+      <div [hidden]="editMode" class="form-group w-100 mb-3">
+        <label for="">Contraseña</label>
+        <input
+          [ngClass]="{
+            'invalid-input':
+              password.invalid && (password.dirty || password.touched)
+          }"
+          formControlName="password"
+          type="password"
+          class="form-control"
+          placeholder="Contraseña"
+        />
+        <div
+          *ngIf="password.invalid && (password.dirty || password.touched)"
+          class="validation-error text-danger"
+        >
+          <span *ngIf="password.errors?.required"
+            >Debe ingresar una contraseña</span
+          >
+          <span *ngIf="password.errors?.minlength"
+            >La contraseña debe contener minimo 8 caracteres</span
+          >
+        </div>
       </div>
     </div>
     <div class="d-flex justify-content-end mt-2 px-4">
-      <button *ngIf="editMode" class="btn btn-danger br-btn mr-3 px-3">
+      <button
+        (click)="deleteUser()"
+        *ngIf="editMode"
+        class="btn btn-danger br-btn mr-3 px-3"
+      >
         Eliminar
       </button>
-      <button *ngIf="!editMode" class="btn btn-main br-btn px-3">
+      <button
+        (click)="createUser()"
+        [disabled]="!userForm.valid"
+        *ngIf="!editMode"
+        class="btn btn-main br-btn px-3"
+      >
         Guardar
       </button>
-      <button *ngIf="editMode" class="btn btn-main br-btn px-3">Editar</button>
+      <button
+        (click)="updateUser()"
+        *ngIf="editMode"
+        class="btn btn-main br-btn px-3"
+      >
+        Editar
+      </button>
     </div>
   </form>
 </div>

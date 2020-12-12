@@ -1,59 +1,22 @@
-<div class="container p-4">
-  <div class="row">
-    <div class="col-lg-12 bg-dark position-relative text-center text-white p-4">
-      <p>Bloque 1</p>
-      <br />
-      <br />
-      <br />
-      <br />
+<div class="container">
+  <div *ngIf="blocks" class="row">
+    <div class="col-lg-12" *ngIf="storeHeader" [innerHTML]="storeHeader"></div>
+    <div
+      *ngFor="let block of blocks; let i = index"
+      [class]="'col-lg-' + block.columns"
+      [style]="setBackground(block)"
+    >
+      <div [innerHTML]="block.html | renderHtml | async"></div>
 
-      <button class="btn btn-page edit-lg btn-main">Editar</button>
-      <button class="btn btn-page delete btn-main">Eliminar</button>
+      <div class="buttons-container">
+        <button class="btn btn-page btn-main" (click)="editBlock(i)">
+          Editar
+        </button>
+        <button class="btn btn-page delete btn-main" (click)="deleteBlock(i)">
+          Eliminar
+        </button>
+      </div>
     </div>
-    <div class="col-lg-4 bg-dark position-relative text-center text-white p-4">
-      <p>Bloque 2</p>
-      <br />
-      <br />
-      <br />
-      <br />
-      <button class="btn btn-page btn-main edit">Editar</button>
-      <button class="btn btn-page btn-main delete">Eliminar</button>
-    </div>
-    <div class="col-lg-4 bg-dark position-relative text-center text-white p-4">
-      <p>Bloque 3</p>
-      <br />
-      <br />
-      <br />
-      <br />
-      <button class="btn btn-page btn-main edit">Editar</button>
-      <button class="btn btn-page btn-main delete">Eliminar</button>
-    </div>
-    <div class="col-lg-4 bg-dark position-relative text-center text-white p-4">
-      <p>Bloque 4</p>
-      <br />
-      <br />
-      <br />
-      <br />
-      <button class="btn btn-page btn-main">Editar</button>
-      <button class="btn btn-page btn-main">Eliminar</button>
-    </div>
-    <div class="col-lg-6 bg-dark position-relative text-center text-white p-4">
-      <p>Bloque 5</p>
-      <br />
-      <br />
-      <br />
-      <br />
-      <button class="btn btn-page btn-main">Editar</button>
-      <button class="btn btn-page btn-main">Eliminar</button>
-    </div>
-    <div class="col-lg-6 bg-dark position-relative text-center text-white p-4">
-      <p>Bloque 6</p>
-      <br />
-      <br />
-      <br />
-      <br />
-      <button class="btn btn-page btn-main">Editar</button>
-      <button class="btn btn-page btn-main">Eliminar</button>
-    </div>
+    <div class="col-lg-12" *ngIf="storeFooter" [innerHTML]="storeFooter"></div>
   </div>
 </div>

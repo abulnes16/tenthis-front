@@ -1,12 +1,13 @@
 import Plan from './plan';
-import Store from './store';
 
 interface User {
+  _id?: string;
   name: string;
   email: string;
-  store?: Store;
-  plan: Plan;
+  plan?: string | Plan | any;
   role: string;
+  store?: string;
+  password?: string;
 }
 
 export default User;

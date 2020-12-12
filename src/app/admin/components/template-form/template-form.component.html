@@ -1,5 +1,5 @@
 <div class="box-shadow-card border-radius p-form">
-  <form [formGroup]="templateForm">
+  <form [formGroup]="templateForm" enctype="multipart/form-data">
     <div class="form-group d-flex justify-content-center align-items-center">
       <figure class="app-icon-xl mr-4">
         <fa-icon [icon]="icon" size="2x"></fa-icon>
@@ -45,6 +45,14 @@
         </div>
       </div>
       <div class="form-group w-100 mb-3">
+        <label for="">HTML</label>
+        <ace-editor
+          style="min-height: 150px; font-size: 14px"
+          [mode]="'html'"
+          formControlName="html"
+        ></ace-editor>
+      </div>
+      <div class="form-group w-100 mb-3">
         <label for="">CSS</label>
         <ace-editor
           style="min-height: 150px; font-size: 14px"
@@ -65,44 +73,61 @@
       <div class="form-group w-100 mb-3">
         <div class="d-flex justify-content-between mb-4">
           <label for="">Multimedia</label>
-          <button class="btn btn-sm btn-basic">Añadir</button>
+          <div>
+            <label for="template-media" class="btn btn-sm btn-basic mb-0 mr-2"
+              >Cargar</label
+            >
+            <input
+              type="file"
+              id="template-media"
+              name="template-media"
+              hidden
+              (change)="addToGallery($event)"
+            />
+          </div>
         </div>
         <div class="form-gallery scrollbar">
-          <div class="row">
-            <div class="col-lg-4 mb-3">
-              <img src="./assets/images/shop.jpg" alt="Gallery" />
-            </div>
-            <div class="col-lg-4 mb-3">
-              <img src="./assets/images/shop.jpg" alt="Gallery" />
-            </div>
-            <div class="col-lg-4 mb-3">
-              <img src="./assets/images/shop.jpg" alt="Gallery" />
-            </div>
-            <div class="col-lg-4 mb-3">
-              <img src="./assets/images/shop.jpg" alt="Gallery" />
-            </div>
-            <div class="col-lg-4 mb-3">
-              <img src="./assets/images/shop.jpg" alt="Gallery" />
-            </div>
-            <div class="col-lg-4 mb-3">
-              <img src="./assets/images/shop.jpg" alt="Gallery" />
+          <div *ngIf="gallery.length !== 0; else emptyMedia" class="row">
+            <div *ngFor="let img of gallery" class="col-lg-4 mb-3">
+              <div class="relative">
+                <img [src]="img" alt="Gallery" />
+                <span
+                  class="r-gallery app-icon-xs bg-danger"
+                  (click)="removeFromGallery(img)"
+                  >&times;</span
+                >
+              </div>
             </div>
           </div>
+          <ng-template #emptyMedia>
+            <div class="text-center mt-4">
+              <p>No hay imagenes para esta plantilla</p>
+            </div>
+          </ng-template>
         </div>
       </div>
     </div>
     <div class="d-flex justify-content-end mt-2 px-4">
       <button
+        [disabled]="!templateForm.valid"
         *ngIf="!editMode"
         class="btn btn-main br-btn px-3"
-        (click)="sendTemplate()"
+        (click)="createTemplate()"
       >
         Guardar
       </button>
-      <button *ngIf="editMode" class="btn btn-danger br-btn mr-3 px-3">
+      <button
+        (click)="deleteTemplate()"
+        *ngIf="editMode"
+        class="btn btn-danger br-btn mr-3 px-3"
+      >
         Eliminar
       </button>
-      <button *ngIf="editMode" class="btn btn-main br-btn mr-3 px-3">
+      <button
+        (click)="updateTemplate()"
+        *ngIf="editMode"
+        class="btn btn-main br-btn mr-3 px-3"
+      >
         Editar
       </button>
     </div>

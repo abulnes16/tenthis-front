@@ -6,10 +6,25 @@
   </div>
   <div class="row no-gutters">
     <div class="col-md-3">
-      <app-manage-page-form></app-manage-page-form>
+      <app-manage-page-form
+        [page]="page"
+        [editBlock]="editBlock"
+        (block)="addBlock($event)"
+        (pageData)="saveEditPage($event)"
+        (updateBlock)="updateBlock($event)"
+      ></app-manage-page-form>
     </div>
-    <div class="col-md-9">
-      <app-page-preview></app-page-preview>
+    <div *ngIf="!loading; else spinner" class="col-md-9">
+      <app-page-preview
+        (deletedBlock)="removeBlock($event)"
+        (editedBlock)="getEditBlock($event)"
+        [blocks]="page.html"
+      ></app-page-preview>
     </div>
+    <ng-template #spinner>
+      <div class="col-lg-9 d-flex justify-content-center">
+        <app-spinner></app-spinner>
+      </div>
+    </ng-template>
   </div>
 </div>

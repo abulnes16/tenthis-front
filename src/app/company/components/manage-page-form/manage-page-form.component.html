@@ -1,6 +1,14 @@
 <aside class="page-form bg-lighten-gray">
+  <div class="save-container justify-content-center">
+    <button class="btn btn-danger br-btn mr-3" (click)="discard()">
+      Descartar
+    </button>
+    <button class="btn btn-darker br-btn" (click)="savePage()">
+      Guardar página
+    </button>
+  </div>
   <div class="row no-gutters mb-4">
-    <div class="col-lg-4">
+    <div class="col-lg-6">
       <button
         class="btn btn-tab"
         (click)="currentForm = 'ct'"
@@ -9,27 +17,49 @@
         Editor CT
       </button>
     </div>
-    <div class="col-lg-4">
-      <button
-        class="btn btn-tab"
-        (click)="currentForm = 'bt'"
-        [class.active]="currentForm === 'bt'"
-      >
-        Editor BT
-      </button>
-    </div>
-    <div class="col-lg-4">
+    <div class="col-lg-6">
       <button
         class="btn btn-tab"
         (click)="currentForm = 'nbt'"
         [class.active]="currentForm === 'nbt'"
       >
-        Nuevo BT
+        Editor BT
       </button>
     </div>
   </div>
   <form [formGroup]="pageForm" class="px-4">
+    <div class="row no-gutters mb-4">
+      <h5>Datos de la página</h5>
+      <div class="form-group">
+        <label for="">Título</label>
+        <input
+          formControlName="title"
+          type="text"
+          class="form-control"
+          placeholder="Título de la página"
+        />
+      </div>
+      <div class="form-group">
+        <label for="">Descripcion</label>
+        <textarea
+          formControlName="description"
+          class="form-control"
+          placeholder="Descripcion"
+        ></textarea>
+      </div>
+      <div class="form-group d-flex align-items-center">
+        <small class="" for="">Marcar como página principal</small>
+        <input formControlName="isMain" class="ml-3" type="checkbox" />
+      </div>
+      <div class="form-group d-flex align-items-center">
+        <small class="" for="">¿Es visible al cliente?</small>
+        <input formControlName="isVisible" class="ml-3" type="checkbox" />
+      </div>
+    </div>
     <div class="row no-gutters mb-3">
+      <h5 class="mb-4">
+        {{ setEditorTitle() }}
+      </h5>
       <ng-container [ngSwitch]="currentForm">
         <ng-container *ngSwitchCase="'ct'">
           <div class="col-lg-12">
@@ -47,88 +77,45 @@
               [mode]="'css'"
               style="min-height: 180px"
             ></ace-editor>
+            <button
+              class="btn btn-small btn-main txt-sm br-btn mt-2"
+              (click)="addStyles()"
+            >
+              Agregar estilos
+            </button>
           </div>
         </ng-container>
-        <ng-container *ngSwitchCase="'nbt'">
-          <div class="col-lg-12 mb-3">
-            <label for="">Tipo de bloque</label>
-            <select formControlName="blockType" class="custom-select">
-              <option value="0">Bloque A</option>
-            </select>
-          </div>
+        <ng-container *ngSwitchDefault>
           <div class="col-lg-12 mb-3">
             <label for="">Columnas a ocupar</label>
-            <input
+            <select
               formControlName="columns"
               type="text"
               class="form-control"
               placeholder="N° de columnas"
-            />
+            >
+              <option *ngFor="let num of columns" [value]="num">
+                {{ num }}
+              </option>
+            </select>
           </div>
           <div class="col-lg-12 wyswyg-editor">
             <div class="d-flex justify-content-between mb-3">
               <label for="">Editor</label>
-              <button class="btn btn-main br-btn txt-sm">
+              <button class="btn btn-main br-btn txt-sm" (click)="showShortcoutsModal()">
                 Agregar shortcout
               </button>
             </div>
 
-            <quill-editor
-              formControlName="wyswyg"
-              id="quill-1"
-              class="mb-3"
-            ></quill-editor>
+            <quill-editor formControlName="wyswyg"></quill-editor>
           </div>
           <div class="col-lg-12 mb-3">
             <p>Fondo</p>
-            <img
-              src="./assets/images/shop.jpg"
-              class="mb-2"
-              alt="Background"
-              width="290"
-            />
-            <div class="">
-              <label for="background-img" class="btn br-btn btn-main"
-                >Agregar</label
-              >
-            </div>
-            <input
-              formControlName="bgBlock"
-              type="file"
-              class="file-input"
-              id="background-img"
-            />
-          </div>
-        </ng-container>
-        <ng-container *ngSwitchCase="'bt'">
-          <div class="col-lg-12 wyswyg-editor">
-            <div class="d-flex justify-content-between mb-3">
-              <label for="">Editor</label>
-              <button class="btn btn-main br-btn txt-sm">
-                Agregar shortcout
-              </button>
-            </div>
-            <quill-editor id="quill-2"></quill-editor>
-          </div>
-          <div class="col-lg-12 mb-3">
-            <p>Fondo</p>
-            <img
-              src="./assets/images/shop.jpg"
-              class="mb-2"
-              alt="Background"
-              width="290"
-            />
-            <div class="">
-              <label for="background-img" class="btn br-btn btn-main"
-                >Agregar</label
-              >
-            </div>
-            <input
-              formControlName="imgBlock"
-              type="file"
-              class="file-input"
-              id="background-img"
-            />
+            <select formControlName="bgBlock" class="form-control">
+              <option *ngFor="let image of media" [value]="image.path">
+                {{ image.name | mediaName }}
+              </option>
+            </select>
           </div>
         </ng-container>
       </ng-container>
@@ -136,8 +123,140 @@
     <div class="row no-gutters">
       <div class="col-lg-12 d-flex justify-content-end">
         <button class="btn btn-danger br-btn mr-2">Cancelar</button>
-        <button class="btn btn-main br-btn">Guardar</button>
+        <button
+          *ngIf="!editBlock"
+          (click)="saveBlock()"
+          class="btn btn-main br-btn"
+        >
+          Guardar bloque
+        </button>
+        <button
+          *ngIf="editBlock"
+          class="btn btn-main br-btn"
+          (click)="changeBlock()"
+        >
+          Editar bloque
+        </button>
       </div>
     </div>
   </form>
+
+  <ng-template #shortcoutModal let-modal>
+    <div class="modal-header bg-main">
+      <h4 class="modal-title text-white" id="modal-basic-title">
+        Tenthis shortcouts
+      </h4>
+      <button
+        type="button"
+        class="close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      >
+        <span class="text-white" aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body px-5">
+      <div class="form-group">
+        <label for="">Seleccione el tipo de shortcout</label>
+        <select
+          (change)="clearValue()"
+          [(ngModel)]="currentShortcout"
+          class="form-control"
+        >
+          <option *ngFor="let type of shortTypes" [value]="type.value">
+            {{ type.key }}
+          </option>
+        </select>
+        <ng-container [ngSwitch]="currentShortcout">
+          <ng-container *ngSwitchCase="'login'">
+            <div class="mt-2">
+              <strong>Descripcion</strong>
+              <p>
+                El shortcout de login creara un login sencillo con nombre y
+                contraseña
+              </p>
+            </div>
+          </ng-container>
+          <ng-container *ngSwitchCase="'imageGallery'">
+            <div class="mt-2">
+              <strong>Descripcion</strong>
+              <p>
+                El shortcout de galeria mostrara una galeria de imagenes en
+                cuadros
+              </p>
+            </div>
+            <label class="mt-2" for=""
+              >Seleccione las imagenes a mostrar en la galeria</label
+            >
+            <div class="form-group">
+              <select
+                [(ngModel)]="shortcoutValue"
+                class="form-control"
+                multiple
+              >
+                <option *ngFor="let image of media" [value]="image._id">
+                  {{ image.name | mediaName }}
+                </option>
+              </select>
+            </div>
+          </ng-container>
+          <ng-container *ngSwitchCase="'productGallery'">
+            <div class="mt-2">
+              <strong>Descripcion</strong>
+              <p>
+                El shortcout de productos mostrara un catalogo de los productos.
+                <br /><strong>Importante:</strong>
+                La galeria de productos mostrará todos los productos si no
+                selecciona una categoria.
+              </p>
+            </div>
+
+            <label for="">Seleccione una categoria de productos</label>
+            <select [(ngModel)]="shortcoutValue" class="form-control">
+              <option
+                *ngFor="let category of categories"
+                [value]="category._id"
+              >
+                {{ category.name }}
+              </option>
+            </select>
+          </ng-container>
+          <ng-container *ngSwitchCase="'file'">
+            <div class="mt-2">
+              <strong>Descripcion</strong>
+              <p>
+                El shortcout de archivo mostrara un enlace para descargar el
+                archivo seleccionado
+              </p>
+              <label for="">Seleccione el archivo a descargar</label>
+              <select [(ngModel)]="shortcoutValue" class="form-control">
+                <option *ngFor="let file of files" [value]="file._id">
+                  {{ file.name | mediaName }}
+                </option>
+              </select>
+            </div>
+          </ng-container>
+          <ng-container *ngSwitchCase="'image'">
+            <div class="mt-2">
+              <strong>Descripcion</strong>
+              <p>El shortcout de imagen mostrara una sola imagen en cuadro</p>
+            </div>
+            <label class="mt-2" for="">Seleccione la imagen a mostrar</label>
+            <div class="form-group">
+              <select [(ngModel)]="shortcoutValue" class="form-control">
+                <option *ngFor="let image of media" [value]="image._id">
+                  {{ image.name | mediaName }}
+                </option>
+              </select>
+            </div>
+          </ng-container>
+        </ng-container>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-main br-btn" (click)="addShortcout()">
+        Agregar shortcout
+      </button>
+    </div>
+  </ng-template>
 </aside>

@@ -41,9 +41,13 @@
         </span>
       </div>
     </div>
-    <a class="btn btn-block btn-light br-btn mt-4" routerLink="/admin/"
-      >Iniciar sesión</a
+    <button
+      [disabled]="loginForm.invalid"
+      class="btn btn-block btn-light br-btn mt-4"
+      (click)="login()"
     >
+      Iniciar sesión
+    </button>
   </form>
   <div class="auth-card__footer">
     <h6>¿No tienes cuenta todavía?</h6>

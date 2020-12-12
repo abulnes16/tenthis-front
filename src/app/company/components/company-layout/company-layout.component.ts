@@ -1,5 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { faBoxes, faCampground, faColumns, faHome, faImages, faList } from '@fortawesome/free-solid-svg-icons';
+import {
+  faBoxes,
+  faCampground,
+  faColumns,
+  faHome,
+  faImages,
+  faList
+} from '@fortawesome/free-solid-svg-icons';
+
+import { StoreService } from '../../../core/services/shared/store.service';
+import decode from 'jwt-decode';
+import Store from 'src/app/models/store';
 @Component({
   selector: 'app-company-layout',
   templateUrl: './company-layout.component.html',
@@ -56,10 +67,22 @@ export class CompanyLayoutComponent implements OnInit {
     }
   ];
 
+  currentStore: Store;
 
-  constructor() { }
+  constructor(private storeService: StoreService) { }
 
   ngOnInit(): void {
+    const store = sessionStorage.getItem('store');
+    if (!store) {
+      const token = sessionStorage.getItem('token');
+      const decodedToken = decode(token);
+      this.storeService.getStore(decodedToken.store).subscribe((data) => {
+        this.currentStore = data;
+      });
+    } else {
+      this.currentStore = JSON.parse(store);
+    }
+
   }
 
 }

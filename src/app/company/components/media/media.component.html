@@ -4,7 +4,7 @@
       <h2>Media</h2>
     </div>
     <div class="col-lg-5 d-flex justify-content-end">
-      <button class="btn-basic">Añadir</button>
+      <button (click)="showFileModal()" class="btn-basic">Añadir</button>
     </div>
   </div>
   <div class="row mt-5 px-5">
@@ -13,61 +13,229 @@
         <div class="col-lg-8">
           <div class="media__options">
             <ul class="d-flex list-unstyled border-radius box-shadow-card p-3">
-              <li class="media-pill">Todo</li>
-              <li class="media-pill">Imágenes</li>
-              <li class="media-pill">Videos</li>
-              <li class="media-pill">Documentos</li>
-              <li class="media-pill">Audio</li>
+              <li
+                [ngClass]="{ 'media-pill-active': currentTab === 'todo' }"
+                class="media-pill"
+                (click)="changeMediaTab('todo')"
+              >
+                Todo
+              </li>
+              <li
+                [ngClass]="{ 'media-pill-active': currentTab === 'img' }"
+                class="media-pill"
+                (click)="changeMediaTab('img')"
+              >
+                Imágenes
+              </li>
+              <li
+                [ngClass]="{ 'media-pill-active': currentTab === 'video' }"
+                class="media-pill"
+                (click)="changeMediaTab('video')"
+              >
+                Videos
+              </li>
+              <li
+                [ngClass]="{ 'media-pill-active': currentTab === 'doc' }"
+                class="media-pill"
+                (click)="changeMediaTab('doc')"
+              >
+                Documentos
+              </li>
+              <li
+                [ngClass]="{ 'media-pill-active': currentTab === 'sound' }"
+                class="media-pill"
+                (click)="changeMediaTab('sound')"
+              >
+                Audio
+              </li>
             </ul>
           </div>
         </div>
         <div class="col-lg-4">
           <div class="media__search d-flex">
             <input
+              [(ngModel)]="fileFilter"
               type="text"
               class="form-control mr-3"
-              placeholder="Archivo"
+              placeholder="Buscar por nombre de archivo"
             />
-            <button class="btn btn-main br-btn px-3">Buscar</button>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="row mt-3 px-5">
+  <div class="row mt-3 px-5" *ngIf="!loading else spinner">
     <div class="col-lg-8">
-      <div class="gallery">
+      <div *ngIf="images.length !== 0; else mediaPlaceholder" class="gallery">
         <div class="row">
-          <div *ngFor="let image of images" class="col-lg-4 mb-3">
-            <div class="card border-radius box-shadow-card">
+          <div
+            *ngFor="let image of images | filter: 'name':fileFilter"
+            class="col-lg-4 mb-3"
+          >
+            <div
+              class="card border-radius box-shadow-card cursor-pointer"
+              (click)="showDetails(image._id)"
+            >
               <img
                 class="card-img-top"
-                [src]="image.url"
+                [src]="image.path"
                 alt="Card image cap"
               />
               <div class="card-body p-2 text-center">
-                <p class="mb-1">{{ image.name }}</p>
+                <p class="mb-1">{{ image.name | mediaName }}</p>
               </div>
             </div>
           </div>
         </div>
       </div>
+      <ng-template #mediaPlaceholder>
+        <div class="px-3 py-2 text-center">
+          <h5>{{ galleryMessage }}</h5>
+        </div>
+      </ng-template>
     </div>
     <div class="col-lg-4">
-      <div class="docs">
+      <div *ngIf="files.length !== 0; else filePlaceholder" class="docs">
         <div class="row">
-          <div *ngFor="let file of files" class="col-lg-6 mb-3">
+          <div
+            *ngFor="let file of files | filter: 'name':fileFilter"
+            class="col-lg-6 mb-3"
+          >
             <div
-              class="box-shadow-card p-3 file-card border-radius"
+              class="box-shadow-card p-3 file-card border-radius cursor-pointer"
+              (click)="showDetails(file._id)"
             >
               <figure class="app-icon mb-2">
-                <fa-icon [icon]="fileIcon"></fa-icon>
+                <fa-icon [icon]="file.name | mediaIcon"></fa-icon>
               </figure>
-              <small>{{file.name}}</small>
+              <small>{{ file.name | mediaName }}</small>
+            </div>
+          </div>
+        </div>
+      </div>
+      <ng-template #filePlaceholder>
+        <div class="px-3 py-2 text-center">
+          <h5>No hay archivos en tu galeria</h5>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+
+  <ng-template #spinner>
+    <div class="col-lg-12 d-flex justify-content-center">
+      <app-spinner></app-spinner>
+    </div>
+  </ng-template>
+
+  <ng-template #fileModal let-modal>
+    <div class="modal-header bg-main">
+      <h4 class="modal-title text-white" id="modal-basic-title">
+        Añade un archivo
+      </h4>
+      <button
+        type="button"
+        class="close"
+        aria-label="Close"
+        (click)="closeModal()"
+      >
+        <span class="text-white" aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="px-5 py-2">
+        <div class="form-group">
+          <label>Nombre archivo</label>
+          <input [(ngModel)]="fileName" type="text" class="form-control" />
+        </div>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroupFileAddon01"
+              >Cargar</span
+            >
+          </div>
+          <div class="custom-file">
+            <input
+              type="file"
+              class="custom-file-input"
+              id="inputGroupFile01"
+              (change)="saveFile($event)"
+            />
+            <label class="custom-file-label" for="inputGroupFile01">{{
+              file === null ? "Seleccione un archivo" : file.name
+            }}</label>
+          </div>
+        </div>
+        <div *ngIf="file" class="progress">
+          <div
+            class="progress-bar progress-bar-info progress-bar-striped"
+            role="progressbar"
+            attr.aria-valuenow="{{ progress }}"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            [ngStyle]="{ width: progress + '%' }"
+          >
+            {{ progress }}%
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn br-btn btn-danger" (click)="closeModal()">
+        Cancelar
+      </button>
+      <button (click)="uploadFile()" class="btn br-btn btn-main">Subir</button>
+    </div>
+  </ng-template>
+
+  <ng-template #fileDetailModal let-modal>
+    <div class="modal-header bg-main">
+      <h4 class="modal-title text-white" id="modal-basic-title">
+        Detalle del archivo
+      </h4>
+      <button
+        type="button"
+        class="close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      >
+        <span class="text-white" aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="px-5 py-2">
+        <div class="d-flex">
+          <div class="mr-4">
+            <figure class="app-icon-xl">
+              <fa-icon
+                size="2x"
+                [icon]="currentFile.name | mediaIcon"
+              ></fa-icon>
+            </figure>
+          </div>
+          <div class="file__details">
+            <div class="file__id">
+              <strong>Identificador</strong>
+              <p>{{ currentFile._id }}</p>
+            </div>
+            <div class="file__name">
+              <strong>Nombre del archivo</strong>
+              <p>{{ currentFile.name }}</p>
+            </div>
+            <div class="file__date">
+              <strong>Ultima fecha de modificación</strong>
+              <p>{{ currentFile.date | date: "dd/MM/yyyy" }}</p>
+            </div>
+            <div *ngIf="currentFile.type.startsWith('image')">
+              <img class="img-fluid" [src]="currentFile.path" />
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+    <div class="modal-footer">
+      <button class="btn br-btn btn-danger" (click)="deleteMedia()">
+        Eliminar
+      </button>
+    </div>
+  </ng-template>
 </div>

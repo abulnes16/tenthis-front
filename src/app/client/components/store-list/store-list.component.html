@@ -6,12 +6,20 @@
   </div>
   <div class="row mt-3">
     <div class="offset-8 col-lg-4 d-flex justify-content-end mb-4 pr-5">
-      <input type="text" class="form-control mr-3" placeholder="Tienda" />
-      <button class="btn btn-main">Buscar</button>
+      <input
+        [(ngModel)]="storeFilter"
+        type="text"
+        class="form-control mr-3"
+        placeholder="Tienda"
+      />
     </div>
     <div class="col-lg-11 ml-auto mr-auto">
-      <div class="row">
-        <div *ngFor="let store of stores" class="col-lg-6">
+      <div class="row" *ngIf="!loading else spinner">
+        <a
+          *ngFor="let store of stores | filter: 'name':storeFilter"
+          class="col-lg-6 text-dark text-decoration-none"
+          [routerLink]="'/companies/' + store._id + '/pages/' + 'home'"
+        >
           <div class="block-item box-shadow-card">
             <div class="block-item__left">
               <figure class="app-icon-lg mr-4">
@@ -20,8 +28,11 @@
               <h3>{{ store.name }}</h3>
             </div>
           </div>
-        </div>
+        </a>
       </div>
+      <ng-template #spinner>
+        <app-spinner></app-spinner>
+      </ng-template>
     </div>
   </div>
 </div>
