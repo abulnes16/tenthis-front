@@ -10,7 +10,7 @@
             </figure>
             <h3>Mi carrito</h3>
           </div>
-          <div class="mt-4">
+          <div class="mt-4" *ngIf="cart.length !== 0 else placeholder">
             <div *ngFor="let product of cart" class="d-flex">
               <div class="product-detail d-flex">
                 <figure class="mr-3">
@@ -61,3 +61,9 @@
     </div>
   </div>
 </div>
+
+<ng-template #placeholder>
+  <div class="mt-4 text-center">
+    <h4>No hay productos en el carro actualmente :(</h4>
+  </div>
+</ng-template>

@@ -23,7 +23,14 @@ export class CartComponent implements OnInit {
     private location: Location,
     private orderService: OrderService,
   ) {
-    this.cart = JSON.parse(localStorage.getItem('cart')).cart;
+    const localCart = JSON.parse(localStorage.getItem('cart'));
+    if (localCart) {
+      this.cart = JSON.parse(localStorage.getItem('cart')).cart;
+    } else {
+      this.cart = [];
+    }
+
+    console.log(this.cart);
   }
 
   ngOnInit(): void {
