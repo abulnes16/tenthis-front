@@ -17,6 +17,7 @@ import { MediaNamePipe } from './pipes/media-name.pipe';
 import { MediaIconPipe } from './pipes/media-icon.pipe';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { RenderHtmlPipe } from './pipes/render-html.pipe';
+import { CartComponent } from './components/cart/cart.component';
 
 
 @NgModule({
@@ -32,6 +33,7 @@ import { RenderHtmlPipe } from './pipes/render-html.pipe';
     MediaIconPipe,
     SpinnerComponent,
     RenderHtmlPipe,
+    CartComponent,
   ],
   imports: [
     CommonModule,

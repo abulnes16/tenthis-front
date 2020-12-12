@@ -132,7 +132,7 @@ export class RenderPageService {
   }
 
   async createProductCatalog(productShortcout: any, storeId: string): Promise<string> {
-    const products = sessionStorage.getItem('products-store');
+    let products: any = sessionStorage.getItem('products-store');
     let productCatalog = '';
     let category = null;
     if (!products) {
@@ -142,19 +142,26 @@ export class RenderPageService {
       }
 
       const result = await this.productService.getProducts(category, storeId).toPromise();
-      sessionStorage.setItem('products-store', JSON.stringify({ products: result.data }));
+
+      if (category === null) {
+        sessionStorage.setItem('products-store', JSON.stringify({ products: result.data }));
+      }
       productCatalog = this.makeCatalog(result.data);
     } else {
+      products = JSON.parse(products).products;
       if (productShortcout.value !== '') {
         const currentCategory = sessionStorage.getItem('category-current');
         if (currentCategory !== productShortcout.value) {
           sessionStorage.setItem('category-current', productShortcout.value);
           const newProducts = await this.productService.getProducts(productShortcout.value, storeId).toPromise();
           productCatalog = this.makeCatalog(newProducts.data);
+        } else {
+          const productsCat = products.filter((p) => p.category === currentCategory);
+          productCatalog = this.makeCatalog(productsCat);
         }
         category = productShortcout.value;
       } else {
-        productCatalog = this.makeCatalog(JSON.parse(products).products);
+        productCatalog = this.makeCatalog(products);
       }
     }
 

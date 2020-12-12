@@ -1,6 +1,14 @@
 <div class="container-fluid">
   <div class="row">
     <ng-container *ngIf="!loading; else spinner">
+      <div class="cart-container">
+        <a
+          [routerLink]="'/companies/' + store._id + '/cart/'"
+          class="btn btn-main br-btn text-white"
+        >
+          <fa-icon class="mr-2" [icon]="cartIcon"></fa-icon> Carrito
+        </a>
+      </div>
       <div class="col-lg-12" [innerHTML]="storeHeader"></div>
       <div
         *ngFor="let block of currentPage.html"

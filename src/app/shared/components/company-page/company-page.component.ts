@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { SafeHtml } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { faCartPlus } from '@fortawesome/free-solid-svg-icons';
 import { TemplateService } from 'src/app/core/services/admin/template.service';
 import { PageService } from 'src/app/core/services/shared/page.service';
 import { RenderPageService } from 'src/app/core/services/shared/render-page.service';
@@ -23,6 +24,8 @@ export class CompanyPageComponent implements OnInit, OnDestroy {
   loading = true;
   storeHeader: SafeHtml;
   storeFooter: SafeHtml;
+
+  cartIcon = faCartPlus;
 
   constructor(
     private router: ActivatedRoute,

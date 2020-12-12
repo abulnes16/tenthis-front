@@ -1,0 +1,63 @@
+<div class="container-fluid p-0">
+  <app-nav name="Tenthis Cart"></app-nav>
+  <div class="p-5">
+    <div class="row">
+      <div class="col-lg-8">
+        <div class="box-shadow-card px-5 py-4 border-radius">
+          <div class="d-flex align-items-center">
+            <figure class="app-icon-lg mr-3">
+              <fa-icon [icon]="productIcon" size="lg"></fa-icon>
+            </figure>
+            <h3>Mi carrito</h3>
+          </div>
+          <div class="mt-4">
+            <div *ngFor="let product of cart" class="d-flex">
+              <div class="product-detail d-flex">
+                <figure class="mr-3">
+                  <img
+                    [src]="product.media[0].path"
+                    class="img-fluid"
+                    width="100"
+                    alt="Imagen producto"
+                  />
+                </figure>
+                <div>
+                  <strong>{{ product.name }}</strong>
+                  <p>Precio: {{ product.price | currency: "L." }}</p>
+                </div>
+              </div>
+              <div class="ml-auto">
+                <strong>Cantidad</strong>
+                <p class="text-center">{{ product.quantity }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="box-shadow-card p-4 border-radius">
+          <div class="d-flex align-items-center justify-content-center">
+            <figure class="app-icon-lg mr-3">
+              <fa-icon [icon]="cartIcon" size="lg"></fa-icon>
+            </figure>
+            <h3>Resumen</h3>
+          </div>
+          <div class="text-center mt-3">
+            <h4>Total</h4>
+            <p>{{ total | currency: "L." }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-4">
+      <div class="col-lg-12 d-flex justify-content-end">
+        <button class="btn btn-danger br-btn mr-2" (click)="discardOrder()">
+          Cancelar pedido
+        </button>
+        <button class="btn btn-main br-btn" (click)="makeOrder()">
+          Realizar compra
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
