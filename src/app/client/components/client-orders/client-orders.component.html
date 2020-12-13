@@ -13,8 +13,8 @@
         placeholder="N° de Orden"
       />
     </div>
-    <div class="col-lg-4">
-      <app-list *ngIf="!loading else spinner">
+    <div class="col-lg-4" *ngIf="!loading else spinner">
+      <app-list *ngIf="orders.length !== 0 else emptyOrder" >
         <div
           *ngFor="let order of orders | filter: '_id':orderFilter"
           class="card-item"
@@ -31,6 +31,9 @@
       </app-list>
       <ng-template #spinner>
         <app-spinner></app-spinner>
+      </ng-template>
+      <ng-template #emptyOrder>
+        <h4>No tienes ordenes creadas :(</h4>
       </ng-template>
     </div>
     <div class="offset-1 col-lg-7 justify-content-center ml-auto mr-auto">
