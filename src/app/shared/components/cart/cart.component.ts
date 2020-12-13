@@ -29,8 +29,6 @@ export class CartComponent implements OnInit {
     } else {
       this.cart = [];
     }
-
-    console.log(this.cart);
   }
 
   ngOnInit(): void {
@@ -48,15 +46,17 @@ export class CartComponent implements OnInit {
   }
 
   mapCart(): void {
-    const products = JSON.parse(sessionStorage.getItem('products-store')).products;
-    const producstInCart = [...new Set(this.cart)];
-    this.cart = producstInCart.map((productId: any) => {
-      const product = products.find((p: any) => p._id === productId);
+    if (sessionStorage.getItem('products-store')) {
+      const products = JSON.parse(sessionStorage.getItem('products-store')).products;
+      const producstInCart = [...new Set(this.cart)];
+      this.cart = producstInCart.map((productId: any) => {
+        const product = products.find((p: any) => p._id === productId);
 
-      product.quantity = this.getProductCount(this.cart, productId);
-      this.total += product.price * product.quantity;
-      return product;
-    });
+        product.quantity = this.getProductCount(this.cart, productId);
+        this.total += product.price * product.quantity;
+        return product;
+      });
+    }
   }
 
   discardOrder(): void {
