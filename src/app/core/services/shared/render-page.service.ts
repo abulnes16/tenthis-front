@@ -48,7 +48,9 @@ export class RenderPageService {
 
   removeStyles(): void {
     const style = document.querySelector('#page-style');
-    style.remove();
+    if (style) {
+      style.remove();
+    }
   }
 
   setScript(js: string): void {
@@ -68,7 +70,9 @@ export class RenderPageService {
 
   removeScript(): void {
     const script = document.querySelector('#page-script');
-    script.remove();
+    if (script) {
+      script.remove();
+    }
   }
 
   sanitizeHTML(html: string): SafeHtml {
