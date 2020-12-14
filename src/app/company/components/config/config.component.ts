@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { StoreService } from '../../../core/services/shared/store.service';
@@ -7,12 +7,13 @@ import APIResponse from 'src/app/models/response';
 import Swal from 'sweetalert2';
 import Store from 'src/app/models/store';
 import Template from 'src/app/models/template';
+import { RenderPageService } from 'src/app/core/services/shared/render-page.service';
 @Component({
   selector: 'app-config',
   templateUrl: './config.component.html',
   styleUrls: ['./config.component.scss']
 })
-export class ConfigComponent implements OnInit {
+export class ConfigComponent implements OnInit, OnDestroy {
 
   configForm = new FormGroup({
     storeName: new FormControl('', [Validators.required]),
@@ -65,13 +66,14 @@ export class ConfigComponent implements OnInit {
   constructor(
     private storeService: StoreService,
     private sanitizer: DomSanitizer,
+    private render: RenderPageService,
     private templateService: TemplateService,
   ) { }
 
   ngOnInit(): void {
     this.store = JSON.parse(sessionStorage.getItem('store'));
     const { configuration, name, description } = this.store;
-    const { logo, favicon, useTemplate } = configuration;
+    const { logo, favicon, useTemplate, css } = configuration;
     if (logo && logo !== '') {
       this.logoImg = logo.path;
     }
@@ -92,13 +94,18 @@ export class ConfigComponent implements OnInit {
       description,
     });
 
+    if (css) {
+      this.render.setStyles(css);
+    }
 
     this.templateService.getTemplates().subscribe((res: APIResponse) => {
       this.templates = res.data;
     });
     this.loading = false;
   }
-
+  ngOnDestroy(): void {
+    this.render.removeStyles();
+  }
   transformHTML(html: string): SafeHtml {
     return this.sanitizer.bypassSecurityTrustHtml(html);
   }
